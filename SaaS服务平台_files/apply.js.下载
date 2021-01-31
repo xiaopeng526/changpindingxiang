@@ -1,0 +1,4211 @@
+jQuery.extend({
+	applyActivity : {
+		create:{
+			/**
+			 * ======================================================初始化逻辑=============================================================
+			 */
+			init:function(){
+				var recount=0;
+				function switchBigDial(imgServer,current){
+					var flag=$("#flag").val();
+					recount+=1;
+					if(flag=='edit' && recount<=1){
+						$(".size").css({
+							"background": "url('"+imgServer+$("#backgroundurlEdit").val()+"') no-repeat center",
+							"background-size":"100% 100%"
+						})
+						$(".btn-ban").css({
+							"background": "url('"+imgServer+$("#rulePictureUrlEdit").val()+"') no-repeat center",
+							"background-size":"100% 100%"
+						})
+						if($("#ruleUnderPicUrl").val()=="" || $("#ruleUnderPicUrlEdit").val()==null){
+							
+							$(".btn-size").css({
+								"background": "url('../assets/images/huodongguize-1.png') no-repeat center",
+								"background-size":"100% 100%"
+							})
+						}else{
+							$(".btn-size").css({
+								"background": "url("+imgServer+$("#ruleUnderPicUrlEdit").val()+") no-repeat center",
+								"background-size":"100% 100%"
+							})
+						}
+						$("#morentianjiaquyu").find("input[name='activityType.prizeType']").val($("#projectTypeId").val());
+						$("#thePhoneShowMoban").find(".topright").find("img").attr('src',imgServer+$("#rulePictureUrlEdit").val());
+						$("#thePhoneShowMoban").find(".waiquan").find("img").attr('src',imgServer+$("#tableOutUrlEdit").val());
+						$("#thePhoneShowMoban").find(".zhizhen").find("img").attr('src',imgServer+$("#pointUrlEdit").val());
+						$("#thePhoneShowMoban").find(".zhuanpan").find("img").attr('src',imgServer+$("#turnTable10UrlEdit").val());
+						$("#thePhoneShowMoban").find(".content-p").css({
+							"background": "url('"+imgServer+$("#backgroundurlEdit").val()+"') no-repeat center",
+							"background-size":"100% 100%"});
+						
+						//如果是自定义的要把其他的都打开
+						openAuto();
+						
+						var isCustom=$("#iscustom").val();
+						
+						$.applyActivity.create.addAutoCommit();
+						
+						if(isCustom==true){
+							
+						}	
+						$.applyActivity.create.setBackGround($("#backgroundurlEdit").val());
+						$.applyActivity.create.setBackLogo($("#logoUrlEdit").val());
+						$.applyActivity.create.setRuleButton($("#rulePictureUrlEdit").val());
+						if($("#ruleUnderPicUrlEdit").val()!=null && $("#ruleUnderPicUrlEdit").val()!=""){
+							$.applyActivity.create.setRuleUnder($("#ruleUnderPicUrlEdit").val());
+						}else{
+							$(".huodongguize").find("img").attr('src',rootPath+"/resources/apply/image/huodongguize-1.png");
+						}
+						
+						
+						//初始化三个位置的活动规则
+						var ruleStr=$("#ruleStrEdit").val();
+						var rarr=ruleStr.split(",")
+						
+						//设置初始化位置
+						$("#stopTime").val(rarr[0]); 
+						$("#zhubanfang").val(rarr[1]);
+						$("#telephone").val(rarr[2]);
+						$("#zuizhongjieshi").val(rarr[3]);
+						//设置弹出框
+						$(".timer").html(rarr[0])
+						$(".company1").html(rarr[1])
+						$(".phonetemp").html(rarr[2])
+						$(".company2").html(rarr[3])
+						
+						//设置自定义
+						$("input[name='activityStopTime']").val(rarr[0]);
+						$("input[name='createCompany']").val(rarr[1]);
+						$("input[name='hotPhoneNum']").val(rarr[2]);
+						$("input[name='exCompany']").val(rarr[3]);
+						
+					}else{
+						$(".size").css({
+							"background": "url('"+imgServer+current.backgroundUrl+"') no-repeat center",
+							"background-size":"100% 100%"
+						})
+						$(".btn-ban").css({
+							"background": "url('"+imgServer+current.rulePictureUrl+"') no-repeat center",
+							"background-size":"100% 100%"
+						})
+						$(".btn-size").css({
+							"background": "url('../assets/images/huodongguize-1.png') no-repeat center",
+							"background-size":"100% 100%"
+						})
+						$("#morentianjiaquyu").find("input[name='activityType.prizeType']").val(current.id);
+						$("#thePhoneShowMoban").find(".topright").find("img").attr('src',imgServer+current.rulePictureUrl);
+						$("#thePhoneShowMoban").find(".waiquan").find("img").attr('src',imgServer+current.outTurnTableUrl);
+						$("#thePhoneShowMoban").find(".zhizhen").find("img").attr('src',imgServer+current.pointUrl);
+						$("#thePhoneShowMoban").find(".zhuanpan").find("img").attr('src',imgServer+current.turnTable10Url);
+						$("#thePhoneShowMoban").find(".content-p").css({
+							"background": "url('"+imgServer+current.backgroundUrl+"') no-repeat center",
+							"background-size":"100% 100%"});
+
+					}
+					
+				}
+				function switchEgg(imgServer,current){
+					$(".btn-ban").css({
+						"background": "url('"+imgServer+current.imgParamMap.topRight+"') no-repeat center",
+						"background-size":"100% 100%"
+					})
+					$(".btn-size").css({
+						"background": "url('"+imgServer+current.imgParamMap.hdgz+"') no-repeat center",
+						"background-size":"100% 100%"
+					})
+				}
+				
+				
+				
+				$("#them ul li").click(function(){
+					var index=$(this).attr("key");
+					var jsonParam=$("#themeParam").text();
+					var imgServer=$("#imgServer").val();
+					var jsonObj=JSON.parse(jsonParam);
+					var current=null;
+					for(var i=0;i<jsonObj.length;i++){
+						if(index==i){
+							current=jsonObj[i];
+							break;
+						}
+					}
+					
+					$("input[name='prizeTypeId']").val(current.id)
+					$("#themeId").val(current.id);
+					var str="<img src='"+imgServer+current.showQrcode+"' alt='' style='' /> ";
+					$("#theShowQrcode").html(str);
+					var type=$("#classify").val();
+					if(type==1){//大转盘
+						switchBigDial(imgServer,current);
+					}else if(type==2){//砸金蛋
+						switchEgg(imgServer,current);
+					}
+
+				})
+				//点击自定义li
+				
+				$(document).on('click', '.theAutoCreateLi', function() {
+					var background=$("#thePhoneShowAuto").find(".content-p").attr("style")
+					$("#backGroundDiv").find(".btn-success").attr("style",background)
+					
+					var ruleButton=$("#thePhoneShowAuto").find(".topright").find("img").attr("src")
+					$(".btn-ban").css({
+						"background": "url('"+ruleButton+"') no-repeat center",
+						"background-size":"100% 100%"
+					})
+					var huodongguize=$("#thePhoneShowAuto").find(".huodongguize").find("img").attr("src")
+					
+					$(".btn-size").css({
+						"background": "url('"+huodongguize+"') no-repeat center",
+						"background-size":"100% 100%"
+					})
+					
+					var topleft=$("#thePhoneShowAuto").find(".topleft").find("img").attr("src")
+					$("#logoBackDiv").find(".btn-success").css({
+						"background": "url('"+topleft+"') no-repeat center",
+						"background-size":"100% 100%"
+					})
+					
+				})
+				
+				$("#myTab-z span").click(function(){
+				  
+				   var index=$(this).index();
+				   $(this).addClass("btn-pr").siblings().removeClass("btn-pr");
+			       $(".l"+(index+1)).addClass("show").siblings().removeClass("show");	
+			     
+			       if((index+1)==2){
+			    	   $("#thebutton1").css('display','none');
+			    	   $("#thebutton1").css('display','none');
+			    	   $("#thebutton2").css('display','block');
+			    	   $("#theRulesPage").css('display','none');
+			    	   $("#theAlredayChecked").css('display','block');
+			       }else if((index+1)==1){
+			    	   $("#thebutton1").css('display','block');
+			    	   $("#thebutton2").css('display','none');
+			    	   $("#theRulesPage").css('display','block');
+			    	   $("#theAlredayChecked").css('display','none');
+			       }
+				})
+				$("#thePhoneShowAuto").off("click",".topright").on("click",".topright",function(){
+					$(".dianji").show()
+					$(".messageToast11").show()
+				});
+				$(".topright").click(function(){
+					$(".dianji").show()
+					$(".messageToast11").show()
+				})
+				$(".messageToast11").click(function(){
+					$(".dianji").hide();
+					$(".messageToast11").hide()
+				})
+				$(".dianji").click(function(){
+					$(".dianji").hide();
+					$(".messageToast11").hide()
+				})
+				//点击活动规则页面的自定义
+				$("#userDefinedTyepe").click(function(){
+					openAuto();
+				})
+				
+				function openAuto(){
+					var length=$(window).width();
+					$("#checkedActivityAtag").css('display','block');
+					//$("#submitTag").attr('style',"display:block;float: left;padding-left:"+(length/3)+"px;");
+					$("#submitTag").css('display','block')
+					$("#theReset").css('display','block')
+					//$("#gobackReturn").attr('style',"float: left;");
+					
+					$("#morenGuize").css('display','none')
+					$("#zidiyihuodong").css('display','block');
+					
+					$(".a").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed1.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+					})
+					$(".b").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed2.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+					})
+					$(".d").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed2.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+					})
+				}
+				
+/*				//在自定义div内的tab切换
+				$("#zilingyili1").click(function(){
+					$(".customHuoudong").find(".li1").css('display','block')
+					$(".customHuoudong").find(".li2").css('display','none')
+					$(".customHuoudong").find(".li2").removeClass("show")
+					$(".customHuoudong").find(".li3").css('display','none')
+					$(".customHuoudong").find(".li3").removeClass("show")
+					$("#zidiyihuodong").find("#myTab-s").html("自定义背景");
+					$("#zilingyili1").addClass("h-green")
+					$("#zilingyili2").removeClass("h-green")
+					$("#zilingyili3").removeClass("h-green")
+					$("#zilingyili4").removeClass("h-green")
+					$(".customHuoudong").find(".li4").css('display','none')
+					
+				})*/
+				/**
+				 * 一键重置
+				 */
+				$("#toReset").click(function(){
+					var classify=$("#classify").val();
+					platform.doGet(rootPath+'/user/new/apply/create.shtml?classify='+classify)
+				});
+				/**
+				 * 切换项目换样式
+				 */
+				$("#project a ").click(function(){
+					var index=$(this).index()
+				
+					if(index==1){zilingyili2
+						$(".a").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed2.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+		                })
+						$(".b").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed1.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+		                })
+		                $(".d").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed2.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+		                })
+					}
+					else if(index==2){
+						$(".a").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed2.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+		                })
+						$(".b").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed2.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+		                })
+						$(".d").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed1.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+		                })
+					}
+					else if(index==0){
+						$(".a").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed1.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+		                })
+		                $(".b").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed2.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+		                })
+						$(".d").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed2.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+		                })
+					}
+				})
+				
+				
+				$("#turnOut").click(function(){
+					platform.flushWindow(location.href);
+					//platform.doGet(rootPath+"/user/new/apply/list.shtml")
+				})
+				
+				
+				
+/*				$("#zilingyili2").click(function(){
+					$(".customHuoudong").find(".li4").css('display','none')
+					$("#zilingyili4").removeClass("h-green")
+					var classify=$("#classify").val();
+					if(classify==1){
+						$(".customHuoudong").find(".li1").css('display','none')
+						$("#zilingyili1").removeClass("h-green")
+					}
+					$(".customHuoudong").find(".li2").css('display','block')
+					$(".customHuoudong").find(".li3").css('display','none')
+					$(".customHuoudong").find(".li3").removeClass("show")
+					$(".customHuoudong").find(".li1").removeClass("show")
+					$("#zidiyihuodong").find("#myTab-s").html("自定义Logo");
+					$("#zilingyili2").addClass("h-green")
+					$("#zilingyili3").removeClass("h-green")
+				})*/
+				$("#listli").find("li").click(function(){
+					var id=$(this).attr("id");
+					$(this).addClass("h-green").siblings().removeClass("h-green");
+					$(this).addClass("scale").siblings().removeClass("scale");
+					$("#zidiyihuodong").find("#myTab-s").html($(this).text());
+					$(".customHuoudong").find("div").each(function(index,item){
+						if($(item).hasClass('unit')){
+							$(item).css('display','none');
+						}
+						if($(item).hasClass(id)){
+							$(item).css('display','block');
+						}
+					})
+				});
+				$("#location").change(function(){
+					var top=$(this).val()-4;
+					var style="margin: 0 auto;margin-top: "+top+"%;position: relative;";
+					$("#thePhoneShowAuto").find(".middle").attr("style",style);
+					$("#top").val(top);
+				});
+/*				$("#zilingyili3").click(function(){
+					$(".customHuoudong").find(".li4").css('display','none')
+					$("#zilingyili4").removeClass("h-green")
+					var classify=$("#classify").val();
+					if(classify==1){
+						$(".customHuoudong").find(".li1").css('display','none')
+						$("#zilingyili1").removeClass("h-green")
+					}
+					$(".customHuoudong").find(".li2").css('display','none')
+					$(".customHuoudong").find(".li3").css('display','block')
+					$(".customHuoudong").find(".li2").removeClass("show")
+					$(".customHuoudong").find(".li1").removeClass("show")
+					
+					$("#zidiyihuodong").find("#myTab-s").html("自定义活动规则");
+					$("#zilingyili3").addClass("h-green")
+					$("#zilingyili2").removeClass("h-green")
+					
+					
+				})*/
+/*				$("#zilingyili4").click(function(){
+					$(".customHuoudong").find(".li1").css('display','none')
+					$(".customHuoudong").find(".li2").css('display','none')
+					$(".customHuoudong").find(".li3").css('display','none')
+					$(".customHuoudong").find(".li4").css('display','block')
+					$("#zidiyihuodong").find("#myTab-s").html("查看效果");
+					$("#zilingyili4").addClass("h-green")
+					$("#zilingyili1").removeClass("h-green")
+					$("#zilingyili2").removeClass("h-green")
+					$("#zilingyili3").removeClass("h-green")
+				})*/
+				
+				//点击奖品页面自定义，隐藏默认添加区域，弹出奖品配置页面
+				$("#userDefinedPrize").click(function(){
+					var length=$(window).width();
+				/*	$("#checkedActivityAtag").css('display','block');
+					$("#submitTag").attr('style',"display:block;float: left;padding-left:"+(length/3)+"px;");
+					$("#gobackReturn").attr('style',"float: left;");*/
+					$("#theReset").css('display','block')
+					$("#checkedActivityAtag").css('display','block');
+					$("#submitTag").css('display','block')
+					$("#gobackReturn").attr('style',"float: right;");
+					
+					$("#red_package_div").css("display","none");
+					$("#electron").css("display","block");
+					$("#theRealPrizeShowanhidden").css("display","none");
+					
+					$("#choujiangpeizhi").css('display',"none");
+					$("#thePrizeSetting").css("display","block");
+					$("#thePrizeSetting2").css("display","none");
+					$("#morentianjiaquyu").css("display","none");
+					$("#choujiangpeizhi").css("display","none");
+					$("#gaojirenqun").css("display","none");
+					$("#zidiyihuodong").css('display','none');
+					$("#morenGuize").css('display','block')
+					
+					$(".b").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed1.png"+"') no-repeat center",
+			             "background-size":"100% 100%"
+					})
+					$(".a").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed2.png"+"') no-repeat center",
+			             "background-size":"100% 100%"
+					})
+					
+				})
+				//点击活动选择
+				$("#toCheckActivity").click(function(){
+					/*$("#zidiyihuodong").css('display','none')*/
+					$("#morenGuize").css('display','none')
+					$("#zidiyihuodong").css('display','block');
+					$("#thePrizeSetting").css("display","none");
+					$("#thePrizeSetting2").css("display","none");
+					$("#morentianjiaquyu").css("display","block");
+					$("#gaojirenqun").css("display","none");
+					
+					
+				})
+				//点击奖品设置
+				$("#toSetPrize").click(function(){
+					$("#libutton2").parent().addClass('btn-pr');
+					$("#libutton1").parent().removeClass('btn-pr');
+					$("#libutton4").parent().removeClass('btn-pr');
+					$("#libutton0").parent().removeClass('btn-pr');
+					
+					$("#red_package_div").css("display","none");
+					$("#electron").css("display","block");
+					$("#theRealPrizeShowanhidden").css("display","none");
+					
+					$("#choujiangpeizhi").css('display',"none");
+					$("#thePrizeSetting").css("display","block");
+					$("#thePrizeSetting2").css("display","none");
+					$("#morentianjiaquyu").css("display","none");
+					$("#choujiangpeizhi").css("display","none");
+					$("#gaojirenqun").css("display","none");
+					$("#zidiyihuodong").css('display','none');
+					$("#morenGuize").css('display','block')
+				})
+				/**
+				 * 点击高级选项，跳转到人群定向页面，在人群定向页面选择人群信息，和针对该人群信息的奖品，配置针对该人群定向的奖品策略
+				 */
+				$("#toSetPeopleSetting").click(function(){
+					$("#libutton25").parent().addClass('btn-pr');
+					$("#libutton22").parent().removeClass('btn-pr');
+					$("#libutton21").parent().removeClass('btn-pr');
+					$("#libutton24").parent().removeClass('btn-pr');
+					$("#libutton20").parent().removeClass('btn-pr');
+					
+					$("#theRealPrizeGaoji").css("display","none");
+					$("#red_package_div2").css("display","none");
+					$("#electron20").css("display","none");
+					$("#gaojirenqun").css('display','block');
+					$("#choujiangpeizhi2").css('display','none');
+					$("#zidiyihuodong").css('display','none');
+					$("#morenGuize").css('display','none')
+					//$("#zidiyihuodong").css('display','block');
+					$("#thePrizeSetting").css("display","none");
+					$("#morentianjiaquyu").css("display","none");
+					$("#thePrizeSetting2").css("display","block");
+					
+					$(".d").css({
+			             "background": "url('"+rootPath+""+"/assets/images/speed1.png"+"') no-repeat center",
+			            "background-size":"100% 100%"
+		           })
+				})
+/*				//人群定向js
+				$(".strategy-param").find(".selectAllButton").click(function(){
+					
+					var buttonvalue=$(this).html();
+					if(buttonvalue=='选择全部'){
+						$(this).html('取消全部');
+						var button=$(this).parent().children('button');
+						for (var int = 0; int < button.length; int++) {
+							$(button[int]).attr('class',"btn btn-success");
+						}
+					}else{
+						$(this).html('选择全部');
+						var button=$(this).parent().children('button');
+						for (var int = 0; int < button.length; int++) {
+							$(button[int]).attr('class',"btn btn-default");
+						}
+					}
+				})					
+				
+				$("button").click(function(){
+					var data=$(this).attr("data");
+					if(!platform.isNull(data)){
+						if($(this).hasClass("btn-default")){
+							$(this).attr("class","btn btn-success");
+						}else if($(this).hasClass("btn-success")){
+							$(this).attr("class","btn btn-default");
+						}
+					}
+				});
+				$("#submitForm1").click(function(){
+					var arr=[".sex",".device",".stage",".province"];
+					var value="";
+					for ( var index in arr) {
+						var thisValue=platform.strategy.create.getValue(arr[index]);
+						if(!platform.isNull(thisValue)){
+							value=value+thisValue+"&";
+						}
+					}
+					value=value.substring(0,value.length-1);
+					var valueDesc="";
+					for ( var index in arr) {
+						var thisValue=platform.strategy.create.getDesc(arr[index]);
+						if(!platform.isNull(thisValue)){
+							valueDesc=valueDesc+thisValue+"且";
+						}
+					}
+					valueDesc=valueDesc.substring(0,valueDesc.length-1);
+					var strategyNames=$("#strategyName").val();
+					if(platform.isNull(strategyNames)){
+						layer.msg("请填写名称");
+						return;
+					}
+					if(platform.isNull(valueDesc) || platform.isNull(value)){
+						layer.msg("请选择策略信息");
+						return;
+					}
+					var idDesc=$("#id").val();
+					var parents = $(this).parents("#openDiv");
+					if (parents.length == 1) {
+						idDesc="";
+					}
+					var param={strategyName:strategyNames,strategyData:value,strategyDataDesc:valueDesc,id:idDesc};
+					platform.apply.request(rootPath+"/user/strategy/project/create.shtml", this, param);
+				});*/
+				
+				
+				
+				/**
+				 * 点击红包，隐藏电子奖
+				 */
+				$("#libutton0").click(function(){
+					$(this).parent().parent().find("li").removeClass("btn-pr");
+					$(this).parent().addClass('btn-pr');
+					//滑动展开红包页面
+					//$("#red_package_div").css("display","block");
+					$("#red_package_div").css("display","block");
+					$("#electron").css("display","none");
+					$("#choujiangpeizhi").css("display","none");
+					$("#theRealPrizeShowanhidden").css("display","none");
+					$("#electron").parent().removeClass("h-blue");
+					
+					var checkId=$("#checkClassifyid").val();
+					$("a[name='"+checkId+"']").parent().removeClass("h-blue");
+					$("#libutton2").parent().removeClass("h-blue");
+					$("#libutton3").parent().removeClass("h-blue");
+					$("#choujiangpeizhi").css('margin-top',"0px");
+					
+					$("#redPackageSetting1").css("display","none");
+					$("#redPackage1").css("display","block")
+					
+					
+					//点击红包查询红包列表
+					var imgServer=$("#imgserverHost").val();
+					var arr=$("input[name='alredayChecked1']")
+					var url=rootPath+"/user/new/apply/findReadPackage.shtml";
+					$.post(url,{},function(data){
+						//查询所有红包
+						
+						var str="<div><ul style='padding:0;margin-top:30px;width:750px' id='electron-tab'>";
+						var flag=false;
+						$(data).each(function(index,dom){
+							str+="<li class='electron-icon float-left'>"
+							str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+								str+="<label class='demo--label'><input class='demo--radio' type='checkbox' name='demo-checkbox1'>";
+	                                /*str+="<span class='demo--checkbox demo--radioInput'></span>"*/
+	                            str+="</label>"
+							str+="</span>"
+							str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>"
+							str+="<div class='clear'>";
+	                            var strtemp="<div class='prizeCheckedDiv1a' style='display: none'>";
+	                            for(var i=0;i<arr.length;i++){
+	                            	if($(arr[i]).val()==dom['id']){
+	                            		strtemp="<div class='prizeCheckedDiv1a' style='display: block'>";
+	                            	}
+	                            }
+	                            str+=strtemp
+	                            str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+	                            str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+	                            str+="</div>";
+							str+="</div>"
+							str+="<input type='hidden' class='materialId' value='"+dom['id']+"'>";	
+							str+="<span class='electron-logo morenRedPackage1'><a href='javascript:void(0)' class='putongRedPackage1' name='"+dom['id']+"'><img src='"+imgServer+dom['logo8Url']+"' style='width:112px;height:112px;' alt='' /></a></span><br>";
+							str+="<span class='electron-bottom'><span >"+dom['prizeValue']+"</span></span>";
+							str+="</li>"
+							flag=true;
+						})
+						if(flag==false){
+							str+="<span style='margin-left:253px;'><img src='"+rootPath+""+"/assets/images/gift-icon.png"+"' style='width:35px;height:35px;'><font style='margin-left:21px;'>该分类下没有奖品</font></span>"
+						}
+						str+="</ul></div>";
+						$("#redPackage1").html(str);
+						$.applyActivity.create.clickToaddRedPackage1();
+						
+					},'json')
+				
+					
+					
+					
+				});
+				
+				/**
+				 * 点击抽奖配置
+				 */
+				$("#libutton4").click(function(){
+					$(this).parent().parent().find("li").removeClass("btn-pr");
+					$(this).parent().addClass('btn-pr');
+					$("#red_package_div").css("display","none");
+					$("#electron").css("display","none");
+					$("#choujiangpeizhi").css("display","block");
+					$("#theRealPrizeShowanhidden").css("display","none");
+				});
+				
+				/**
+				 * 点击电子奖，隐藏红包和除了推荐以外的电子奖，显示电子奖和推荐
+				 */
+				$("#libutton2").click(function(){
+					$(this).parent().parent().find("li").removeClass("btn-pr");
+					$(this).parent().addClass('btn-pr');
+					//滑动展开红包页面
+					//$("#red_package_div").css("display","block");
+					$("#theRealPrizeShowanhidden").css("display","none");
+					$("#red_package_div").css("display","none");
+					$("#electron").css("display","block");
+					$("#choujiangpeizhi").css('display',"none");
+					$(".prize-tab").find(".clickClassify").parent().removeClass("h-blue");
+					$("#libutton3").parent().addClass("h-blue");
+					$("#choujiangpeizhi").css('margin-top',"0px");
+					
+				})
+				/**
+				 *  点击推荐
+				 */
+				$("#libutton3").click(function(){
+					//滑动展开红包页面
+					//$("#red_package_div").css("display","block");
+					$("#red_package_div").slideUp();
+					$("#putongPrizeTuijiandiv").css("display","block");
+					var checkId=$("#checkClassifyid").val();
+					$("a[name='"+checkId+"']").parent().removeClass("h-blue");
+					$("#electron2").slideUp();
+					$(".prize-tab").find(".clickClassify").parent().removeClass("h-blue");
+					$(this).parent().addClass("h-blue");
+					$("#libutton2").parent().addClass("h-blue");
+					$("#red_package_div").parent().removeClass("h-blue");
+					$("#choujiangpeizhi").css('margin-top',"0px");
+					$("#yixuanPrize1").css('display','none');
+				})
+				
+				
+				
+				/**
+				 *==============================================================高级选项============================================================ 
+				 */
+				/**
+				 * 点击红包，隐藏电子奖
+				 */
+				$("#libutton20").click(function(){
+					$(this).parent().parent().find("li").removeClass("btn-pr");
+					$(this).parent().addClass('btn-pr');
+					//滑动展开红包页面
+					//$("#red_package_div").css("display","block");
+					$("#red_package_div2").css("display","block");
+					$("#theRealPrizeGaoji").css('display','none');
+					$("#electron20").css("display","none");
+					$("#gaojirenqun").css("display","none");
+					$("#choujiangpeizhi2").css('display','none');
+					$("#electron20").parent().removeClass("h-blue");
+					var checkId=$("#checkClassifyid2").val();
+					$("a[name='"+checkId+"']").parent().removeClass("h-blue");
+					$("#libutton22").parent().removeClass("h-blue");
+					$("#libutton23").parent().removeClass("h-blue");
+					$("#choujiangpeizhi2").css('margin-top',"0px");
+					
+					$("#redPackageSetting2").css("display","none");
+					$("#redPackage2").css("display","block")
+					//点击红包查询红包列表
+					var imgServer=$("#imgserverHost").val();
+					var arr=$("input[name='alredayChecked2']")
+					var url=rootPath+"/user/new/apply/findReadPackage.shtml";
+					$.post(url,{},function(data){
+						//查询所有红包
+						
+						var str="<div><ul style='padding:0;margin-top:30px;width:750px' id='electron-tab'>";
+						var flag=false;
+						$(data).each(function(index,dom){
+							str+="<li class='electron-icon float-left'>"
+							str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+								str+="<label class='demo--label'><input class='demo--radio' type='checkbox' name='demo-checkbox1'>";
+	                                /*str+="<span class='demo--checkbox demo--radioInput'></span>"*/
+	                            str+="</label>"
+							str+="</span>"
+							str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>"
+							str+="<div class='clear'>";
+	                            var strtemp="<div class='prizeCheckedDiv2a' style='display: none'>";
+	                            for(var i=0;i<arr.length;i++){
+	                            	if($(arr[i]).val()==dom['id']){
+	                            		strtemp="<div class='prizeCheckedDiv2a' style='display: block'>";
+	                            	}
+	                            }
+	                            str+=strtemp
+	                            str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+	                            str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+	                            str+="</div>";
+							str+="</div>"
+								str+="<input type='hidden' class='materialId' value='"+dom['id']+"'>";	
+							str+="<span class='electron-logo morenRedPackage2'><a href='javascript:void(0)' class='putongRedPackage2' name='"+dom['id']+"'><img src='"+imgServer+dom['logo8Url']+"' style='width:112px;height:112px;' alt='' /></a></span><br>";
+							str+="<span class='electron-bottom'><span >"+dom['prizeValue']+"</span></span>";
+							str+="</li>"
+							flag=true;
+						})
+						if(flag==false){
+							str+="<span style='margin-left:253px;'><img src='"+rootPath+""+"/assets/images/gift-icon.png"+"' style='width:35px;height:35px;'><font style='margin-left:21px;'>该分类下没有奖品</font></span>"
+						}
+						str+="</ul></div>";
+						$("#redPackage2").html(str);
+						$.applyActivity.create.clickToaddRedPackage2();
+						
+					},'json')
+				});
+				
+				/**
+				 * 点击电子奖，隐藏红包和除了推荐以外的电子奖，显示电子奖和推荐
+				 */
+				$("#libutton22").click(function(){
+					$(this).parent().parent().find("li").removeClass("btn-pr");
+					$(this).parent().addClass('btn-pr');
+					//滑动展开红包页面
+					//$("#red_package_div").css("display","block");
+					$("#red_package_div2").css("display","none");
+					$("#electron20").css("display","block");
+					$("#theRealPrizeGaoji").css('display','none');
+					$("#gaojirenqun").css('display','none');
+					$("#choujiangpeizhi2").css('display','none');
+					$(".prize-tab").find(".clickClassify2").parent().removeClass("h-blue");
+					$("#libutton23").parent().addClass("h-blue");
+					$("#red_package_div2").parent().removeClass("h-blue");
+					$("#choujiangpeizhi2").css('margin-top',"0px");
+					
+				})
+				/**
+				 *  点击推荐
+				 */
+				$("#libutton23").click(function(){
+					//滑动展开红包页面
+					//$("#red_package_div").css("display","block");
+					$("#red_package_div2").css("display","none");
+					$("#theGaojiTuijianPrize").css("display","block");
+					$("#theRealPrize2").css('display','none');
+					var checkId=$("#checkClassifyid2").val();
+					$("a[class='clickClassify2'][name='"+checkId+"']").parent().removeClass("h-blue");
+					$("#theCheckedPrize2").css("display","none");
+					$("#electron22").css("display","none");
+					$(".prize-tab").find(".clickClassify2").parent().removeClass("h-blue");
+					$(this).parent().addClass("h-blue");
+					$("#libutton22").parent().addClass("h-blue");
+					$("#red_package_div2").parent().removeClass("h-blue");
+					$("#choujiangpeizhi2").css('margin-top',"0px");
+				})
+				
+/*				$(".tab-q ul li ").click(function() {			
+					var index = $(this).index();
+					$(this).addClass("h-green").siblings().removeClass("h-green")
+					$(this).addClass("scale").siblings().removeClass("scale")
+					$(".li" + (index+2)).addClass("show").siblings().removeClass("show")
+				})*/
+				
+				/**
+				 * 点击已选1
+				 */
+				$("#clickYixuan1").click(function(){
+					$("#putongPrizeTuijiandiv").css('display','none');
+					$("#electron2").css('display','none');
+					$("#yixuanPrize1").css('display','block');
+				});
+				
+				/**
+				 * 点击抽奖配置2
+				 */
+				$("#libutton24").click(function(){
+					$(this).parent().parent().find("li").removeClass("btn-pr");
+					$(this).parent().addClass('btn-pr');
+					$("#red_package_div2").css('display','none');
+					$("#electron20").css('display','none');
+					$("#choujiangpeizhi2").css('display','block');
+					$("#gaojirenqun").css('display','none');
+					$("#theRealPrizeGaoji").css('display','none');
+					
+				});
+				
+				/**
+				 * 点击目标人群
+				 */
+				$("#libutton25").click(function(){
+					$(this).parent().parent().find("li").removeClass("btn-pr");
+					$(this).parent().addClass('btn-pr');
+					$("#red_package_div2").css('display','none');
+					$("#electron20").css('display','none');
+					$("#choujiangpeizhi2").css('display','none');
+					$("#gaojirenqun").css('display','block');
+					$("#theRealPrizeGaoji").css('display','none');
+					
+				});
+				
+				/**
+				 * 点击已选2
+				 */
+				$("#clickYixuan2").click(function(){
+					$("#theGaojiTuijianPrize").css("display","none");
+					$("#theCheckedPrize2").css("display","block");
+					$("#electron22").css("display","none");
+				});
+				
+				
+			},
+
+		/**=====================================添加奖品逻辑↓=========================================================**/
+		/**
+		 * 点击添加普通推荐区域中的奖品
+		 */
+		dianjitianjia1:function(){
+			/**
+			 * 点击奖品添加到已选奖品中，并加遮罩，如果已选奖品数量多于10个提示，不能少于八个
+			 */
+			$(".tuijianputong").find('.tuijianPrize1').click(function(){
+				
+				var str="";
+				var str2="";
+				//首先获取到已选奖品的集合
+				var mid=$(this).attr('name');
+				var imgServer=$("#imgserverHost").val();
+				var arr=$("input[name='alredayChecked1']")
+				
+				if(arr.length>=10){
+					layer.alert('您已经选择了10个奖品，不能选择更多,请到已选奖品中移除您不需要的奖品！', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				}else{
+					$(this).parent().parent().find(".prizeCheckedDiv1").css('display','block');
+					$(".tuijianJiangpin1").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','block')
+					/*$(".putongdianzijiang").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','block')*/
+					//查询到该奖品信息异步添加两处节点
+					var url=rootPath+"/user/new/apply/findMaterialById.shtml"
+					$.post(url,{id:mid},function(data){
+						
+						//添加奖品自定义页面已选奖品的节点
+						str+="<li class='electron-icon float-left'>";
+						str+="<span style='cursor:hand;'><a href='javascript:void(0)' class='theCheckedPrizeId1'><img alt='' class='jianhao' src='"+rootPath+""+"/assets/images/minus_alt.png"+"' /></a></span>";
+						str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+							str+="<label class='demo--label'>";
+                            str+="</label>";
+						str+="</span>"
+						str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>";
+						str+="<div class='clear'>";
+							str+="<div class='prizeCheckedDiv1' style='display: none'>";
+							str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+							str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+							str+="</div>";
+						str+="</div>"
+						str+="<span class='electron-logo'><img src='"+imgServer+data['logo8Url']+"' style='width:112px;height:112px;' alt='' /></span><br>";
+						str+="<span class='electron-bottom' style='display: table;'><span style='display: table-cell; vertical-align: middle;'>"+data['prizeValue']+"</span></span>";
+						str+="<input type='hidden' name='alredayChecked1' value='"+data['id']+"'>";
+						
+						var theindex=arr.length
+						str+="<input type='hidden' id='prizeClassify' name='pmlist1["+theindex+"].prizeClassify.id' value='"+data['category']+"'>";
+						str+="<input type='hidden' id='prizeValue' name='pmlist1["+theindex+"].prizeValue' value='"+data['prizeValue']+"'>";
+						str+="<input type='hidden' id='isOneNum' name='pmlist1["+theindex+"].isOneNum' value='"+data['prizetype']+"'>";
+						str+="<input type='hidden' id='prizeName' name='pmlist1["+theindex+"].prizeName' value='"+data['prizeName']+"'>"
+						str+="<input type='hidden' id='prizeMaterail' name='pmlist1["+theindex+"].prizeMaterial.id' value='"+data['id']+"'>";
+						str+="<input type='hidden' id='skipUrl' name='pmlist1["+theindex+"].skipUrl' value='"+data['skipUrl']+"'>";
+						str+="<input type='hidden' id='logo8Url' name='pmlist1["+theindex+"].logo8Url' value='"+data['logo8Url']+"'>";
+						str+="<input type='hidden' id='logo10Url' name='pmlist1["+theindex+"].logo10Url' value='"+data['logo10Url']+"'>";
+						str+="<input type='hidden' id='isTrue' name='pmlist1["+theindex+"].isTrue' value='"+data['type']+"'>";
+						str+="<input type='hidden' id='prizeAmount' name='pmlist1["+theindex+"].prizeAmount' value='"+data['amount']+"'>";
+						str+="<input type='hidden' id='sequenceId' name='pmlist1["+theindex+"].sequenceId' value='"+(theindex+1)+"'>";
+						if(data['isSpecial']==null){
+							str+="<input type='hidden' id='isSpecial' name='pmlist1["+theindex+"].isSpecial' value='"+0+"'>";
+						}else{
+							str+="<input type='hidden' id='isSpecial' name='pmlist1["+theindex+"].isSpecial' value='"+data['isSpecial']+"'>";
+						}
+						
+						str+="</li>";
+						
+						$(".theCheckedPrizeTab1").append(str);
+						
+						//添加另一个节点
+						
+						str2+="<span><img src='"+imgServer+data['logo8Url']+"' alt='' /><input type='hidden' name='"+data['id']+"'></span>";
+						$(".theLogoChecked").append(str2);
+						
+						//将该奖品设上遮罩
+						//$(this).parent().parent().find(".prizeCheckedDiv1").css('display','block');
+						$.applyActivity.create.removeRoot();
+						$.applyActivity.create.getCheckNum()
+					},'json');
+				}
+			})
+		},
+		/**
+		 * 点击添加普通自定义区域中的奖品
+		 */
+		dianjitianjiaputong:function(){
+			$(".putongzidingyi").find('.tuijianPrize1').click(function(){
+				
+				var str="";
+				var str2="";
+				//首先获取到已选奖品的集合
+				var mid=$(this).attr('name');
+				var imgServer=$("#imgserverHost").val();
+				var arr=$("input[name='alredayChecked1']")
+				
+				if(arr.length>=10){
+					layer.alert('您已经选择了10个奖品，不能选择更多,请到已选奖品中移除您不需要的奖品！', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				}else{
+					$(this).parent().parent().find(".prizeCheckedDiv1").css('display','block');
+					$(".tuijianJiangpin1").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','block')
+					/*$(".putongdianzijiang").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','block')*/
+					//查询到该奖品信息异步添加两处节点
+					var url=rootPath+"/user/new/apply/findMaterialById.shtml"
+					$.post(url,{id:mid},function(data){
+						
+						//添加奖品自定义页面已选奖品的节点
+						str+="<li class='electron-icon float-left'>";
+						str+="<span style='cursor:hand;'><a href='javascript:void(0)' class='theCheckedPrizeId1'><img alt='' class='jianhao' src='"+rootPath+""+"/assets/images/minus_alt.png"+"' /></a></span>";
+						str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+							str+="<label class='demo--label'>";
+                            str+="</label>";
+						str+="</span>"
+						str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>";
+						str+="<div class='clear'>";
+							str+="<div class='prizeCheckedDiv1' style='display: none'>";
+							str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+							str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+							str+="</div>";
+						str+="</div>"
+						str+="<span class='electron-logo'><img src='"+imgServer+data['logo8Url']+"' style='width:112px;height:112px;' alt='' /></span><br>";
+						str+="<span class='electron-bottom' style='display: table;'><span style='display: table-cell; vertical-align: middle;'>"+data['prizeValue']+"</span></span>";
+						str+="<input type='hidden' name='alredayChecked1' value='"+data['id']+"'>";
+						
+						var theindex=arr.length
+						str+="<input type='hidden' id='prizeClassify' name='pmlist1["+theindex+"].prizeClassify.id' value='"+data['category']+"'>";
+						str+="<input type='hidden' id='prizeValue' name='pmlist1["+theindex+"].prizeValue' value='"+data['prizeValue']+"'>";
+						str+="<input type='hidden' id='isOneNum' name='pmlist1["+theindex+"].isOneNum' value='"+data['prizetype']+"'>";
+						str+="<input type='hidden' id='prizeName' name='pmlist1["+theindex+"].prizeName' value='"+data['prizeName']+"'>"
+						str+="<input type='hidden' id='prizeMaterail' name='pmlist1["+theindex+"].prizeMaterial.id' value='"+data['id']+"'>";
+						str+="<input type='hidden' id='skipUrl' name='pmlist1["+theindex+"].skipUrl' value='"+data['skipUrl']+"'>";
+						str+="<input type='hidden' id='logo8Url' name='pmlist1["+theindex+"].logo8Url' value='"+data['logo8Url']+"'>";
+						str+="<input type='hidden' id='logo10Url' name='pmlist1["+theindex+"].logo10Url' value='"+data['logo10Url']+"'>";
+						str+="<input type='hidden' id='isTrue' name='pmlist1["+theindex+"].isTrue' value='"+data['type']+"'>";
+						str+="<input type='hidden' id='prizeAmount' name='pmlist1["+theindex+"].prizeAmount' value='"+data['amount']+"'>";
+						str+="<input type='hidden' id='sequenceId' name='pmlist1["+theindex+"].sequenceId' value='"+(theindex+1)+"'>";
+						if(data['isSpecial']==null){
+							str+="<input type='hidden' id='isSpecial' name='pmlist1["+theindex+"].isSpecial' value='"+0+"'>";
+						}else{
+							str+="<input type='hidden' id='isSpecial' name='pmlist1["+theindex+"].isSpecial' value='"+data['isSpecial']+"'>";
+						}
+						
+						str+="</li>";
+						$(".theCheckedPrizeTab1").append(str);
+						
+						//添加另一个节点
+						
+						str2+="<span><img src='"+imgServer+data['logo8Url']+"' alt='' /><input type='hidden' name='"+data['id']+"'></span>";
+						$(".theLogoChecked").append(str2);
+						
+						//将该奖品设上遮罩
+						//$(this).parent().parent().find(".prizeCheckedDiv1").css('display','block');
+						$.applyActivity.create.removeRoot();
+						$.applyActivity.create.getCheckNum()
+					},'json');
+				}
+			})
+		},
+		/**
+		 * 点击添加高级推荐奖品
+		 */
+		dianjitianjia2:function(){
+			/**
+			 * 点击奖品添加到已选奖品中，并加遮罩，如果已选奖品数量多于10个提示，不能少于八个
+			 */
+			$(".tuijiangaoji").find('.tuijianPrize2').click(function(){
+				var str="";
+				var str2="";
+				//首先获取到已选奖品的集合
+				var mid=$(this).attr('name');
+				var imgServer=$("#imgserverHost").val();
+				var arr=$("input[name='alredayChecked2']")
+				
+				if(arr.length>=10){
+					layer.alert('您已经选择了10个奖品，不能选择更多,请到已选奖品中移除您不需要的奖品！', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				}else{
+					//查询到该奖品信息异步添加两处节点
+					$(this).parent().parent().find(".prizeCheckedDiv1").css('display','block');
+					$(".tuijianJiangpin2").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv2').css('display','block')
+					/*$(".putongdianzijiang2").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv2').css('display','block')*/
+					var url=rootPath+"/user/new/apply/findMaterialById.shtml"
+					$.post(url,{id:mid},function(data){
+						//添加奖品自定义页面已选奖品的节点
+						str+="<li class='electron-icon float-left'>";
+						str+="<span style='cursor:hand;'><a href='javascript:void(0)' class='theCheckedPrizeId2'><img alt='' class='jianhao' src='"+rootPath+""+"/assets/images/minus_alt.png"+"' /></a></span>";
+						str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+							str+="<label class='demo--label'>";
+                            str+="</label>";
+						str+="</span>"
+						str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>";
+						str+="<div class='clear'>";
+							str+="<div class='prizeCheckedDiv2' style='display: none'>";
+							str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+							str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+							str+="</div>";
+						str+="</div>"
+						str+="<span class='electron-logo'><img src='"+imgServer+data['logo8Url']+"' style='width:112px;height:112px;' alt='' /></span><br>";
+						str+="<span class='electron-bottom' style='display: table;'><span style='display: table-cell; vertical-align: middle;'>"+data['prizeValue']+"</span></span>";
+						str+="<input type='hidden' name='alredayChecked2' value='"+data['id']+"'>";
+						//方便表单提交，设置隐藏的input
+						var theindex=arr.length
+						str+="<input type='hidden' id='prizeClassify' name='pmlist2["+theindex+"].prizeClassify.id' value='"+data['category']+"'>";
+						str+="<input type='hidden' id='prizeValue' name='pmlist2["+theindex+"].prizeValue' value='"+data['prizeValue']+"'>";
+						str+="<input type='hidden' id='isOneNum' name='pmlist2["+theindex+"].isOneNum' value='"+data['prizetype']+"'>";
+						str+="<input type='hidden' id='prizeName' name='pmlist2["+theindex+"].prizeName' value='"+data['prizeName']+"'>"
+						str+="<input type='hidden' id='prizeMaterail' name='pmlist2["+theindex+"].prizeMaterial.id' value='"+data['id']+"'>";
+						str+="<input type='hidden' id='skipUrl' name='pmlist2["+theindex+"].skipUrl' value='"+data['skipUrl']+"'>";
+						str+="<input type='hidden' id='logo8Url' name='pmlist2["+theindex+"].logo8Url' value='"+data['logo8Url']+"'>";
+						str+="<input type='hidden' id='logo10Url' name='pmlist2["+theindex+"].logo10Url' value='"+data['logo10Url']+"'>";
+						str+="<input type='hidden' id='isTrue' name='pmlist2["+theindex+"].isTrue' value='"+data['type']+"'>";
+						str+="<input type='hidden' id='prizeAmount' name='pmlist2["+theindex+"].prizeAmount' value='"+data['amount']+"'>";
+						str+="<input type='hidden' id='sequenceId' name='pmlist2["+theindex+"].sequenceId' value='"+(theindex+1)+"'>";
+						if(data['isSpecial']==null){
+							str+="<input type='hidden' id='isSpecial' name='pmlist2["+theindex+"].isSpecial' value='"+0+"'>";
+						}else{
+							str+="<input type='hidden' id='isSpecial' name='pmlist2["+theindex+"].isSpecial' value='"+data['isSpecial']+"'>";
+						}
+						
+						str+="</li>";
+						$(".theCheckedPrizeTab2").append(str);
+						/*//将该奖品设上遮罩
+						$(this).parent().parent().find(".prizeCheckedDiv1").css('display','block');*/
+						$.applyActivity.create.removeRoot2();
+						$.applyActivity.create.getCheckNum()
+					},'json');
+				}
+			})
+		},
+		/**
+		 * 点击添加高级选项中的自定义的奖品
+		 */
+		dianjitianjiagaoji:function(){
+			/**
+			 * 点击奖品添加到已选奖品中，并加遮罩，如果已选奖品数量多于10个提示，不能少于八个
+			 */
+			$(".gaojizidingyi").find('.tuijianPrize2').click(function(){
+				var str="";
+				var str2="";
+				//首先获取到已选奖品的集合
+				var mid=$(this).attr('name');
+				var imgServer=$("#imgserverHost").val();
+				var arr=$("input[name='alredayChecked2']")
+				
+				if(arr.length>=10){
+					layer.alert('您已经选择了10个奖品，不能选择更多,请到已选奖品中移除您不需要的奖品！', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				}else{
+					//查询到该奖品信息异步添加两处节点
+					$(this).parent().parent().find(".prizeCheckedDiv2").css('display','block');
+					$(".tuijianJiangpin2").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv2').css('display','block')
+					/*$(".putongdianzijiang2").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv2').css('display','block')*/
+					var url=rootPath+"/user/new/apply/findMaterialById.shtml"
+					$.post(url,{id:mid},function(data){
+						//添加奖品自定义页面已选奖品的节点
+						str+="<li class='electron-icon float-left'>";
+						str+="<span style='cursor:hand;'><a href='javascript:void(0)' class='theCheckedPrizeId2'><img alt='' class='jianhao' src='"+rootPath+""+"/assets/images/minus_alt.png"+"' /></a></span>";
+						str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+							str+="<label class='demo--label'>";
+                            str+="</label>";
+						str+="</span>"
+						str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>";
+						str+="<div class='clear'>";
+							str+="<div class='prizeCheckedDiv2' style='display: none'>";
+							str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+							str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+							str+="</div>";
+						str+="</div>"
+						str+="<span class='electron-logo'><img src='"+imgServer+data['logo8Url']+"' style='width:112px;height:112px;' alt='' /></span><br>";
+						str+="<span class='electron-bottom' style='display: table;'><span style='display: table-cell; vertical-align: middle;'>"+data['prizeValue']+"</span></span>";
+						str+="<input type='hidden' name='alredayChecked2' value='"+data['id']+"'>";
+						
+						var theindex=arr.length
+						str+="<input type='hidden' id='prizeClassify' name='pmlist2["+theindex+"].prizeClassify.id' value='"+data['category']+"'>";
+						str+="<input type='hidden' id='prizeValue' name='pmlist2["+theindex+"].prizeValue' value='"+data['prizeValue']+"'>";
+						str+="<input type='hidden' id='isOneNum' name='pmlist2["+theindex+"].isOneNum' value='"+data['prizetype']+"'>";
+						str+="<input type='hidden' id='prizeName' name='pmlist2["+theindex+"].prizeName' value='"+data['prizeName']+"'>"
+						str+="<input type='hidden' id='prizeMaterail' name='pmlist2["+theindex+"].prizeMaterial.id' value='"+data['id']+"'>";
+						str+="<input type='hidden' id='skipUrl' name='pmlist2["+theindex+"].skipUrl' value='"+data['skipUrl']+"'>";
+						str+="<input type='hidden' id='logo8Url' name='pmlist2["+theindex+"].logo8Url' value='"+data['logo8Url']+"'>";
+						str+="<input type='hidden' id='logo10Url' name='pmlist2["+theindex+"].logo10Url' value='"+data['logo10Url']+"'>";
+						str+="<input type='hidden' id='isTrue' name='pmlist2["+theindex+"].isTrue' value='"+data['type']+"'>";
+						str+="<input type='hidden' id='prizeAmount' name='pmlist2["+theindex+"].prizeAmount' value='"+data['amount']+"'>";
+						str+="<input type='hidden' id='sequenceId' name='pmlist2["+theindex+"].sequenceId' value='"+(theindex+1)+"'>";
+						if(data['isSpecial']==null){
+							str+="<input type='hidden' id='isSpecial' name='pmlist2["+theindex+"].isSpecial' value='"+0+"'>";
+						}else{
+							str+="<input type='hidden' id='isSpecial' name='pmlist2["+theindex+"].isSpecial' value='"+data['isSpecial']+"'>";
+						}
+						
+						str+="</li>";
+						$(".theCheckedPrizeTab2").append(str);
+						//添加另一个节点
+						/*//将该奖品设上遮罩
+						$(this).parent().parent().find(".prizeCheckedDiv1").css('display','block');*/
+						$.applyActivity.create.removeRoot2();
+						$.applyActivity.create.getCheckNum()
+					},'json');
+				}
+			})
+		},
+		/**
+		 * 切换自定义奖品
+		 */
+		zidingyiPrize1:function(){
+			/**
+			 * 点击其他分类，查询对应分类下的奖品信息显示，隐藏推荐
+			 */
+			$(".prize-tab").find(".clickClassify").click(function(){
+				var checkId=$("#checkClassifyid").val();
+				$("a[name='"+checkId+"']").parent().removeClass("h-blue");
+				$("#libutton2").parent().addClass("h-blue");
+				//将推荐和红包隐藏
+				$(this).parent().addClass("h-blue");
+				//获取现在的已选的奖品，将选择了的奖品的遮罩打开
+				var arr=$("input[name='alredayChecked1']")
+				var classifyId=$(this).attr('name');
+				var url=rootPath+"/user/new/apply/findMaterialByCid.shtml";
+				var imgServer=$("#imgserverHost").val();
+				var theAcType=$("#activityStyle").val();
+				$.post(url,{id:classifyId,theAcType:theAcType},function(data){
+					var sum=0;
+					
+					var str="<input type='hidden' id='checkClassifyid' value='"+classifyId+"'>"
+					str+="<div><ul style='padding:0;margin-top:30px;width:750px' id='electron-tab'>";
+					var flag=false;
+					$(data).each(function(index,dom){
+						sum++;
+						str+="<li class='electron-icon float-left'>"
+						str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+							str+="<label class='demo--label'><input class='demo--radio' type='checkbox' name='demo-checkbox1'>";
+                                /*str+="<span class='demo--checkbox demo--radioInput'></span>"*/
+                            str+="</label>"
+						str+="</span>"
+						str+="<span class='float-right' style='display:inline-block;margin:-8px -2px 0 0;'></span>"
+						str+="<div class='clear'>";
+                            var strtemp="<div class='prizeCheckedDiv1' style='display: none'>";
+                            for(var i=0;i<arr.length;i++){
+                            	if($(arr[i]).val()==dom['id']){
+                            		strtemp="<div class='prizeCheckedDiv1' style='display: block'>";
+                            	}
+                            }
+                            str+=strtemp
+                            str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+                            str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+                            str+="</div>";
+						str+="</div>"
+						str+="<input type='hidden' class='materialId' value='"+dom['id']+"'>";	
+						str+="<span class='electron-logo putongzidingyi'><a href='javascript:void(0)' class='tuijianPrize1' name='"+dom['id']+"'><img src='"+imgServer+dom['logo8Url']+"' style='width:112px;height:112px;' alt='' /></a></span><br>";
+						str+="<span class='electron-bottom' style='display: table;'><span style='display: table-cell; vertical-align: middle;'>"+dom['prizeValue']+"</span></span>";
+						str+="</li>"
+							flag=true;
+					})
+					if(flag==false){
+						str+="<span style='margin-left:253px;'><img src='"+rootPath+""+"/assets/images/gift-icon.png"+"' style='width:35px;height:35px;'><font style='margin-left:21px;'>该分类下没有奖品</font></span>"
+					}
+					str+="</ul></div>";
+					$("#electron2").html(str);
+					$("#putongPrizeTuijiandiv").css('display','none');
+					$("#red_package_div").slideUp();
+					/*$("#electron").slideUp();*/
+					$("#electron2").css('display','block');;
+					$("#libutton3").parent().removeClass("h-blue");
+					$("#red_package_div").parent().removeClass("h-blue");
+					$("#yixuanPrize1").css('display','none');
+					var result=0;
+					if(sum>=5){
+						result = sum%5>0 ? (Math.floor(sum/5))+1 : sum/5; 
+						result=result*200
+					}else if(sum==0){
+						result=0;
+					}else{
+						result=200;
+					}
+					$("#choujiangpeizhi").css('margin-top',"0px");
+					$.applyActivity.create.dianjitianjiaputong();
+					
+				},'json');
+				/*platform.doGet(url)*/
+			})
+		},
+		
+		
+		
+		
+		/**
+		 * 高级选项中切换自定义奖品
+		 */
+		zidingyiPrize2:function(){
+			/**
+			 * 点击其他分类，查询对应分类下的奖品信息显示，隐藏推荐
+			 */
+			$(".prize-tab").find(".clickClassify2").click(function(){
+				var checkId=$("#checkClassifyid2").val();
+				$("a[class='clickClassify2'][name='"+checkId+"']").parent().removeClass("h-blue");
+				$("#libutton22").parent().addClass("h-blue");
+				//将推荐和红包隐藏
+				$(this).parent().addClass("h-blue");
+				//获取现在的已选的奖品，将选择了的奖品的遮罩打开
+				var arr=$("input[name='alredayChecked2']")
+				var classifyId=$(this).attr('name');
+				var url=rootPath+"/user/new/apply/findMaterialByCid.shtml";
+				var imgServer=$("#imgserverHost").val();
+				var theAcType=$("#activityStyle").val();
+				$.post(url,{id:classifyId,theAcType:theAcType},function(data){
+					var sum=0;
+					
+						var str="<input type='hidden' id='checkClassifyid2' value='"+classifyId+"'>"
+					str+="<div><ul style='padding:0;margin-top:30px;width:750px' id='electron-tab'>";
+					var flag=false;
+					$(data).each(function(index,dom){
+						sum++;
+						str+="<li class='electron-icon float-left'>"
+						str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+							str+="<label class='demo--label'><input class='demo--radio' type='checkbox' name='demo-checkbox1'>";
+                                /*str+="<span class='demo--checkbox demo--radioInput'></span>"*/
+                            str+="</label>"
+						str+="</span>"
+						str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>"
+						str+="<div class='clear'>";
+                            var strtemp="<div class='prizeCheckedDiv2' style='display: none'>";
+                            for(var i=0;i<arr.length;i++){
+                            	if($(arr[i]).val()==dom['id']){
+                            		strtemp="<div class='prizeCheckedDiv2' style='display: block'>";
+                            	}
+                            }
+                            str+=strtemp
+                            /*str+="<div class='prizeCheckedDiv2' style='display: none'>";*/
+							str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+							str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+							str+="</div>";
+						str+="</div>"
+						str+="<input type='hidden' class='materialId' value='"+dom['id']+"'>";	
+						str+="<span class='electron-logo gaojizidingyi'><a href='javascript:void(0)' class='tuijianPrize2' name='"+dom['id']+"'><img src='"+imgServer+dom['logo8Url']+"' style='width:112px;height:112px;' alt='' /></a></span><br>";
+						str+="<span class='electron-bottom' style='display: table;'><span style='display: table-cell; vertical-align: middle;'>"+dom['prizeValue']+"</span></span>";
+						str+="</li>"
+							flag=true;
+					})
+					if(flag==false){
+						str+="<span style='margin-left:253px;'><img src='"+rootPath+""+"/assets/images/gift-icon.png"+"' style='width:35px;height:35px;'><font style='margin-left:21px;'>该分类下没有奖品</font></span>"
+					}
+					str+="</ul></div>";
+					$("#electron22").html(str);
+					$("#red_package_div2").css('display','none');
+					/*$("#electron20").slideUp();*/
+					$("#electron22").css('display','block');
+					
+					$("#theGaojiTuijianPrize").css('display','none');
+					
+					$("#theCheckedPrize2").css('display','none');
+					$("#libutton23").parent().removeClass("h-blue");
+					$("#red_package_div2").parent().removeClass("h-blue");
+					var result=0;
+					if(sum>=5){
+						result = sum%5>0 ? (Math.floor(sum/5))+1 : sum/5; 
+						result=result*200
+					}else if(sum==0){
+						result=0;
+					}else{
+						result=200;
+					}
+					/*$("#choujiangpeizhi2").css('margin-top',result+"px");*/
+					$.applyActivity.create.dianjitianjiagaoji();
+				},'json');
+				/*platform.doGet(url)*/
+			})
+		},
+		
+		/**
+		 * 点击默认策略中的实物奖
+		 */
+		morenRealPrize:function(){
+			$("#libutton1").click(function(){
+				$(this).parent().parent().find("li").removeClass("btn-pr");
+				$(this).parent().addClass('btn-pr');
+				$("#theRealPrizeShowanhidden").css("display","block");
+				$("#red_package_div").css("display","none");
+				$("#electron").css("display","none");
+				$("#choujiangpeizhi").css("display","none");
+				
+				var imgServer=$("#imgserverHost").val();
+				var arr=$("input[name='alredayChecked1']")
+				var url=rootPath+"/user/new/apply/findRealPrize.shtml";
+				$.post(url,{},function(data){
+					//查询所有的实物奖
+					
+					var str="<div><ul style='padding:0;margin-top:30px;width:750px' id='electron-tab'>";
+					var flag=false;
+					$(data).each(function(index,dom){
+						str+="<li class='electron-icon float-left'>"
+						str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+							str+="<label class='demo--label'><input class='demo--radio' type='checkbox' name='demo-checkbox1'>";
+                                /*str+="<span class='demo--checkbox demo--radioInput'></span>"*/
+                            str+="</label>"
+						str+="</span>"
+						str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>"
+						str+="<div class='clear'>";
+                            var strtemp="<div class='prizeCheckedDiv1a' style='display: none'>";
+                            for(var i=0;i<arr.length;i++){
+                            	if($(arr[i]).val()==dom['id']){
+                            		strtemp="<div class='prizeCheckedDiv1a' style='display: block'>";
+                            	}
+                            }
+                            str+=strtemp
+                            str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+                            str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+                            str+="</div>";
+						str+="</div>"
+						str+="<input type='hidden' class='materialId' value='"+dom['id']+"'>";	
+						str+="<span class='electron-logo putongshiwu'><a href='javascript:void(0)' class='putongshiwuPrize1' name='"+dom['id']+"'><img src='"+imgServer+dom['logo8Url']+"' style='width:112px;height:112px;' alt='' /></a></span><br>";
+						str+="<span class='electron-bottom'><span >"+dom['prizeValue']+"</span></span>";
+						str+="</li>"
+							flag=true;
+					})
+					if(flag==false){
+						str+="<span style='margin-left:253px;'><img src='"+rootPath+""+"/assets/images/gift-icon.png"+"' style='width:35px;height:35px;'><font style='margin-left:21px;'>该分类下没有奖品</font></span>"
+					}
+					str+="</ul></div>";
+					$("#theRealPrize1").html(str);
+					$.applyActivity.create.clickToaddReal1();
+					
+				},'json')
+			});
+		},
+		
+		/**
+		 * 点击高级策略中的实物奖
+		 */
+		morenRealPrize2:function(){
+			$("#libutton21").click(function(){
+				$(this).parent().parent().find("li").removeClass("btn-pr");
+				$(this).parent().addClass('btn-pr');
+				$("#theRealPrizeGaoji").css("display","block");
+				$("#red_package_div2").css("display","none");
+				$("#electron20").css("display","none");
+				$("#choujiangpeizhi2").css("display","none");
+				$("#gaojirenqun").css("display","none");
+				var imgServer=$("#imgserverHost").val();
+				var arr=$("input[name='alredayChecked1']")
+				var url=rootPath+"/user/new/apply/findRealPrize.shtml";
+				$.post(url,{},function(data){
+					//查询所有的实物奖
+					
+					var str="<div><ul style='padding:0;margin-top:30px;width:750px' id='electron-tab'>";
+					var flag=false;
+					$(data).each(function(index,dom){
+						str+="<li class='electron-icon float-left'>"
+						str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+							str+="<label class='demo--label'><input class='demo--radio' type='checkbox' name='demo-checkbox1'>";
+                                /*str+="<span class='demo--checkbox demo--radioInput'></span>"*/
+                            str+="</label>"
+						str+="</span>"
+						str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>"
+						str+="<div class='clear'>";
+                            var strtemp="<div class='prizeCheckedDiv1b' style='display: none'>";
+                            for(var i=0;i<arr.length;i++){
+                            	if($(arr[i]).val()==dom['id']){
+                            		strtemp="<div class='prizeCheckedDiv1b' style='display: block'>";
+                            	}
+                            }
+                            str+=strtemp
+                            str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+                            str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+                            str+="</div>";
+						str+="</div>"
+						str+="<input type='hidden' class='materialId' value='"+dom['id']+"'>";	
+						str+="<span class='electron-logo putongshiwu2'><a href='javascript:void(0)' class='putongshiwuPrize2' name='"+dom['id']+"'><img src='"+imgServer+dom['logo8Url']+"' style='width:112px;height:112px;' alt='' /></a></span><br>";
+						str+="<span class='electron-bottom'><span >"+dom['prizeValue']+"</span></span>";
+						str+="</li>"
+							flag=true;
+					})
+					if(flag==false){
+						str+="<span style='margin-left:253px;'><img src='"+rootPath+""+"/assets/images/gift-icon.png"+"' style='width:35px;height:35px;'><font style='margin-left:21px;'>该分类下没有奖品</font></span>"
+					}
+					str+="</ul></div>";
+					$("#theRealPrize2").html(str);
+					$.applyActivity.create.clickToaddReal2();
+					
+				},'json')
+			});
+		},
+		
+		
+		/**
+		 * 点击添加实物奖1
+		 */
+		clickToaddReal1:function(){
+			$("#theRealPrize1").find(".putongshiwuPrize1").click(function(){
+				var str="";
+				var str2="";
+				//首先获取到已选奖品的集合
+				var mid=$(this).attr('name');
+				var imgServer=$("#imgserverHost").val();
+				var arr=$("input[name='alredayChecked1']")
+				
+				if(arr.length>=10){
+					layer.alert('您已经选择了10个奖品，不能选择更多！', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				}else{
+					$(this).parent().parent().find(".prizeCheckedDiv1a").css('display','block');
+					$(".tuijianJiangpin1").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','block')
+					/*$(".putongdianzijiang").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','block')*/
+					//查询到该奖品信息异步添加两处节点
+					var url=rootPath+"/user/new/apply/findMaterialById.shtml"
+					$.post(url,{id:mid},function(data){
+						
+						//添加奖品自定义页面已选奖品的节点
+						str+="<li class='electron-icon float-left'>";
+						str+="<span style='cursor:hand;'><a href='javascript:void(0)' class='theCheckedPrizeId1'><img alt='' class='jianhao' src='"+rootPath+""+"/assets/images/minus_alt.png"+"' /></a></span>";
+						str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+							str+="<label class='demo--label'>";
+	                        str+="</label>";
+						str+="</span>"
+						str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>";
+						str+="<div class='clear'>";
+							str+="<div class='prizeCheckedDiv1' style='display: none'>";
+							str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+							str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+							str+="</div>";
+						str+="</div>"
+						str+="<span class='electron-logo'><img src='"+imgServer+data['logo8Url']+"' style='width:112px;height:112px;' alt='' /></span><br>";
+						str+="<span class='electron-bottom'><span >"+data['prizeValue']+"</span></span>";
+						str+="<input type='hidden' name='alredayChecked1' value='"+data['id']+"'>";
+						
+						var theindex=arr.length
+						str+="<input type='hidden' id='prizeClassify' name='pmlist1["+theindex+"].prizeClassify.id' value='"+data['category']+"'>";
+						str+="<input type='hidden' id='prizeValue' name='pmlist1["+theindex+"].prizeValue' value='"+data['prizeValue']+"'>";
+						str+="<input type='hidden' id='isOneNum' name='pmlist1["+theindex+"].isOneNum' value='"+data['prizetype']+"'>";
+						str+="<input type='hidden' id='prizeName' name='pmlist1["+theindex+"].prizeName' value='"+data['prizeName']+"'>"
+						str+="<input type='hidden' id='prizeMaterail' name='pmlist1["+theindex+"].prizeMaterial.id' value='"+data['id']+"'>";
+						str+="<input type='hidden' id='skipUrl' name='pmlist1["+theindex+"].skipUrl' value='"+data['skipUrl']+"'>";
+						str+="<input type='hidden' id='logo8Url' name='pmlist1["+theindex+"].logo8Url' value='"+data['logo8Url']+"'>";
+						str+="<input type='hidden' id='logo10Url' name='pmlist1["+theindex+"].logo10Url' value='"+data['logo10Url']+"'>";
+						str+="<input type='hidden' id='isTrue' name='pmlist1["+theindex+"].isTrue' value='"+data['type']+"'>";
+						str+="<input type='hidden' id='prizeAmount' name='pmlist1["+theindex+"].prizeAmount' value='"+data['amount']+"'>";
+						str+="<input type='hidden' id='sequenceId' name='pmlist1["+theindex+"].sequenceId' value='"+(theindex+1)+"'>";
+						if(data['isSpecial']==null){
+							str+="<input type='hidden' id='isSpecial' name='pmlist1["+theindex+"].isSpecial' value='"+0+"'>";
+						}else{
+							str+="<input type='hidden' id='isSpecial' name='pmlist1["+theindex+"].isSpecial' value='"+data['isSpecial']+"'>";
+						}
+						
+						str+="</li>";
+						
+						$(".theCheckedPrizeTab1").append(str);
+						
+						//添加另一个节点
+						
+						str2+="<span><img src='"+imgServer+data['logo8Url']+"' alt='' /><input type='hidden' name='"+data['id']+"'></span>";
+						$(".theLogoChecked").append(str2);
+						
+						//将该奖品设上遮罩
+						//$(this).parent().parent().find(".prizeCheckedDiv1").css('display','block');
+						$.applyActivity.create.removeRoot();
+						$.applyActivity.create.getCheckNum()
+					},'json');
+				}
+			});
+		},
+		
+		clickToaddRedPackage1:function(){
+			/**
+			 * 点击隐藏红包列表，弹出配置
+			 */
+			$("#redPackage1").find(".putongRedPackage1").click(function(){
+				
+				var arr=$("input[name='alredayChecked1']")
+				
+				if(arr.length>=10){
+					layer.alert('您已经选择了10个奖品，不能选择更多！', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				}else{
+					
+					$("#redPackageSetting1").css("display","block");
+					$("#redPackage1").css("display","none")
+					
+					var mid=$(this).attr('name');
+					$("#redPackageId").val(mid);
+					var url=rootPath+"/user/new/apply/findMaterialById.shtml"
+					$.post(url,{id:mid},function(data){
+						$("#redpackageVal1").html(data['redPackageValue'])
+						$("#redPackageValSpan1").html(data['redPackageValue'])
+					},'json')
+				}
+			})
+			
+			$("#exit1").click(function(){
+				$("#redPackageSetting1").css("display","none");
+				$("#redPackage1").css("display","block")
+			})
+		},
+		
+		clickToaddRedPackage2:function(){
+			/**
+			 * 点击隐藏红包列表，弹出配置
+			 */
+			$("#redPackage2").find(".putongRedPackage2").click(function(){
+				var arr=$("input[name='alredayChecked2']")
+				
+				if(arr.length>=10){
+					layer.alert('您已经选择了10个奖品，不能选择更多！', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				}else{
+					$("#redPackageSetting2").css("display","block");
+					$("#redPackage2").css("display","none")
+					
+					var mid=$(this).attr('name');
+					$("#redPackageId2").val(mid);
+					
+					var url=rootPath+"/user/new/apply/findMaterialById.shtml"
+					$.post(url,{id:mid},function(data){
+						$("#redpackageVal2").html(data['redPackageValue'])
+						
+						$("#redPackageValSpan2").html(data['redPackageValue'])
+					},'json')
+				}
+				
+			})
+			
+			$("#exit2").click(function(){
+				$("#redPackageSetting2").css("display","none");
+				$("#redPackage2").css("display","block")
+			})
+		},
+		
+		/**
+		 * 点击添加实物奖2
+		 */
+		clickToaddReal2:function(){
+			$("#theRealPrize2").find(".putongshiwuPrize2").click(function(){
+				var str="";
+				var str2="";
+				//首先获取到已选奖品的集合
+				var mid=$(this).attr('name');
+				var imgServer=$("#imgserverHost").val();
+				var arr=$("input[name='alredayChecked2']")
+				
+				if(arr.length>=10){
+					layer.alert('您已经选择了10个奖品，不能选择更多！', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				}else{
+					$(this).parent().parent().find(".prizeCheckedDiv1b").css('display','block');
+					$(".tuijianJiangpin2").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv2').css('display','block')
+					/*$(".putongdianzijiang").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','block')*/
+					//查询到该奖品信息异步添加两处节点
+					var url=rootPath+"/user/new/apply/findMaterialById.shtml"
+					$.post(url,{id:mid},function(data){
+						
+						//添加奖品自定义页面已选奖品的节点
+						str+="<li class='electron-icon float-left'>";
+						str+="<span style='cursor:hand;'><a href='javascript:void(0)' class='theCheckedPrizeId2'><img alt='' class='jianhao' src='"+rootPath+""+"/assets/images/minus_alt.png"+"' /></a></span>";
+						str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+							str+="<label class='demo--label'>";
+	                        str+="</label>";
+						str+="</span>"
+						str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>";
+						str+="<div class='clear'>";
+							str+="<div class='prizeCheckedDiv1b' style='display: none'>";
+							str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+							str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+							str+="</div>";
+						str+="</div>"
+						str+="<span class='electron-logo'><img src='"+imgServer+data['logo8Url']+"' style='width:112px;height:112px;' alt='' /></span><br>";
+						str+="<span class='electron-bottom'><span >"+data['prizeValue']+"</span></span>";
+						str+="<input type='hidden' name='alredayChecked2' value='"+data['id']+"'>";
+						
+						//方便表单提交，设置隐藏的input
+						var theindex=arr.length
+						str+="<input type='hidden' id='prizeClassify' name='pmlist2["+theindex+"].prizeClassify.id' value='"+data['category']+"'>";
+						str+="<input type='hidden' id='prizeValue' name='pmlist2["+theindex+"].prizeValue' value='"+data['prizeValue']+"'>";
+						str+="<input type='hidden' id='isOneNum' name='pmlist2["+theindex+"].isOneNum' value='"+data['prizetype']+"'>";
+						str+="<input type='hidden' id='prizeName' name='pmlist2["+theindex+"].prizeName' value='"+data['prizeName']+"'>"
+						str+="<input type='hidden' id='prizeMaterail' name='pmlist2["+theindex+"].prizeMaterial.id' value='"+data['id']+"'>";
+						str+="<input type='hidden' id='skipUrl' name='pmlist2["+theindex+"].skipUrl' value='"+data['skipUrl']+"'>";
+						str+="<input type='hidden' id='logo8Url' name='pmlist2["+theindex+"].logo8Url' value='"+data['logo8Url']+"'>";
+						str+="<input type='hidden' id='logo10Url' name='pmlist2["+theindex+"].logo10Url' value='"+data['logo10Url']+"'>";
+						str+="<input type='hidden' id='isTrue' name='pmlist2["+theindex+"].isTrue' value='"+data['type']+"'>";
+						str+="<input type='hidden' id='prizeAmount' name='pmlist2["+theindex+"].prizeAmount' value='"+data['amount']+"'>";
+						str+="<input type='hidden' id='sequenceId' name='pmlist2["+theindex+"].sequenceId' value='"+(theindex+1)+"'>";
+						if(data['isSpecial']==null){
+							str+="<input type='hidden' id='isSpecial' name='pmlist2["+theindex+"].isSpecial' value='"+0+"'>";
+						}else{
+							str+="<input type='hidden' id='isSpecial' name='pmlist2["+theindex+"].isSpecial' value='"+data['isSpecial']+"'>";
+						}
+						
+						str+="</li>";
+						
+						$(".theCheckedPrizeTab2").append(str);
+						
+						//将该奖品设上遮罩
+						//$(this).parent().parent().find(".prizeCheckedDiv1").css('display','block');
+						$.applyActivity.create.removeRoot2();
+						$.applyActivity.create.getCheckNum()
+					},'json');
+					
+					
+					
+					//向数据库保存该条红包的信息
+					
+					
+					
+					
+				}
+			});
+			
+			
+		},
+		
+		/**
+		 * 更新如果是红包点击编辑
+		 */
+		editRedPacket:function(){
+			var flag=$("#flag").val();
+			if(flag=="edit"){
+				
+				//提醒
+				$(document).on('mouseover', '.theCheckedPrizeTab1 li', function() {
+					var redPackageId=$(this).find("input[name='hadAddRedPackage']").val();
+					if(redPackageId!=null && redPackageId!=""){
+						//这个是红包
+						layer.tips('点击编辑红包信息', $(this), {
+							tips: [1, '#0FA6D8'] //还可配置颜色
+						});
+					}
+				})
+				
+				$(document).on('blur', "#merchantNameAlert", function(){
+					var fasongzhe=$(this).val()
+					$(this).parent().parent().find(".fasongzhe1").html(fasongzhe+"红包");
+					$(this).parent().parent().find(".fasongzhe2").html(fasongzhe+"的红包");
+					
+				})
+				
+				$(document).on('blur', "#greetingsAlert", function(){
+					var fasongzhe=$(this).val()
+					$(this).parent().parent().find(".zhufuyu").html(fasongzhe);
+					
+				})
+				//格式化日期的函数
+				Date.prototype.format = function(fmt) { 
+				     var o = { 
+				        "M+" : this.getMonth()+1,                 //月份 
+				        "d+" : this.getDate(),                    //日 
+				        "h+" : this.getHours(),                   //小时 
+				        "m+" : this.getMinutes(),                 //分 
+				        "s+" : this.getSeconds(),                 //秒 
+				        "q+" : Math.floor((this.getMonth()+3)/3), //季度 
+				        "S"  : this.getMilliseconds()             //毫秒 
+				    }; 
+				    if(/(y+)/.test(fmt)) {
+				            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+				    }
+				     for(var k in o) {
+				        if(new RegExp("("+ k +")").test(fmt)){
+				             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+				         }
+				     }
+				    return fmt; 
+				}            
+				
+				var indexx="";
+				
+				$(document).on('click', '.theCheckedPrizeTab1 li .electron-logo', function() {
+					/*var isClick = false;
+					$(".electron-icon").find(".theCheckedPrizeId1").click(function(){isClick = true;});
+					alert(isClick)*/
+					var redPackageId=$(this).parent().find("input[name='hadAddRedPackage']").val();
+					if(redPackageId!=null && redPackageId!=""){
+						var projectCode=$(this).parent().find("input[name='projectCode']").val();
+						var prizeManagerId=$(this).parent().find("input[name='prizeManagerId']").val();
+						
+						if(prizeManagerId !=null && prizeManagerId!=""){
+							
+							//这个是红包,查询红包和prizeManager，并且这个红包是之前的红包，不是新加 的
+							var url=rootPath+"/user/new/apply/findRedAndManager.shtml";
+							$.post(url,{redId:redPackageId,projectCode:projectCode,prizeManagerId:prizeManagerId},function(data){
+								//将所有的input表单加上required
+								$("#editRedPacket").find("input").attr("required","required")
+								//将数据回显
+								$("#redPackageVal").html(data['unit_money'])
+								$("#pauseTimeAlert").attr('value',new Date(data['pause_time']).format("yyyy-MM-dd"))
+								$("#beforeTotalAmount").html(data['num'])
+								$("#beforeLeftAmount").html(data['pmamount'])
+								$("#redpackageVala").html(data['unit_money'])
+								$("#inHourAlert").attr('value',data['in_hour'])
+								$("#merchantNameAlert").attr('value',data['merchant_name'])
+								$("#greetingsAlert").attr('value',data['greetings'])
+								
+								indexx=layer.open({
+									title: "编辑红包信息",
+									type: 1,
+									skin: 'layui-layer-rim',
+									area: ["55%", "70%"],
+									scrollbar: false,
+									content: "<div id='dataAlert'>"+$("#redAlert").html()+"</div>",
+									cancel: function(index, layero) {
+										$("#editRedPacket").find("input").removeAttr("required","required")
+										layer.close(index)
+									},
+									success: function(layero, index){
+										$("#dataAlert").find("#pauseTimeAlert").dateRangePicker({
+											startOfWeek : 'monday',
+											format : 'YYYY-MM-DD',
+											singleDate: true,
+											autoClose : false
+											
+										});
+										//点击取消关闭
+										$("#dataAlert").find("#exitAlert").click(function(){
+											layer.close(index);
+										})
+										
+										//点击确定更新红包和prizemanager的信息
+										$("#dataAlert").find("#toAddRedAlert").click(function(){
+											var pauseTime=$("#dataAlert").find("input[name='pauseTime']").val();
+											var num=$("#dataAlert").find("input[name='num']").val();
+											var inHour=$("#dataAlert").find("input[name='inHour']").val();
+											var merchantName=$("#dataAlert").find("input[name='merchantName']").val();
+											var greetings=$("#dataAlert").find("input[name='greetings']").val();
+											if(pauseTime==null || pauseTime=="" || num==null || num=="" || inHour=="" || inHour==null || merchantName=="" || merchantName==null || greetings=="" || greetings==null){
+												layer.msg("信息不全，请检查是否有未填项")
+											}else{
+												//提交修改，判断增加的金额是否能够发红包
+												
+													
+												var redValue=parseFloat(data['unit_money'])*num
+												var sendMoney=parseFloat($("#haveSendMoney").val());
+												var allMoney=parseFloat($("#allMoney").val());
+												var accountMoney=parseFloat($("#accountMoney").val());
+												if(allMoney<sendMoney+redValue){
+													layer.alert("您的账户不足以支付增加此次红包更新,"+"您的账户余额："+accountMoney+"元，您还需要充值："+((sendMoney+redValue)-allMoney)+" 元")
+												}else{
+													var urlUpdate=rootPath+"/user/new/apply/updateRedPacket.shtml";
+													$.post(urlUpdate,{id:redPackageId,prizeManagerId:prizeManagerId,pauseTime:new Date(pauseTime),num:num,inHour:inHour,merchantName:merchantName,greetings:greetings},function(data2){
+														if(data2['msg']=='ok'){
+															layer.alert("更新红包信息成功")
+															//需要将这个添加的红包的金额添加到隐藏域
+															var redPackageVal=$("#redPackageValue").val()
+															redPackageVal=parseFloat(redPackageVal);
+															var unitMoney=parseFloat(data['unit_money'])
+															/*$("#redPackageValue").val(redPackageVal+(unitMoney*num));*/
+															//增加已发送金额
+															$("#haveSendMoney").val(sendMoney+(unitMoney*num));
+															layer.close(index);
+														}else if(data2['msg']=='error'){
+															layer.alert("未知错误，请联系管理员！")
+														}else{
+															layer.alert("未知错误")
+														}
+														
+													},'json')
+												}
+											}
+										})
+									}
+								});
+							},'json')
+						}
+					}
+				})
+				
+				
+				
+				//提醒
+				$(document).on('mouseover', '.theCheckedPrizeTab2 li', function() {
+					var redPackageId=$(this).find("input[name='hadAddRedPackageId']").val();
+					if(redPackageId!=null && redPackageId!=""){
+						//这个是红包
+						layer.tips('点击编辑红包信息', $(this), {
+							tips: [1, '#0FA6D8'] //还可配置颜色
+						});
+					}
+				})
+				
+				
+				$(document).on('click', '.theCheckedPrizeTab2 li .electron-logo', function() {
+					var redPackageId=$(this).parent().find("input[name='hadAddRedPackageId']").val();
+					if(redPackageId!=null && redPackageId!=""){
+						var projectCode=$(this).parent().find("input[name='projectCode']").val();
+						var prizeManagerId=$(this).parent().find("input[name='prizeManagerId2']").val();
+						if(prizeManagerId !=null && prizeManagerId!=""){
+							
+							//这个是红包,查询红包和prizeManager，并且这个红包是之前的红包，不是新加 的
+							var url=rootPath+"/user/new/apply/findRedAndManager.shtml";
+							$.post(url,{redId:redPackageId,projectCode:projectCode,prizeManagerId:prizeManagerId},function(data){
+								//将所有的input表单加上required
+								$("#editRedPacket").find("input").attr("required","required")
+								//将数据回显
+								$("#redPackageVal").html(data['unit_money'])
+								$("#pauseTimeAlert").attr('value',new Date(data['pause_time']).format("yyyy-MM-dd"))
+								$("#beforeTotalAmount").html(data['num'])
+								$("#beforeLeftAmount").html(data['pmamount'])
+								$("#redpackageVala").html(data['unit_money'])
+								$("#inHourAlert").attr('value',data['in_hour'])
+								$("#merchantNameAlert").attr('value',data['merchant_name'])
+								$("#greetingsAlert").attr('value',data['greetings'])
+								
+								layer.open({
+									title: "编辑红包信息",
+									type: 1,
+									skin: 'layui-layer-rim',
+									area: ["55%", "70%"],
+									scrollbar: false,
+									content: "<div id='dataAlert'>"+$("#redAlert").html()+"</div>",
+									cancel: function(index, layero) {
+										$("#editRedPacket").find("input").removeAttr("required","required")
+										layer.close(index)
+									},
+									success: function(layero, index){
+										$("#dataAlert").find("#pauseTimeAlert").dateRangePicker({
+											startOfWeek : 'monday',
+											format : 'YYYY-MM-DD',
+											singleDate: true,
+											autoClose : false
+										});
+										
+										//点击取消关闭
+										$("#dataAlert").find("#exitAlert").click(function(){
+											layer.close(index);
+										})
+										
+										$("#dataAlert").find("#toAddRedAlert").click(function(){
+											var pauseTime=$("#dataAlert").find("input[name='pauseTime']").val();
+											var num=$("#dataAlert").find("input[name='num']").val();
+											var inHour=$("#dataAlert").find("input[name='inHour']").val();
+											var merchantName=$("#dataAlert").find("input[name='merchantName']").val();
+											var greetings=$("#dataAlert").find("input[name='greetings']").val();
+											if(pauseTime==null || pauseTime=="" || num==null || num=="" || inHour=="" || inHour==null || merchantName=="" || merchantName==null || greetings=="" || greetings==null){
+												layer.msg("信息不全，请检查是否有未填项")
+											}else{
+												//提交修改
+												var redValue=parseFloat(data['unit_money'])*num
+												var sendMoney=parseFloat($("#haveSendMoney").val());
+												var allMoney=parseFloat($("#allMoney").val());
+												var accountMoney=parseFloat($("#accountMoney").val());
+												if(allMoney<sendMoney+redValue){
+													layer.alert("您的账户不足以支付增加此次红包更新,"+"您的账户余额："+accountMoney+"元，您还需要充值："+((sendMoney+redValue)-allMoney)+" 元")
+												}else{
+													var urlUpdate=rootPath+"/user/new/apply/updateRedPacket.shtml";
+													$.post(urlUpdate,{id:redPackageId,prizeManagerId:prizeManagerId,pauseTime:new Date(pauseTime),num:num,inHour:inHour,merchantName:merchantName,greetings:greetings},function(data2){
+														if(data2['msg']=='ok'){
+															layer.alert("更新红包信息成功")
+															layer.close(index);
+															//隐藏域新增金额
+															var redPackageVal=$("#redPackageValue2").val()
+															redPackageVal=parseFloat(redPackageVal);
+															var unitMoney=parseFloat(data['unit_money'])
+															/*$("#redPackageValue2").val(redPackageVal+(unitMoney*num));*/
+															//增加已发送金额的数
+															$("#haveSendMoney").val(sendMoney+(unitMoney*num));
+														}else if(data2['msg']=='error'){
+															layer.alert("未知错误，请联系管理员！")
+														}else{
+															layer.alert("失败，未知错误")
+														}
+													},'json')
+												}
+											}
+										})
+									}
+								});
+							},'json')
+						}
+					}
+				})
+			}
+			
+		},
+		
+		
+		addRedPackage1:function(){
+			$("#toAddRed1").click(function(){
+				var pauseTime=$("#redPackageSetting1").find("input[name='pauseTime']").val();
+				
+				var num=$("#redPackageSetting1").find("input[name='num']").val();
+				var unitMoney=$("#redpackageVal1").html();
+				var inHour=$("#redPackageSetting1").find("input[name='inHour']").val();
+				var merchantName=$("#redPackageSetting1").find("input[name='merchantName']").val();
+				var greetings=$("#redPackageSetting1").find("input[name='greetings']").val();
+				var activityName=$("#typeName").val();
+				var prizeMaterialId=$("#redPackageId").val();
+				var isStrategy=0;
+				
+				if(pauseTime==null || pauseTime=="" || num==null || num=="" || inHour=="" || inHour==null || merchantName=="" || merchantName==null || greetings=="" || greetings==null){
+					layer.msg("您的红包信息填写不完整")
+				}else{
+					$("#redPackage1").css("display","block")
+					$("#redPackageSetting1").css("display","none")
+					
+					var str="";
+					var str2="";
+					//首先获取到已选奖品的集合
+					var mid=$("#redPackageId").val();
+					var imgServer=$("#imgserverHost").val();
+					var arr=$("input[name='alredayChecked1']")
+					
+					if(arr.length>=10){
+						layer.alert('您已经选择了10个奖品，不能选择更多！', {
+							  skin: 'layui-layer-molv' //样式类名
+							  ,closeBtn: 0
+						});
+					}else{
+						var hadAddRedPackage="";
+						var url2=rootPath+"/user/new/apply/saveRedPackage.shtml";
+						//提取参数
+						var date = new Date(pauseTime);
+						//var param={pauseTime:pauseTime,num:num,unitMoney:unitMoney,inHour:inHour,merchantName:merchantName,greetings:greetings,activityName:activityName,prizeMaterialId:prizeMaterialId,isStrategy:isStrategy}
+						$.post(url2,{pauseTime:date,num:num,unitMoney:unitMoney,inHour:inHour,merchantName:merchantName,greetings:greetings,activityName:activityName,prizeMaterialId:prizeMaterialId,isStrategy:isStrategy},function(data){
+							hadAddRedPackage=data['id'];
+							
+							if(data['msg']=='noaccount'){
+								layer.alert("您还没有账户，请联系我们的工作人员！")
+							}else{
+								$("a[name='"+mid+"']").parent().parent().find(".prizeCheckedDiv1a").css('display','block');
+								$(".tuijianJiangpin1").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','block')
+								/*$(".putongdianzijiang").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','block')*/
+								//查询到该奖品信息异步添加两处节点
+								var url=rootPath+"/user/new/apply/findMaterialById.shtml"
+								$.post(url,{id:mid},function(data){
+									
+									//添加奖品自定义页面已选奖品的节点
+									str+="<li class='electron-icon float-left'>";
+									str+="<span style='cursor:hand;'><a href='javascript:void(0)' class='theCheckedPrizeId1'><img alt='' class='jianhao' src='"+rootPath+""+"/assets/images/minus_alt.png"+"' /></a></span>";
+									str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+										str+="<label class='demo--label'>";
+				                        str+="</label>";
+									str+="</span>"
+									str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>";
+									str+="<div class='clear'>";
+										str+="<div class='prizeCheckedDiv1' style='display: none'>";
+										str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+										str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+										str+="</div>";
+									str+="</div>"
+									str+="<span class='electron-logo'><img src='"+imgServer+data['logo8Url']+"' style='width:112px;height:112px;' alt='' /></span><br>";
+									str+="<span class='electron-bottom'><span >"+data['prizeValue']+"</span></span>";
+									str+="<input type='hidden' name='alredayChecked1' value='"+data['id']+"'>";
+									str+="<input type='hidden' name='hadAddRedPackage' value='"+hadAddRedPackage+"'>";
+									
+									var theindex=arr.length
+									str+="<input type='hidden' id='prizeClassify' name='pmlist1["+theindex+"].prizeClassify.id' value='"+data['category']+"'>";
+									str+="<input type='hidden' id='prizeValue' name='pmlist1["+theindex+"].prizeValue' value='"+data['prizeValue']+"'>";
+									str+="<input type='hidden' id='isOneNum' name='pmlist1["+theindex+"].isOneNum' value='"+data['prizetype']+"'>";
+									str+="<input type='hidden' id='prizeName' name='pmlist1["+theindex+"].prizeName' value='"+data['prizeName']+"'>"
+									str+="<input type='hidden' id='prizeMaterail' name='pmlist1["+theindex+"].prizeMaterial.id' value='"+data['id']+"'>";
+									str+="<input type='hidden' id='skipUrl' name='pmlist1["+theindex+"].skipUrl' value='"+data['skipUrl']+"'>";
+									str+="<input type='hidden' id='logo8Url' name='pmlist1["+theindex+"].logo8Url' value='"+data['logo8Url']+"'>";
+									str+="<input type='hidden' id='logo10Url' name='pmlist1["+theindex+"].logo10Url' value='"+data['logo10Url']+"'>";
+									str+="<input type='hidden' id='isTrue' name='pmlist1["+theindex+"].isTrue' value='"+data['type']+"'>";
+									str+="<input type='hidden' id='prizeAmount' name='pmlist1["+theindex+"].prizeAmount' value='"+data['amount']+"'>";
+									str+="<input type='hidden' id='sequenceId' name='pmlist1["+theindex+"].sequenceId' value='"+(theindex+1)+"'>";
+									if(data['isSpecial']==null){
+										str+="<input type='hidden' id='isSpecial' name='pmlist1["+theindex+"].isSpecial' value='"+0+"'>";
+									}else{
+										str+="<input type='hidden' id='isSpecial' name='pmlist1["+theindex+"].isSpecial' value='"+data['isSpecial']+"'>";
+									}
+									
+									str+="</li>";
+									
+									$(".theCheckedPrizeTab1").append(str);
+									
+									//添加另一个节点
+									
+									str2+="<span><img src='"+imgServer+data['logo8Url']+"' alt='' /><input type='hidden' name='"+data['id']+"'></span>";
+									$(".theLogoChecked").append(str2);
+									
+									//向隐藏与中设置红包金额
+									//hadAddRedPackage
+									var redPackageVal=$("#redPackageValue").val()
+									redPackageVal=parseFloat(redPackageVal);
+									unitMoney=parseFloat(unitMoney)
+									$("#redPackageValue").val(redPackageVal+(unitMoney*num));
+									/*$("#redPackage1Div").append("<input type='hidden' name=''>")*/
+									
+									var trstr="<tr id="+hadAddRedPackage+">";
+									trstr+="<th scope='row'>"+unitMoney+"</th>";
+									trstr+="<td class=''>"+num+"</td>";
+									trstr+="<td class=''>"+(unitMoney*num)+"</td>";
+									trstr+="</tr>"
+										
+									$("#redaddtr1").append(trstr);
+									
+									var totalRedValue=$("#totalRedValue").html();
+									totalRedValue=parseFloat(totalRedValue)
+									$("#totalRedValue").html(totalRedValue+(unitMoney*num))
+									
+									//将该奖品设上遮罩
+									//$(this).parent().parent().find(".prizeCheckedDiv1").css('display','block');
+									//向隐藏域中添加红包id
+									var acr=$("input[name='alredayCheckedRed']").val();
+									var acrarr=acr.split(",");
+									acr+=","+hadAddRedPackage
+									
+									$("input[name='alredayCheckedRed']").val(acr)
+									$.applyActivity.create.removeRoot();
+									$.applyActivity.create.getCheckNum()
+									
+								},'json');
+							}
+						},'json')
+					}
+				}
+			})
+		},
+		
+		addRedPackage2:function(){
+			$("#toAddRed2").click(function(){
+				var pauseTime=$("#redPackageSetting2").find("input[name='pauseTime']").val();
+				var num=$("#redPackageSetting2").find("input[name='num']").val();
+				var unitMoney=$("#redpackageVal2").html();
+				var inHour=$("#redPackageSetting2").find("input[name='inHour']").val();
+				var merchantName=$("#redPackageSetting2").find("input[name='merchantName']").val();
+				var greetings=$("#redPackageSetting2").find("input[name='greetings']").val();
+				var activityName=$("#typeName").val();
+				var prizeMaterialId=$("#redPackageId2").val();
+				var isStrategy=1;
+				if(pauseTime==null || pauseTime=="" || num==null || num=="" || inHour=="" || inHour==null || merchantName=="" || merchantName==null || greetings=="" || greetings==null){
+					layer.msg("您的红包信息填写不完整")
+				}else{
+					$("#redPackage2").css("display","block")
+					$("#redPackageSetting2").css("display","none")
+					
+					var str="";
+					var str2="";
+					//首先获取到已选奖品的集合
+					var mid=$("#redPackageId2").val();
+					var imgServer=$("#imgserverHost").val();
+					var arr=$("input[name='alredayChecked2']")
+					
+					if(arr.length>=10){
+						layer.alert('您已经选择了10个奖品，不能选择更多！', {
+							  skin: 'layui-layer-molv' //样式类名
+							  ,closeBtn: 0
+						});
+					}else{
+						var hadAddRedPackageId="";
+						//添加红包信息
+						var url2=rootPath+"/user/new/apply/saveRedPackage.shtml";
+						//提取参数
+						var date = new Date(pauseTime);
+						//var param={pauseTime:pauseTime,num:num,unitMoney:unitMoney,inHour:inHour,merchantName:merchantName,greetings:greetings,activityName:activityName,prizeMaterialId:prizeMaterialId,isStrategy:isStrategy}
+						$.post(url2,{pauseTime:date,num:num,unitMoney:unitMoney,inHour:inHour,merchantName:merchantName,greetings:greetings,activityName:activityName,prizeMaterialId:prizeMaterialId,isStrategy:isStrategy},function(data){
+							hadAddRedPackageId=data['id']
+							if(data['msg']=='noaccount'){
+								layer.alert('您还没有账户，请联系我们的工作人员')
+							}else{
+								$("a[name='"+mid+"']").parent().parent().find(".prizeCheckedDiv2a").css('display','block');
+								$(".tuijianJiangpin2").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv2').css('display','block')
+								/*$(".putongdianzijiang").find("a[name='"+mid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','block')*/
+								//查询到该奖品信息异步添加两处节点
+								var url=rootPath+"/user/new/apply/findMaterialById.shtml"
+								$.post(url,{id:mid},function(data){
+									
+									//添加奖品自定义页面已选奖品的节点
+									str+="<li class='electron-icon float-left'>";
+									str+="<span style='cursor:hand;'><a href='javascript:void(0)' class='theCheckedPrizeId2'><img alt='' class='jianhao' src='"+rootPath+""+"/assets/images/minus_alt.png"+"' /></a></span>";
+									str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+										str+="<label class='demo--label'>";
+				                        str+="</label>";
+									str+="</span>"
+									str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 0;'></span>";
+									str+="<div class='clear'>";
+										str+="<div class='prizeCheckedDiv2' style='display: none'>";
+										str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+										str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>"
+										str+="</div>";
+									str+="</div>"
+									str+="<span class='electron-logo'><img src='"+imgServer+data['logo8Url']+"' style='width:112px;height:112px;' alt='' /></span><br>";
+									str+="<span class='electron-bottom'><span >"+data['prizeValue']+"</span></span>";
+									str+="<input type='hidden' name='alredayChecked2' value='"+data['id']+"'>";
+									str+="<input type='hidden' name='hadAddRedPackageId' value='"+hadAddRedPackageId+"'>";
+									
+									var theindex=arr.length
+									str+="<input type='hidden' id='prizeClassify' name='pmlist2["+theindex+"].prizeClassify.id' value='"+data['category']+"'>";
+									str+="<input type='hidden' id='prizeValue' name='pmlist2["+theindex+"].prizeValue' value='"+data['prizeValue']+"'>";
+									str+="<input type='hidden' id='isOneNum' name='pmlist2["+theindex+"].isOneNum' value='"+data['prizetype']+"'>";
+									str+="<input type='hidden' id='prizeName' name='pmlist2["+theindex+"].prizeName' value='"+data['prizeName']+"'>"
+									str+="<input type='hidden' id='prizeMaterial' name='pmlist2["+theindex+"].prizeMaterial.id' value='"+data['id']+"'>";
+									str+="<input type='hidden' id='skipUrl' name='pmlist2["+theindex+"].skipUrl' value='"+data['skipUrl']+"'>";
+									str+="<input type='hidden' id='logo8Url' name='pmlist2["+theindex+"].logo8Url' value='"+data['logo8Url']+"'>";
+									str+="<input type='hidden' id='logo10Url' name='pmlist2["+theindex+"].logo10Url' value='"+data['logo10Url']+"'>";
+									str+="<input type='hidden' id='isTrue' name='pmlist2["+theindex+"].isTrue' value='"+data['type']+"'>";
+									str+="<input type='hidden' id='prizeAmount' name='pmlist2["+theindex+"].prizeAmount' value='"+data['amount']+"'>";
+									str+="<input type='hidden' id='sequenceId' name='pmlist2["+theindex+"].sequenceId' value='"+(theindex+1)+"'>";
+									if(data['isSpecial']==null){
+										str+="<input type='hidden' id='isSpecial' name='pmlist2["+theindex+"].isSpecial' value='"+0+"'>";
+									}else{
+										str+="<input type='hidden' id='isSpecial' name='pmlist2["+theindex+"].isSpecial' value='"+data['isSpecial']+"'>";
+									}
+									str+="</li>";
+									
+									$(".theCheckedPrizeTab2").append(str);
+									//添加另一个节点
+									str2+="<span><img src='"+imgServer+data['logo8Url']+"' alt='' /><input type='hidden' name='"+data['id']+"'></span>";
+									//将该奖品设上遮罩
+									//$(this).parent().parent().find(".prizeCheckedDiv1").css('display','block');
+									
+									//计算金额
+									var redPackageVal=$("#redPackageValue2").val()
+									redPackageVal=parseFloat(redPackageVal);
+									unitMoney=parseFloat(unitMoney)
+									$("#redPackageValue2").val(redPackageVal+(unitMoney*num));
+									//添加红包明细列表
+									
+									var trstr="<tr id="+hadAddRedPackageId+">";
+									trstr+="<th scope='row'>"+unitMoney+"</th>";
+									trstr+="<td class=''>"+num+"</td>";
+									trstr+="<td class=''>"+(unitMoney*num)+"</td>";
+									trstr+="</tr>"
+									
+									$("#redaddtr2").append(trstr);
+										
+									var totalRedValue=$("#totalRedValue").html();
+									totalRedValue=parseFloat(totalRedValue)
+									$("#totalRedValue").html(totalRedValue+(unitMoney*num))
+									
+									
+									var acr=$("input[name='alredayCheckedRed2']").val();
+									
+									acr+=","+hadAddRedPackageId
+									
+									$("input[name='alredayCheckedRed2']").val(acr)
+									
+									$.applyActivity.create.removeRoot2();
+									$.applyActivity.create.getCheckNum();
+								},'json');
+							}
+							
+						},'json')
+
+					}
+		
+				}
+						
+			})
+		},
+		
+		
+		/**
+		 * 移除已选奖品节点--普通
+		 */
+		removeRoot:function(){
+			/**
+			 * 点击已选奖品删除按钮，移除节点，同时移除遮罩
+			 */
+			$(".electron-icon").find(".theCheckedPrizeId1").click(function(){
+				var obj=$(this)
+				$.applyActivity.create.removeRootFun1(obj);
+				
+			})
+		},	
+		
+		
+		//移除节点的方法
+		removeRootFun1:function(obj){
+			//var obj=$(this)
+			//判断是否是是红包，是的话要删除数据库中的红包
+			function removeRedRoot(obj2,data){
+				var li=$(obj).parent().parent();
+				var index = $(".theCheckedPrizeTab1 li").index($(li));
+				$(obj).parent().parent().remove();
+				var arr=$("input[name='alredayChecked1']")
+				var materialid=$(obj).parent().parent().find("input[name='alredayChecked1']").val();
+				//移除logo div中改节点
+				$("#logo").find("input[name='"+materialid+"']").parent().remove();
+				$.applyActivity.create.getCheckNum()
+				//移除普通推荐奖品中的遮罩
+				$(".tuijianputong").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','none')
+				//移除普通自定义奖品的遮罩
+				$(".putongzidingyi").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','none')
+				$(".putongshiwu").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv1a').css('display','none')
+				
+				//设置奖品列表中的下标，设置该移除节点之后的节点的索引-1
+				var length=$(arr).length;
+				for(var i=index;i<length;i++){
+					var li = $(".theCheckedPrizeTab1 li:eq("+i+")");
+					if($(li).find("#id").val()!=null && $(li).find("#id").val()!=""){
+						$(li).find("#id").attr("name","pmlist1["+i+"].id");
+					}
+					$(li).find("#prizeClassify").attr("name","pmlist1["+i+"].prizeClassify.id");
+					$(li).find("#prizeValue").attr("name","pmlist1["+i+"].prizeValue");
+					$(li).find("#isOneNum").attr("name","pmlist1["+i+"].isOneNum");
+					$(li).find("#prizeName").attr("name","pmlist1["+i+"].prizeName");
+					$(li).find("#prizeMaterail").attr("name","pmlist1["+i+"].prizeMaterial.id");
+					$(li).find("#skipUrl").attr("name","pmlist1["+i+"].skipUrl");
+					$(li).find("#logo8Url").attr("name","pmlist1["+i+"].logo8Url");
+					$(li).find("#logo10Url").attr("name","pmlist1["+i+"].logo10Url");
+					$(li).find("#isTrue").attr("name","pmlist1["+i+"].isTrue");
+					$(li).find("#prizeAmount").attr("name","pmlist1["+i+"].prizeAmount");
+					$(li).find("#sequenceId").attr("name","pmlist1["+i+"].sequenceId");
+					$(li).find("#isSpecial").attr("name","pmlist1["+i+"].isSpecial");
+					$(li).find("#sequenceId").val((i+1));
+				}
+				layer.msg("移除红包成功！")
+				if(data['isUpdate']==true){
+					//不设置隐藏域中的金额
+					//去减去已发送金额
+					var money=parseFloat(data['redPacket']['unitMoney'])*data['redPacket']['num']
+					var sendMoney=parseFloat($("#haveSendMoney").val());
+					$("#haveSendMoney").val(sendMoney-money);
+					
+				}else{
+					//同时减去隐藏与中的金额
+					var redPackageVal=$("#redPackageValue").val();
+					redPackageVal=parseFloat(redPackageVal);
+					var unitMoney=parseFloat(data['redPacket']['unitMoney'])
+					$("#redPackageValue").val(redPackageVal-(unitMoney*data['redPacket']['num']));
+					var totalRedValue= parseFloat($("#totalRedValue").html());
+					$("#totalRedValue").html(totalRedValue-(unitMoney*data['redPacket']['num']));
+					//移除隐藏域中的id
+					var acr=$("input[name='alredayCheckedRed']").val();
+					acr=acr.replace(","+data['redPacket']['id'],'');
+					acr=acr.replace(data['redPacket']['id'],'');
+					$("input[name='alredayCheckedRed']").val(acr)
+				}
+				
+				//移除列表
+				$("#"+redPackageId).remove();
+				
+				
+				$.applyActivity.create.getCheckNum()
+			}
+			
+			
+			function removePrizeRoot(obj3){
+				var li=$(obj).parent().parent();
+				var index = $(".theCheckedPrizeTab1 li").index($(li));
+				$(obj).parent().parent().remove();
+				var arr=$("input[name='alredayChecked1']")
+				var materialid=$(obj).parent().parent().find("input[name='alredayChecked1']").val();
+				//移除logo div中改节点
+				$("#logo").find("input[name='"+materialid+"']").parent().remove();
+				$.applyActivity.create.getCheckNum()
+				//移除普通推荐奖品中的遮罩
+				$(".tuijianputong").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','none')
+				//移除普通自定义奖品的遮罩
+				$(".putongzidingyi").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv1').css('display','none')
+				$(".putongshiwu").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv1a').css('display','none')
+				
+				//设置奖品列表中的下标，设置该移除节点之后的节点的索引-1
+				var length=$(arr).length;
+				for(var i=index;i<length;i++){
+					var li = $(".theCheckedPrizeTab1 li:eq("+i+")");
+					if($(li).find("#id").val()!=null && $(li).find("#id").val()!=""){
+						$(li).find("#id").attr("name","pmlist1["+i+"].id");
+					}
+					$(li).find("#prizeClassify").attr("name","pmlist1["+i+"].prizeClassify.id");
+					$(li).find("#prizeValue").attr("name","pmlist1["+i+"].prizeValue");
+					$(li).find("#isOneNum").attr("name","pmlist1["+i+"].isOneNum");
+					$(li).find("#prizeName").attr("name","pmlist1["+i+"].prizeName");
+					$(li).find("#prizeMaterail").attr("name","pmlist1["+i+"].prizeMaterial.id");
+					$(li).find("#skipUrl").attr("name","pmlist1["+i+"].skipUrl");
+					$(li).find("#logo8Url").attr("name","pmlist1["+i+"].logo8Url");
+					$(li).find("#logo10Url").attr("name","pmlist1["+i+"].logo10Url");
+					$(li).find("#isTrue").attr("name","pmlist1["+i+"].isTrue");
+					$(li).find("#prizeAmount").attr("name","pmlist1["+i+"].prizeAmount");
+					$(li).find("#sequenceId").attr("name","pmlist1["+i+"].sequenceId");
+					$(li).find("#isSpecial").attr("name","pmlist1["+i+"].isSpecial");
+					$(li).find("#sequenceId").val((i+1));
+				}
+				$.applyActivity.create.getCheckNum()
+			}
+			
+			
+			var redPackageId=$(obj).parent().parent().find("input[name='hadAddRedPackage']").val();
+			var prizeManagerId=$(obj).parent().parent().find("input[name='prizeManagerId']").val()
+			//更新红包的移除
+			
+			if(redPackageId!=null && redPackageId!=""){
+				if(prizeManagerId==null || prizeManagerId==""){
+					//普通红包的移除
+					//判断是否更新红包的移除
+					var url=rootPath+"/user/new/apply/deleteRedPackage.shtml";
+					$.post(url,{rid:redPackageId},function(data){
+						if(data['result']==0){
+							
+							
+						}else if(data['result']==1){
+							removeRedRoot(obj,data)
+						}
+					},'json')
+				}else{
+					//更新红包的移除
+					var url=rootPath+"/user/new/apply/updateRedAndManagerById.shtml";
+					$.post(url,{rid:redPackageId,prizeManagerId:prizeManagerId},function(data){
+						if(data['msg']=='ok'){
+							removeRedRoot(obj,data)
+						}else{
+							layer.alert("移除红包失败")
+						}
+					},'json')
+				}
+			}else{
+				if(prizeManagerId==null || prizeManagerId==""){
+					//普通奖品的移除
+					removePrizeRoot(obj);
+				}else{
+					//更新奖品的移除
+					var url=rootPath+"/user/new/apply/updateRedAndManagerById.shtml";
+					$.post(url,{rid:"",prizeManagerId:prizeManagerId},function(data){
+						if(data['msg']=='ok'){
+							removePrizeRoot(obj);
+							layer.alert("移除奖品成功")
+						}else{
+							layer.alert("移除奖品失败")
+						}
+					},'json')
+				}
+			}
+		},
+		
+		
+		/**
+		 * 移除已选奖品，高级选项中
+		 */
+		removeRoot2:function(){
+			/**
+			 * 点击已选奖品删除按钮，移除节点 同时移除遮罩
+			 */
+			$(".electron-icon").find(".theCheckedPrizeId2").click(function(){
+				var obj=$(this);
+				$.applyActivity.create.removeRootFun2(obj);
+			})
+		},	
+		
+		removeRootFun2:function(obj){
+			//移除红包的方法
+			function removeRedRoot2(obj2,data){
+				layer.msg("移除红包成功！")
+				var li=$(obj).parent().parent();
+				var index = $(".theCheckedPrizeTab2 li").index($(li));
+				$(obj).parent().parent().remove();
+				var arr=$("input[name='alredayChecked2']")
+				var materialid=$(obj).parent().parent().find("input[name='alredayChecked2']").val();
+				//移除logo div中改节点
+				$("#logo").find("input[name='"+materialid+"']").parent().remove();
+				$.applyActivity.create.getCheckNum()
+				$(".tuijiangaoji").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv2').css('display','none')
+				$(".gaojizidingyi").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv2').css('display','none')
+				$(".putongshiwu2").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv1b').css('display','none')
+				
+				//设置节点name
+				var length=$(arr).length;
+				for(var i=index;i<length;i++){
+					
+					var li = $(".theCheckedPrizeTab2 li:eq("+i+")");
+					if($(li).find("#id").val()!=null && $(li).find("#id").val()!=""){
+						$(li).find("#id").attr("name","pmlist2["+i+"].id");
+					}
+					$(li).find("#prizeClassify").attr("name","pmlist2["+i+"].prizeClassify.id");
+					$(li).find("#prizeValue").attr("name","pmlist2["+i+"].prizeValue");
+					$(li).find("#isOneNum").attr("name","pmlist2["+i+"].isOneNum");
+					$(li).find("#prizeName").attr("name","pmlist2["+i+"].prizeName");
+					$(li).find("#prizeMaterial").attr("name","pmlist2["+i+"].prizeMaterial.id");
+					$(li).find("#skipUrl").attr("name","pmlist2["+i+"].skipUrl");
+					$(li).find("#logo8Url").attr("name","pmlist2["+i+"].logo8Url");
+					$(li).find("#logo10Url").attr("name","pmlist2["+i+"].logo10Url");
+					$(li).find("#isTrue").attr("name","pmlist2["+i+"].isTrue");
+					$(li).find("#prizeAmount").attr("name","pmlist2["+i+"].prizeAmount");
+					$(li).find("#sequenceId").attr("name","pmlist2["+i+"].sequenceId");
+					$(li).find("#isSpecial").attr("name","pmlist2["+i+"].isSpecial");
+					$(li).find("#sequenceId").val((i+1));
+				}
+				
+				
+				
+				if(data['isUpdate']==true){
+					//不设置隐藏域中的金额
+					//去减去已发送金额
+					var money=parseFloat(data['redPacket']['unitMoney'])*data['redPacket']['num']
+					var sendMoney=parseFloat($("#haveSendMoney").val());
+					$("#haveSendMoney").val(sendMoney-money);
+					
+				}else{
+					var redPackageVal=$("#redPackageValue2").val();
+					redPackageVal=parseFloat(redPackageVal);
+					var unitMoney=parseFloat(data['redPacket']['unitMoney'])
+					$("#redPackageValue2").val(redPackageVal-(unitMoney*data['redPacket']['num']));
+					
+					var totalRedValue= parseFloat($("#totalRedValue").html());
+					$("#totalRedValue").html(totalRedValue-(unitMoney*data['redPacket']['num']));
+					
+					//移除隐藏域中的id
+					var acr=$("input[name='alredayCheckedRed2']").val();
+					acr=acr.replace(","+data['redPacket']['id'],'');
+					acr=acr.replace(data['redPacket']['id'],'');
+					$("input[name='alredayCheckedRed2']").val(acr)
+				}
+				
+				$("#"+redPackageId).remove();
+				
+				$.applyActivity.create.getCheckNum()
+			}
+			
+			function removePrizeRoot2(obj3,data){
+				var li=$(obj).parent().parent();
+				var index = $(".theCheckedPrizeTab2 li").index($(li));
+				$(obj).parent().parent().remove();
+				var arr=$("input[name='alredayChecked2']")
+				var materialid=$(obj).parent().parent().find("input[name='alredayChecked2']").val();
+				//移除logo div中改节点
+				$("#logo").find("input[name='"+materialid+"']").parent().remove();
+				$.applyActivity.create.getCheckNum()
+				$(".tuijiangaoji").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv2').css('display','none')
+				$(".gaojizidingyi").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv2').css('display','none')
+				$(".putongshiwu2").find("a[name='"+materialid+"']").parent().parent().find('.prizeCheckedDiv1b').css('display','none')
+				
+				//设置节点name
+				var length=$(arr).length;
+				for(var i=index;i<length;i++){
+					var li = $(".theCheckedPrizeTab2 li:eq("+i+")");
+					if($(li).find("#id").val()!=null && $(li).find("#id").val()!=""){
+						$(li).find("#id").attr("name","pmlist2["+i+"].id");
+					}
+					$(li).find("#prizeClassify").attr("name","pmlist2["+i+"].prizeClassify.id");
+					$(li).find("#prizeValue").attr("name","pmlist2["+i+"].prizeValue");
+					$(li).find("#isOneNum").attr("name","pmlist2["+i+"].isOneNum");
+					$(li).find("#prizeName").attr("name","pmlist2["+i+"].prizeName");
+					$(li).find("#prizeMaterial").attr("name","pmlist2["+i+"].prizeMaterial.id");
+					$(li).find("#skipUrl").attr("name","pmlist2["+i+"].skipUrl");
+					$(li).find("#logo8Url").attr("name","pmlist2["+i+"].logo8Url");
+					$(li).find("#logo10Url").attr("name","pmlist2["+i+"].logo10Url");
+					$(li).find("#isTrue").attr("name","pmlist2["+i+"].isTrue");
+					$(li).find("#prizeAmount").attr("name","pmlist2["+i+"].prizeAmount");
+					$(li).find("#sequenceId").attr("name","pmlist2["+i+"].sequenceId");
+					$(li).find("#isSpecial").attr("name","pmlist2["+i+"].isSpecial");
+					$(li).find("#sequenceId").val((i+1));
+				}
+				
+				$.applyActivity.create.getCheckNum()
+			}
+			
+			var redPackageId=$(obj).parent().parent().find("input[name='hadAddRedPackageId']").val();
+			var prizeManagerId=$(obj).parent().parent().find("input[name='prizeManagerId2']").val()
+			if(redPackageId!=null && redPackageId!=""){
+				if(prizeManagerId==null || prizeManagerId==""){
+					var url=rootPath+"/user/new/apply/deleteRedPackage.shtml";
+					$.post(url,{rid:redPackageId},function(data){
+						if(data['result']==0){
+						}else if(data['result']==1){
+							removeRedRoot2(obj,data)
+						}
+					},'json')
+					
+				}else{
+					//更新红包的移除
+					var url=rootPath+"/user/new/apply/updateRedAndManagerById.shtml";
+					$.post(url,{rid:redPackageId,prizeManagerId:prizeManagerId},function(data){
+						if(data['msg']=='ok'){
+							removeRedRoot2(obj,data)
+						}else{
+							layer.alert("移除红包失败")
+						}
+					},'json')
+				}
+			}else{
+				if(prizeManagerId==null || prizeManagerId==""){
+					removePrizeRoot2(obj)
+				}else{
+					//更新奖品的移除
+					var url=rootPath+"/user/new/apply/updateRedAndManagerById.shtml";
+					$.post(url,{rid:"",prizeManagerId:prizeManagerId},function(data){
+						if(data['msg']=='ok'){
+							removePrizeRoot2(obj,data);
+							layer.alert("移除奖品成功");
+						}else{
+							layer.alert("移除奖品失败")
+						}
+					},'json')
+				}
+			}
+		},
+		
+		
+		// 再次点击移除遮罩和节点
+		reClickRemove:function(){
+			//普通区域的
+			$(document).on('click', '#thePrizeSetting .prizeCheckedDiv1', function() {
+				var pid=$(this).parent().parent().find(".materialId").val();
+				
+				var obj2=$("#yixuanPrize1").find("input[value='"+pid+"']");
+				var obj=$(obj2).parent().find(".theCheckedPrizeId1")
+				$.applyActivity.create.removeRootFun1($(obj));
+				
+			})
+			
+			
+			//人群定向区域的
+			$(document).on('click', '#thePrizeSetting2 .prizeCheckedDiv2', function() {
+				var pid=$(this).parent().parent().find(".materialId").val();
+				var obj2=$("#theCheckedPrize2").find("input[value='"+pid+"']");
+				var obj=$(obj2).parent().find(".theCheckedPrizeId2")
+				$.applyActivity.create.removeRootFun2($(obj));
+			})
+			
+		},
+		
+		/**
+		 * 异步获取推荐的奖品
+		 */
+		getThetuijian:function(){
+			var url=rootPath+"/user/new/apply/findMaterialtuijian.shtml";
+			var imgServer=$("#imgserverHost").val();
+			var arr=$("input[name='alredayChecked1']")
+			var arr2=$("input[name='alredayChecked2']")
+			
+			var theAcType=$("#activityStyle").val();
+			$.post(url,{theAcType:theAcType},function(data){
+				$(data).each(function(index,dom){
+					var str="";
+					var str2="";
+					str+="<li class='electron-icon float-left'>";
+					str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+						str+="<label class='demo--label'>";
+	                    str+="</label>";
+					str+="</span>";
+					str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 61px;position:absolute'><img src='"+rootPath+""+"/assets/images/lijian.png"+"' alt='' /></span>";
+					str+="<div class='clear'>";
+						var strtemp="<div class='prizeCheckedDiv1' style='display: none'>";
+	                    for(var i=0;i<arr.length;i++){
+	                    	if($(arr[i]).val()==dom['id']){
+	                    		strtemp="<div class='prizeCheckedDiv1' style='display: block'>";
+	                    	}
+	                    }
+	                    str+=strtemp
+						/*str+="<div class='prizeCheckedDiv1' style='display: none'>";*/
+							str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+							str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>";
+						str+="</div>";
+					str+="</div>";
+					str+="<input type='hidden' class='materialId' value='"+dom['id']+"'>";	
+					str+="<span class='electron-logo tuijianputong'><a href='javascript:void(0)' class='tuijianPrize1' name='"+dom['id']+"'><img src='"+imgServer+dom['logo8Url']+"' style='width:112px;height:112px;' alt='' /></a></span><br>";
+					str+="<span class='electron-bottom' style='display: table;'><span style='display: table-cell; vertical-align: middle;'>"+dom['prizeValue']+"</span></span>";
+					str+="</li>";
+					
+					str2+="<li class='electron-icon float-left'>";
+					str2+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+						str2+="<label class='demo--label'>";
+	                    str2+="</label>";
+					str2+="</span>";
+					str2+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 61px;position:absolute'><img src='"+rootPath+"/assets/images/lijian.png' alt='' /></span>";
+					str2+="<div class='clear'>";
+						var strtemp="<div class='prizeCheckedDiv2' style='display: none'>";
+	                    for(var i=0;i<arr2.length;i++){
+	                    	if($(arr2[i]).val()==dom['id']){
+	                    		strtemp="<div class='prizeCheckedDiv2' style='display: block'>";
+	                    	}
+	                    }
+	                    str2+=strtemp
+						/*str2+="<div class='prizeCheckedDiv2' style='display: none'>";*/
+							str2+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+							str2+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>";
+						str2+="</div>";
+					str2+="</div>";
+					str2+="<input type='hidden' class='materialId' value='"+dom['id']+"'>";	
+					str2+="<span class='electron-logo tuijiangaoji'><a href='javascript:void(0)' class='tuijianPrize2' name='"+dom['id']+"'><img src='"+imgServer+dom['logo8Url']+"' style='width:112px;height:112px;' alt='' /></a></span><br>";
+					str2+="<span class='electron-bottom'style='display: table;'><span style='display: table-cell; vertical-align: middle;'>"+dom['prizeValue']+"</span></span>";
+					str2+="</li>";
+					$(".tuijianJiangpin1").append(str);
+					$(".tuijianJiangpin2").append(str2);
+				});
+				$.applyActivity.create.dianjitianjia1();
+				$.applyActivity.create.dianjitianjia2();
+			},'json')
+		},
+		
+		/**
+		 * 点击高级选项中--推荐的换一批============================================================================================================
+		 */
+		changeOther:function(){
+			$(".theChangeOther").find(".toChange").click(function(){
+				var val1=$(this).parent().find("input[type='hidden']").val();
+				var obj=$(this).parent().find("input[type='hidden']");
+				$(obj).val((parseInt(val1)+1))
+				var val=$(this).parent().find("input[type='hidden']").val();
+				val=parseInt(val)
+				var c=$(this).attr('name');
+				if(c=='commonLevel'){
+					//普通区域
+					var theAcType=$("#activityStyle").val();
+					var url=rootPath+"/user/new/apply/findMaterialtuijian.shtml";
+					var imgServer=$("#imgserverHost").val();
+					var arr=$("input[name='alredayChecked1']")
+					$(".tuijianJiangpin1").empty();
+					$.post(url,{current:val,theAcType:theAcType},function(data){
+						var thelength=0;
+						$(data).each(function(index,dom){
+							thelength++;
+							var str="";
+							str+="<li class='electron-icon float-left'>";
+							str+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+								str+="<label class='demo--label'>";
+			                    str+="</label>";
+							str+="</span>";
+							str+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 61px;position:absolute'><img src='"+rootPath+""+"/assets/images/lijian.png"+"' alt='' /></span>";
+							str+="<div class='clear'>";
+								var strtemp="<div class='prizeCheckedDiv1' style='display: none'>";
+			                    for(var i=0;i<arr.length;i++){
+			                    	if($(arr[i]).val()==dom['id']){
+			                    		strtemp="<div class='prizeCheckedDiv1' style='display: block'>";
+			                    	}
+			                    }
+			                    str+=strtemp
+								/*str+="<div class='prizeCheckedDiv1' style='display: none'>";*/
+									str+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+									str+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>";
+								str+="</div>";
+							str+="</div>";
+							str+="<input type='hidden' class='materialId' value='"+dom['id']+"'>";	
+							str+="<span class='electron-logo tuijianputong'><a href='javascript:void(0)' class='tuijianPrize1' name='"+dom['id']+"'><img src='"+imgServer+dom['logo8Url']+"' style='width:112px;height:112px;' alt='' /></a></span><br>";
+							str+="<span class='electron-bottom' style='display: table;'><span style='display: table-cell; vertical-align: middle;'>"+dom['prizeValue']+"</span></span>";
+							str+="</li>";
+							$(".tuijianJiangpin1").append(str);
+						});
+						if(thelength<10){
+							//说明已经到最后一页，将current变为0
+							$(obj).val(0)
+						}
+						
+						$.applyActivity.create.dianjitianjia1();
+					},'json')
+				}else if(c=='highLevel'){
+					var theAcType=$("#activityStyle").val();
+					var url=rootPath+"/user/new/apply/findMaterialtuijian.shtml";
+					var imgServer=$("#imgserverHost").val();
+					var arr2=$("input[name='alredayChecked2']")
+					$(".tuijianJiangpin2").empty();
+					$.post(url,{current:val,theAcType:theAcType},function(data){
+						var thelength=0;
+						$(data).each(function(index,dom){
+							thelength++;
+							var str2="";
+							str2+="<li class='electron-icon float-left'>";
+							str2+="<span class='float-left' style='display:inline-block;margin:-5px 0px 0 -1px;'>";
+								str2+="<label class='demo--label'>";
+			                    str2+="</label>";
+							str2+="</span>";
+							str2+="<span class='float-right lijian' style='display:inline-block;margin:-8px -2px 0 61px;position:absolute'><img src='"+rootPath+""+"/assets/images/lijian.png"+"' alt='' /></span>";
+							str2+="<div class='clear'>";
+								var strtemp="<div class='prizeCheckedDiv2' style='display: none'>";
+			                    for(var i=0;i<arr2.length;i++){
+			                    	if($(arr2[i]).val()==dom['id']){
+			                    		strtemp="<div class='prizeCheckedDiv2' style='display: block'>";
+			                    	}
+			                    }
+			                    str2+=strtemp
+								/*str2+="<div class='prizeCheckedDiv2' style='display: none'>";*/
+									str2+="<div style='width:129px;height: 179px;position: absolute; margin-top: -15px;;border-radius: 8px;filter:alpha(opacity=20);opacity: 0.4;background-color:#000000'></div>";
+									str2+="<span style='margin-left: 25px;margin-top: 20px;position: absolute;'><img alt='' src='"+rootPath+""+"/assets/images/true.png"+"'></span>";
+								str2+="</div>";
+							str2+="</div>";
+							str2+="<input type='hidden' class='materialId' value='"+dom['id']+"'>";	
+							str2+="<span class='electron-logo tuijiangaoji'><a href='javascript:void(0)' class='tuijianPrize2' name='"+dom['id']+"'><img src='"+imgServer+dom['logo8Url']+"' style='width:112px;height:112px;' alt='' /></a></span><br>";
+							str2+="<span class='electron-bottom' style='display: table;'><span style='display: table-cell; vertical-align: middle;'>"+dom['prizeValue']+"</span></span>";
+							str2+="</li>";
+							$(".tuijianJiangpin2").append(str2);
+						});
+						$.applyActivity.create.dianjitianjia2();
+						
+						if(thelength<10){
+							//说明已经到最后一页，将current变为0
+							$(obj).val(0)
+						}
+					},'json')
+				}
+			});
+		},
+		
+		/**
+		 *  获取选中奖品的个数，添加的时候调用该方法重新获取
+		 */
+		getCheckNum:function(){
+			var arr1=$("input[name='alredayChecked1']")
+			var arr2=$("input[name='alredayChecked2']")
+			$(".checknum1").html(arr1.length);
+			/*$(".checknum4").html(arr1.length);*/
+			$(".checknum2").html(arr2.length);
+			/*$(".checknum3").html(arr2.length);*/
+		},
+		
+		/**
+		 * 抽奖配置,获取是否扫码选中状态
+		 */
+		prizeSetting:function(){
+			var isNeedCsan=$("#choujiangpeizhi").find("input[name='ascanCodeYx']").val();
+			
+			
+			var wx=$("#setWexin").find("input[name='wxmsg']").val();
+			$("#activityScanNeed").val(isNeedCsan)
+			if(isNeedCsan==1){
+				//不要扫码
+				$("#widthScan").css('display','none');
+				$("#withOutScan").css('display','block');
+			}else if(isNeedCsan==0){
+				$("#widthScan").css('display','block');
+				$("#withOutScan").css('display','none');
+			}
+			
+			if(isNeedCsan==1){
+				//不要扫码
+				$("#widthScan2").css('display','none');
+				$("#withOutScan2").css('display','block');
+			}else if(isNeedCsan==0){
+				$("#widthScan2").css('display','block');
+				$("#withOutScan2").css('display','none');
+			}
+			
+			if(wx==0){
+				//使用默认
+				$("#appId").val($("#theappid").val());
+				$("#appId").attr("disabled",true);
+				$("#appSecret").val($("#thesecret").val());
+				$("#appSecret").attr("disabled",true);
+				$("#keyFileDiv").css("display","none");
+			}else if(wx==1){
+				//自定义
+				//使用默认
+				$("#appId").val("");
+				$("#appId").attr("disabled",false);
+				$("#appSecret").val("");
+				$("#appSecret").attr("disabled",false);
+				$("#keyFileDiv").css("display","block");
+			}
+			
+		},
+		
+		/**
+		 * 点击切换是否需要扫码
+		 */
+		changeCheckedSetting1:function(){
+			$("#choujiangpeizhi").find("input[name='ascanCodeYx']").click(function(){
+				var isNeedCsan= $(this).val()
+				$("#activityScanNeed").val(isNeedCsan)
+				if(isNeedCsan==1){
+					//不要扫码
+					$("#widthScan").css('display','none');
+					$("#withOutScan").css('display','block');
+				}else if(isNeedCsan==0){
+					$("#widthScan").css('display','block');
+					$("#withOutScan").css('display','none');
+				}
+				
+				if(isNeedCsan==1){
+					//不要扫码
+					$("#widthScan2").css('display','none');
+					$("#withOutScan2").css('display','block');
+				}else if(isNeedCsan==0){
+					$("#widthScan2").css('display','block');
+					$("#withOutScan2").css('display','none');
+				}
+			})
+		},
+		changeCheckedSetting2:function(){
+			$("#choujiangpeizhi2").find("input[name='strategyPrize2.scanCodeYx']").click(function(){
+				var isNeedCsan2= $(this).val()
+				if(isNeedCsan2==0){
+					//不要扫码
+					$("#widthScan2").css('display','none');
+					$("#withOutScan2").css('display','block');
+				}else if(isNeedCsan2==1){
+					$("#widthScan2").css('display','block');
+					$("#withOutScan2").css('display','none');
+				}
+			})
+			
+			/**
+			 * 公众号配置
+			 */
+			$("#choujiangpeizhi").find("input[name='wxmsg']").click(function(){
+				var val=$(this).val();
+				if(val==0){
+					//使用默认
+					$("#appId").val($("#theappid").val());
+					$("#appId").attr("disabled",true);
+					$("#appSecret").val($("#thesecret").val());
+					$("#appSecret").attr("disabled",true);
+					$("#keyFileDiv").css("display","none");
+				}else if(val==1){
+					//自定义
+					//使用默认
+					$("#appId").val("");
+					$("#appId").attr("disabled",false);
+					$("#appSecret").val("");
+					$("#appSecret").attr("disabled",false);
+					$("#keyFileDiv").css("display","block");
+				}
+				
+			});
+			
+			$("#toSetWecat").click(function(){
+				$("#setWexin").slideToggle();
+			})
+			
+			
+		},
+		
+		
+		/**
+		 * 提交方法
+		 */
+		
+		submitFunction:function(){
+			var openIndex=0;
+			
+			//首先将活动规则拼成串
+			var str1=$("#stopTime").val();
+			var str2=$("#zhubanfang").val();
+			var str3=$("#telephone").val();
+			var str4=$("#zuizhongjieshi").val();
+			var thev=str1+","+str2+","+str3+","+str4;
+			$('#ruleStrHidden').val(thev);
+			
+			
+			var arr = [ ".sex", ".device",".stage", ".province",".netType",".valid",".fromType" ];
+			var value = "";
+			for ( var index in arr) {
+				var buttons = $(arr[index]).find(
+						"button[select='true']");
+				var thisValue = platform.strategy.create
+						.getValue(arr[index],
+								buttons, "=", "|");
+				if (!platform.isNull(thisValue)) {
+					value = value + thisValue + "&";
+				}
+			}
+			value = value.substring(0,value.length - 1);
+			var valueDesc = "";
+			for ( var index in arr) {
+				var buttons = $(arr[index]).find(
+						"button[select='true']");
+				var thisValue = platform.strategy.create
+						.getDesc(arr[index],
+								buttons, "=", "|");
+				if (!platform.isNull(thisValue)) {
+					valueDesc = valueDesc+ thisValue + "且";
+				}
+			}
+			valueDesc = valueDesc.substring(0,valueDesc.length - 1);
+			//点击发布的时候，设置项目策略
+			/*var arr=[".sex",".device",".stage",".province",".netType"];
+			var value="";
+			for ( var index in arr) {
+				var buttons=$(arr[index]).find("button[select='true']");
+				var thisValue=platform.strategy.create.getValue(arr[index],buttons,"=","|");
+				if(!platform.isNull(thisValue)){
+					value=value+thisValue+"&";
+				}
+			}
+			value=value.substring(0,value.length-1);
+			var valueDesc="";
+			for ( var index in arr) {
+				var buttons=$(arr[index]).find("button[select='true']");
+				var thisValue=platform.strategy.create.getDesc(arr[index],buttons,"=","|");
+				if(!platform.isNull(thisValue)){
+					valueDesc=valueDesc+thisValue+"且";
+				}
+			}
+			valueDesc=valueDesc.substring(0,valueDesc.length-1);*/
+			//设置项目策略隐藏域
+			$("#gaojirenqun").find("input[name='strategyProject.strategyData']").val(value)
+			$("#gaojirenqun").find("input[name='strategyProject.strategyDataDesc']").val(valueDesc)
+			
+			
+			//提交之前检查是否选中的是自定义的类型
+			var display=$("#thePhoneShowAuto").css('display');
+			if(display=='none'){
+				//选择的是通用的模板类型
+				$("#iscustom").val(false);
+			}else if(display=='block'){
+				//选择的是自定义的类型
+				$("#iscustom").val(true);
+				//获取自定义活动类型的值
+				var backgroundUrl=$("#backgroundUrl").val();
+				var logoUrl=$("#logoUrl").val();
+				var rulePictureUrl=$("#rulePictureUrl").val();
+				var rulesUnderPicUrl=$("#rulesUnderPicUrl").val();
+				
+				
+				$("input[name='activityType.backgroundUrl']").val(backgroundUrl);
+				$("input[name='activityType.logoUrl']").val(logoUrl);
+				$("input[name='activityType.rulePictureUrl']").val(rulePictureUrl);
+				$("input[name='activityType.ruleUnderPicUrl']").val(rulesUnderPicUrl);
+			}
+			
+			
+			//提交时校验奖品的数量是否符合要求
+			var arr1=$("input[name='alredayChecked1']")
+			var arr2=$("input[name='alredayChecked2']")
+			if(arr1.length < 8){
+				layer.alert('您奖品设置中选择的奖品少于8个，您能选择8个或者10个奖品！', {
+					  skin: 'layui-layer-molv' //样式类名
+					  ,closeBtn: 0
+				});
+				return;
+			}else if(arr2.length<8 && valueDesc!=""){
+				layer.alert('您高级选项中选择的奖品少于8个，您能选择8个或者10个奖品！', {
+					  skin: 'layui-layer-molv' //样式类名
+					  ,closeBtn: 0
+				});
+				return;
+			}else if(arr1.length==9){
+				layer.alert('您奖品设置中选择的奖品不能为9个，您能选择8个或者10个奖品！', {
+					  skin: 'layui-layer-molv' //样式类名
+					  ,closeBtn: 0
+				});
+				return;
+			}else if(arr2.length==9 && valueDesc!=""){
+				layer.alert('您高级选项中选择的奖品不能为9个，您能选择8个或者10个奖品！', {
+					  skin: 'layui-layer-molv' //样式类名
+					  ,closeBtn: 0
+				});
+				return;
+			}else{
+				
+				var activityStyle=$("#activityStyle").val();
+				if(activityStyle=='iswx'){
+					//提交之前移除红包中的所有的required
+					$("#redPackageSetting1").find("input").removeAttr("required");
+					$("#redPackageSetting2").find("input").removeAttr("required");
+					$("#publicSignal").find("input").removeAttr("required");
+					$("#publicSignalSettingDiv").find("input").removeAttr("required");
+					
+					//提交时选择公众号
+					$("#publicSelectDiv").css("display","block")
+					
+					var checkPublicType=$("#checkPublicType").val();
+					if(checkPublicType==0){
+						$("#publicSelectDiv").css("display","block")
+						$("#goToAddMoneyDiv").css("display","none")
+						$("#useAutoCreate").attr("checked","checked")
+						$("#useAojinPublic").removeAttr("checked")
+					}else if(checkPublicType==1){
+						$("#publicSelectDiv").css("display","none")
+						$("#goToAddMoneyDiv").css("display","block")
+						$("#useAojinPublic").attr("checked","checked")
+						$("#useAutoCreate").removeAttr("checked")
+					}
+					
+					
+					
+					openIndex=layer.open({
+						title: '请选择要使用的公众号',
+						type: 1,
+						btn: ["确认"],
+						yes: function(index, layero){
+							
+							if($("input[name='checkedPublicId']").val()==null || $("input[name='checkedPublicId']").val()=="" || $("input[name='checkedBindId']").val()=="" || $("input[name='checkedBindId']").val()==null){
+								layer.alert('您没有选择要使用的公众号！', {
+									  skin: 'layui-layer-molv' //样式类名
+									  ,closeBtn: 0
+								});
+								return;
+							}
+							var aojin=$("#useAojinPublic").is(":checked")
+							if($("#flag").val()!='edit'){
+								//新增
+								if(aojin==true){
+									//判断账户余额是否够发本次红包
+									var renqun=$("#gaojirenqun").find("input[name='strategyProject.strategyData']").val();
+									var redValue=0;
+									if(renqun!=null && renqun!=""){
+										
+										redValue+=parseFloat($("#redPackageValue2").val())
+									}
+									redValue+=parseFloat($("#redPackageValue").val())
+									var accountMoney=parseFloat($("#accountMoney").val());
+									var sendMoney=parseFloat($("#haveSendMoney").val());
+									var allMoney=parseFloat($("#allMoney").val());
+									if(allMoney<redValue+sendMoney){
+										
+										layer.alert("您的账户余额不足以支付您本次发红包的金额，您现在项目中使用红包金额为："+sendMoney+", 为满足发红包的需要你需要充值:"+(redValue+sendMoney-allMoney));
+										$("#goToAddMoney").css("display","block")
+									}else{
+										//获取表单提交数据
+										var param=platform.getFormJson("#activitySubmitForm");
+										//提交表单
+										platform.doPost(rootPath+"/user/new/apply/createNewActivity.shtml", param);
+										layer.close(openIndex);
+									}
+								}else{
+									//判断选择的公众号是否可用
+									//获取表单提交数据
+									var param=platform.getFormJson("#activitySubmitForm");
+									//提交表单
+									platform.doPost(rootPath+"/user/new/apply/createNewActivity.shtml", param);
+									layer.close(openIndex);
+								}
+							}else{
+								//更新或者审核
+								//判断发红包 的总金额，1、去库里查询该账户下状态为的其他项目的红包总金额 2、此次发送的总金额相加 3、判断账户总的充值记录是否够发红包
+								if(aojin==true){
+									//判断账户余额是否够发本次红包
+									var renqun=$("#gaojirenqun").find("input[name='strategyProject.strategyData']").val();
+									var redValue=0;
+									if(renqun!=null && renqun!=""){
+										redValue+=parseFloat($("#redPackageValue2").val())
+									}
+									redValue+=parseFloat($("#redPackageValue").val())
+									var accountMoney=parseFloat($("#accountMoney").val());
+									var sendMoney=parseFloat($("#haveSendMoney").val());
+									var allMoney=parseFloat($("#allMoney").val());
+									if(allMoney<redValue+sendMoney){
+										layer.alert("您的账户余额不足以支付您本次发红包的金额，您现在项目中使用红包金额为："+sendMoney+", 为满足发红包的需要你需要充值:"+(redValue+sendMoney-allMoney));
+										$("#goToAddMoney").css("display","block")
+									}else{
+										//获取表单提交数据
+										var param=platform.getFormJson("#activitySubmitForm");
+										//提交表单
+										platform.doPost(rootPath+"/user/new/apply/EditActivity.shtml", param);
+										layer.close(openIndex);
+									}
+								}else{
+									//判断选择的公众号是否可用
+									//获取表单提交数据
+									var param=platform.getFormJson("#activitySubmitForm");
+									//提交表单
+									platform.doPost(rootPath+"/user/new/apply/EditActivity.shtml", param);
+									layer.close(openIndex);
+								}
+							}
+		  		        },
+						skin: 'layui-layer-rim',
+						area: ['40%', '50%'],
+						scrollbar: false,
+						content: $('#publicSignal'),
+						cancel: function(index, layero) {
+							layer.close(index)
+						}
+					});
+				}else{
+					
+					//提交之前移除红包中的所有的required
+					$("#redPackageSetting1").find("input").removeAttr("required");
+					$("#redPackageSetting2").find("input").removeAttr("required");
+					$("#publicSignal").find("input").removeAttr("required");
+					$("#publicSignalSettingDiv").find("input").removeAttr("required");
+					if($("#flag").val()!='edit'){
+						var param=platform.getFormJson("#activitySubmitForm");
+						//提交表单
+						platform.doPost(rootPath+"/user/new/apply/createNewActivity.shtml", param);
+					}else{
+						var param=platform.getFormJson("#activitySubmitForm");
+						//提交表单
+						platform.doPost(rootPath+"/user/new/apply/EditActivity.shtml", param);
+					}
+				}
+				
+				
+				
+				
+			}
+			
+			/**
+			 * 去配置公众号
+			 */
+			$(document).on('click', "#toAddYouPublicSignal", function(){
+				//
+				layer.close(openIndex);
+				$("#publicSignalSettingDiv").css("display","block")
+				$("#createDiv").css("display","none")
+				
+			});
+			
+			$(document).find("#publicSelectDiv").find(".towanshanSH").click(function(){
+				layer.close(openIndex);
+				$("#publicSignalSettingDiv").css("display","block")
+				$("#createDiv").css("display","none")
+			})
+			
+			/**
+			 * 去充值
+			 */
+			$(document).on('click', "#nowToAddMoney", function(){
+				layer.close(openIndex);
+				$("#moneyAddDiv").css("display","block")
+				$("#createDiv").css("display","none")
+			});
+			
+			
+		},
+		
+		
+		/**
+		 * 商户号，公众号方法
+		 */
+		publicSignal:function(){
+			checkAojinp2();
+			
+			$(document).on('click', "#useAutoCreate", function(){
+				checkAojinP();
+			});
+			
+			$(document).on('click', "#useAojinPublic", function(){
+				checkAojinP();
+			});
+			
+			function checkAojinP(){
+				var aojin=$("#useAojinPublic").is(":checked")
+				
+				if(aojin==true){
+					$("#checkPublicType").val("1");
+					$("#publicSelectDiv").css("display","none")
+					$("#goToAddMoneyDiv").css("display","block")
+					$("#publicAojinDiv").css("display","block")
+					
+				}else{
+					$("#publicSelectDiv").css("display","block")
+					$("#goToAddMoneyDiv").css("display","none")
+					$("#checkPublicType").val("0");
+					$("#publicAojinDiv").css("display","none")
+				}
+			}
+			
+			
+			function checkAojinp2(){
+				if($("#flag").val()=='edit'){
+					var publicType=$("#publicTypeEdit").val();
+					if(publicType==1){
+						//奥金公众号
+						$("#checkPublicType").val("1");
+						$("#publicSelectDiv").css("display","none")
+						$("#goToAddMoneyDiv").css("display","block")
+						$("#publicAojinDiv").css("display","block")
+					}else{
+						$("#publicSelectDiv").css("display","block")
+						$("#goToAddMoneyDiv").css("display","none")
+						$("#checkPublicType").val("0");
+						$("#publicAojinDiv").css("display","none")
+					}
+				}
+				
+				
+			}
+			
+			
+			
+			
+			//点击公众号中的返回
+			$("#goBackSubmit").click(function(){
+				$("#publicSignalSettingDiv").css("display","none")
+				$("#createDiv").css("display","block")
+				$.applyActivity.create.submitFunction();
+			})
+			
+			$("#detailForMoney").click(function(){
+				layer.open({
+					title: '充值明细',
+					type: 1,
+					btn: ["确认"],
+					yes: function(index, layero){
+						layer.close(index)
+						
+	  		        },
+					skin: 'layui-layer-rim',
+					area: ['1250px', '70%'],
+					scrollbar: false,
+					content: $('#addMoneyRecord'),
+					cancel: function(index, layero) {
+						layer.close(index)
+					}
+				});
+			})
+			
+			$("#senddetailForMoney").click(function(){
+				layer.open({
+					title: '红包发放明细',
+					type: 1,
+					btn: ["确认"],
+					yes: function(index, layero){
+						
+						layer.close(index)
+	  		        },
+					skin: 'layui-layer-rim',
+					area: ['70%', '90%'],
+					scrollbar: false,
+					content: $('#sendMoneyRecord'),
+					cancel: function(index, layero) {
+						layer.close(index)
+					}
+				});
+			})
+			
+			$("#goBackToCreate").click(function(){
+				$("#moneyAddDiv").css("display","none")
+				$("#createDiv").css("display","block")
+				$.applyActivity.create.submitFunction();
+			})
+			
+			/**
+			 * 新增公众号
+			 */
+			$("#toAddPublicSignalMsg").click(function(){
+				$("#signalName").val("");
+				$("#appId").val("")
+				$("#securetId").val("")
+				$("#keyUrl").val();
+				
+				layer.open({
+					title: '配置公众号',
+					type: 1,
+					btn: ["确认"],
+					yes: function(index, layero){
+						var signalName=$("#signalName").val();
+						var appId=$("#appId").val()
+						var securetId=$("#securetId").val()
+						var keyUrl=$("#keyUrl").val();
+						if(signalName=="" || signalName==null || appId==null || appId=="" || securetId==null || securetId=="" || keyUrl==null || keyUrl==""){
+							if(signalName=="" || signalName==null){
+								layer.msg("公众号名称不能为空")
+							}else if(appId==null || appId==""){
+								layer.msg("appID不能为空")
+							}else if(securetId==null || securetId==""){
+								layer.msg("securetId不能为空")
+							}else if(keyUrl==null || keyUrl==""){
+								layer.msg("key文件没有上传")
+							}
+						}else{
+							//保存公众号信息
+							var url=rootPath+"/user/new/apply/savePublicSingle.shtml";
+							var param=platform.getFormJson("#publicSignalSetFrom")
+							$.post(url,param,function(data){
+								if(data['msg']=="ok"){
+									layer.alert("保存成功")
+									//向表格中添加
+									
+									var str="<tr>";
+									str+="<td scope='row' class='signalName'>"+data['publicSignalMsg']['signalName']+"</td>";
+									str+="<td class='appId'>"+data['publicSignalMsg']['appId']+"</td>"
+									str+="<td class='securetId'>"+data['publicSignalMsg']['securetId']+"</td>"
+									
+									str+="<td>";
+			                        	str+="<span class='btn btn-file h-sblue xiugai' name='"+data['pid']+"'>修改</span>";
+			                        	str+="<span class='btn btn-file h-sblue wanshan' name='"+data['bindId']+"'>完善商户号</span>";
+			                        str+="</td>";
+			                        $("#addtr").append(str);
+			                        
+			                        //新增选择公众号中的节点
+			                        var str2="<li class='' >";
+			                        str2+="<label class='demo--label' style='margin-bottom: 0;' onclick='alertTips()'>";
+			                        str2+="<input class='demo--radio' type='radio' name='demo-radio3' disabled='disabled' onclick='checkedRadio(this)'>";
+			                        str2+="<span class='demo--radioInput'></span><font name='"+data['pid']+"'>"+data['publicSignalMsg']['signalName']+"</font>"
+			                        str2+="</label>";
+			                        
+			                        str2+="<input type='hidden' value='"+data['pid']+"' name='pulicId'>";
+			                        str2+="<input type='hidden' value='"+data['bindId']+"' name='bindId'>"
+			                        str2+="<div id='settingPeizhi' name='"+data['pid']+"' style='float: right;margin-right: 32px'>"
+			                        str2+="<input type='hidden' id='isHaveMerchant' value='0'>";
+			                        str2+="</div>";
+			    					str2+="<a href='javaScript:void(0)' class='towanshanSH'><font style='font-size: 13px;color:red'>商户号待完善</font></a>";
+			                        
+			                        str2+="</li>";
+			                        
+			                        $("#publicSelectDiv").find("ul").append(str2);
+			                        
+			                        $.applyActivity.create.xiuGaiSignal()
+			                        $.applyActivity.create.shagnhuSet()
+									layer.close(index)
+									
+									
+								}else{
+									layer.alert("保存失败")
+									layer.close(index)
+								}
+							},'json');
+						}
+	  		        },
+					skin: 'layui-layer-rim',
+					area: ['1250px', '70%'],
+					scrollbar: false,
+					content: $('#addSignalMsg'),
+					cancel: function(index, layero) {
+						layer.close(index)
+					}
+				});
+			})
+		},
+		
+		shagnhuSet:function(){
+			/**
+			 * 配置商户号
+			 */
+			$("#tableForSingle").find(".wanshan").click(function(){
+				var obj=$(this)
+				var bindId=$(this).attr('name');
+				//查找
+				var url2=rootPath+"/user/new/apply/findMerchantNumByBindId.shtml";
+				$.post(url2,{bindId:bindId},function(data){
+					if(data['merchantNumber']==null){
+						
+						$("#merchantId").val("");
+						$("#diplomaUrl").val("");
+						$("#diplomaPwd").val("");
+						$("#merchantSecret").val("");
+						$("#merchantNumId").val("");
+					}else{
+						$("#merchantId").val(data['merchantNumber']['merchantId']);
+						$("#diplomaUrl").val(data['merchantNumber']['diplomaUrl']);
+						$("#diplomaPwd").val(data['merchantNumber']['diplomaPwd']);
+						$("#merchantSecret").val(data['merchantNumber']['merchantSecret']);
+						$("#merchantNumId").val(data['merchantNumber']['id']);
+					}
+					
+				},'json');
+				
+				layer.open({
+					title: '配置商户号',
+					type: 1,
+					btn: ["确认"],
+					yes: function(index, layero){
+						//保存公众号信息
+						var url=rootPath+"/user/new/apply/saveMerchantNum.shtml";
+						var merchantId=document.getElementById("merchantId").value;
+						var diplomaUrl=document.getElementById("diplomaUrl").value;
+						var diplomaPwd=document.getElementById("diplomaPwd").value;
+						var merchantSecret=document.getElementById("merchantSecret").value
+						var id=document.getElementById("merchantNumId").value
+						if(merchantId==null || merchantId=="" || diplomaUrl==null || diplomaUrl=="" || diplomaPwd==null || diplomaPwd=="" || merchantSecret==null || merchantSecret==""){
+							if(merchantId==null || merchantId==""){
+								layer.msg("商户ID不能为空！")
+							}else if(diplomaUrl==null || diplomaUrl==""){
+								layer.msg("API文件没有上传！")
+							}else if(diplomaPwd==null || diplomaPwd==""){
+								layer.msg("证书密码为空！")
+							}else if(merchantSecret==null || merchantSecret==""){
+								layer.msg("API秘钥为空！")
+							}
+						}else{
+							
+							$.post(url,{bindId:bindId,merchantId:merchantId,diplomaUrl:diplomaUrl,diplomaPwd:diplomaPwd,merchantSecret:merchantSecret,id:id},function(data){
+								//更新节点信息
+								if(data['msg']=='ok'){
+									layer.alert("配置商户号成功！");
+									$(obj).html("已完善商户号")
+									
+									var str="<input type='hidden' id='isHaveMerchant' value='1'>";
+									str+="<font style='color:green;font-size: 13px;'>已完善（可用）</font>";
+									$("#publicSelectDiv").find("div[name='"+data['publicId']+"']").parent().find("input[type='radio']").removeAttr("disabled")
+									$("#publicSelectDiv").find("div[name='"+data['publicId']+"']").parent().find("label").removeAttr("onclick");
+									$("#publicSelectDiv").find("div[name='"+data['publicId']+"']").html(str);
+									$("#publicSelectDiv").find("div[name='"+data['publicId']+"']").attr('style','float: right;margin-right: 20px');
+								}else{
+									
+									layer.alert("配置商户号失败！");
+								}
+								
+							},'json');
+							
+							layer.close(index)
+						}
+	  		        },
+					skin: 'layui-layer-rim',
+					area: ['1250px', '70%'],
+					scrollbar: false,
+					content: $('#addShanghulMsg'),
+					cancel: function(index, layero) {
+						layer.close(index)
+					}
+				});
+			})
+		},
+		
+		
+		xiuGaiSignal:function(){
+			/**
+			 * 修改公众号
+			 */
+			
+			$("#tableForSingle").find(".xiugai").click(function(){
+				var obj=$(this)
+				var pid=$(this).attr('name');
+				//查询公众号信息
+				var url1=rootPath+"/user/new/apply/getPublicSingle.shtml";
+				
+				
+				$.post(url1,{id:pid},function(data){
+					
+					$("#signalName").val(data['publicSignalMsg']['signalName'])
+					$("#appId").val(data['publicSignalMsg']['appId'])
+					$("#securetId").val(data['publicSignalMsg']['securetId'])
+					$("#keyUrl").val(data['publicSignalMsg']['keyUrl'])
+					$("#addSignalMsg").find("input[name='id']").val(pid);
+					
+				},"json")
+				
+				
+				
+				layer.open({
+					title: '配置公众号',
+					type: 1,
+					btn: ["确认"],
+					yes: function(index, layero){
+						
+						var signalName=$("#signalName").val();
+						var appId=$("#appId").val()
+						var securetId=$("#securetId").val()
+						var keyUrl=$("#keyUrl").val();
+						if(signalName=="" || signalName==null || appId==null || appId=="" || securetId==null || securetId=="" || keyUrl==null || keyUrl==""){
+							if(signalName=="" || signalName==null){
+								layer.msg("公众号名称不能为空")
+							}else if(appId==null || appId==""){
+								layer.msg("appID不能为空")
+							}else if(securetId==null || securetId==""){
+								layer.msg("securetId不能为空")
+							}else if(keyUrl==null || keyUrl==""){
+								layer.msg("key文件没有上传")
+							}
+						}else{
+							
+							//保存公众号信息
+							var url=rootPath+"/user/new/apply/updatePublicSingle.shtml"
+							var param=platform.getFormJson("#publicSignalSetFrom")
+							
+							$.post(url,param,function(data){
+								//更新列表中的这条记录
+								$(obj).parent().parent().find(".signalName").html(data['publicSignalMsg']['signalName'])
+								$(obj).parent().parent().find(".appId").html(data['publicSignalMsg']['appId'])
+								$(obj).parent().parent().find(".securetId").html(data['publicSignalMsg']['securetId'])
+								$(obj).parent().parent().find(".keyUrl").attr('name',data['publicSignalMsg']['keyUrl'])
+								
+								//更新选择公众号节点
+								$("#publicSelectDiv").find("font[name='"+pid+"']").html(data['publicSignalMsg']['signalName']);
+								
+								
+							},'json');
+							
+							layer.close(index)
+						}
+						
+	  		        },
+					skin: 'layui-layer-rim',
+					area: ['1250px', '70%'],
+					scrollbar: false,
+					content: $('#addSignalMsg'),
+					cancel: function(index, layero) {
+						layer.close(index)
+					}
+				});
+				
+			})
+		},
+		
+		/**
+		 * 发布
+		 */
+		submit:function(){
+			
+			
+			//点击发布
+			$("#submitButton").click(function(){
+				$.applyActivity.create.submitFunction();
+			});
+			
+			$("#submitOne").click(function(){
+				var typeName=document.getElementById("typeName").value;
+				var regEn = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im,
+			    regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
+				if(regEn.test(typeName) || regCn.test(typeName)) {
+					layer.msg("活动名称不能包含特殊字符，请您重新输入");
+		    		return;
+				}else{
+					$.applyActivity.create.submitFunction();
+				}
+				
+			})
+			$("#submitTwo").click(function(){
+				$.applyActivity.create.submitFunction();
+			})
+		},
+		
+		/**
+		 * 跳页
+		 */
+		page:function(){
+			$(".fd_page li").find("a").click(function(){
+				var page=$(this).attr("assignPage");
+				if(platform.isNull(page)){
+					return;
+				}
+				platform.doGet(platform.getRequestApplyUrl(page));
+			});
+		},
+		
+		/**
+		 * 点击查看url
+		 */
+		checkViewUrl:function(){
+			$(".table-striped").find(".checkViewUrl").click(function(){
+				var url=$(this).parent().find("#scanUrl").val();
+				layer.alert(url, {
+					  skin: 'layui-layer-molv' //样式类名
+					  ,closeBtn: 0
+				});
+			})
+		},
+		
+		/**
+		 * 点击查看二维码
+		 */
+		checkTheQrcode:function(){
+			$(".table-striped").find(".checkQrcode").click(function(){
+				var qrcode=$(this).parent().find("#qrcodeDiv").html();
+				layer.open({
+					  type: 1,
+					  title: false,
+					  closeBtn: 0,
+					  area: '300px',
+					  skin: 'layui-layer-nobg', //没有背景色
+					  shadeClose: true,
+					  content: qrcode
+				});
+			})
+			
+			$(".table-striped").find(".checkTestRed").click(function(){
+				var obj=$(this)
+				var projectCode=$(obj).parent().find("input[type='hidden']").val();
+				
+				var url=rootPath+"/user/new/apply/findTestCode.shtml";
+				$.post(url,{'projectCode':projectCode},function(data){
+					layer.confirm('请记住您的验证码为：'+data['checkCode'], {
+						  btn: ['去测试'] //按钮
+						}, function(){
+							
+						var qrcode=$(obj).parent().find("#testRedDiv").html();
+						layer.open({
+							  type: 1,
+							  title: false,
+							  closeBtn: 0,
+							  area: '300px',
+							  skin: 'layui-layer-nobg', //没有背景色
+							  shadeClose: true,
+							  content: qrcode
+						});
+					});
+					
+				},'json');
+				
+			})
+			
+		},
+		/**
+		 * 点击自定义活动的按钮
+		 */
+		activityAutoCreate:function(){
+			$("#userDefinedTyepe").click(function(){
+				$.applyActivity.create.addAutoCommit();
+			})
+			$("#userDefinedPrize").click(function(){
+				$.applyActivity.create.addAutoCommit();
+			})
+			
+		},
+		
+		
+		
+		
+		addAutoCommit:function(){
+			//判断是否已经有了自定义的内容
+			var obj=$(".theAutoCreateLi").attr('key');
+			//如果没有自定义过
+			if(obj==undefined){
+				var lilength=$("#lrzj_x").find("#dates").find("li").length;
+				
+				var strli="";
+				strli+="<li  key='"+lilength+"'  class='red theAutoCreateLi select'>";
+				strli+="<a href='#'>自定义</a>";
+				strli+="</li>";
+				$("#lrzj_x").find("#dates").append(strli);
+				//获取模板id
+				var pid=$("input[name='activityType.prizeType']").val();
+				
+				$("input[name='prizeTypeId']").val(pid);
+				var str=$("#thePhoneShowMoban").html();
+				$("#thePhoneShowAuto").html(str);
+				
+				//添加li标签设置选中
+				
+				$.applyActivity.create.thejs();
+				$.applyActivity.create.changeTheTheme();
+				$("#thePhoneShowMoban").css("display",'none');
+				$("#thePhoneShowAuto").css("display",'block');
+				$.applyActivity.create.dianjiGuize();
+			}
+		},
+		
+		
+		
+		
+		/**
+		 * 点击自定义中的规则按钮
+		 */
+		dianjiGuize:function(){
+			$("#rulePictureButton").click(function(){
+				$(".dianji").css("display","block")
+				$(".messageToast11").show()
+			})
+		},
+		
+		changeTheTheme:function(){
+			$("#lrzj_x").find(".themeClass").find("li").click(function(){
+				if($(this).hasClass('commonli')){
+					$("#thePhoneShowAuto").css("display",'none');
+					$("#thePhoneShowMoban").css("display",'block');
+				}else{
+					$("#thePhoneShowAuto").css("display",'block');
+					$("#thePhoneShowMoban").css("display",'none');
+				}
+			});
+		},
+		
+		/**
+		 * 上传方法
+		 */
+		uploadFile:function(){
+			/**
+			 * 上传背景图片
+			 */
+			$("#backgroundFile").off("change").on("change",function(){	
+				
+				platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#backgroundFile",{backgroundUrl:$("#backgroundUrl").val()},
+						$.applyActivity.create.uploadBackBackGround, platform.fileUpload.uploadBackE);
+			}),
+			
+			
+			
+			/**
+			 * 上传logoFile
+			 */
+			$("#logoFile").off("change").on("change",function(){	
+				
+				platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#logoFile",{logoUrl:$("#logoUrl").val()},
+						$.applyActivity.create.uploadBackLogo, platform.fileUpload.uploadBackE);
+			})
+			
+			/**
+			 * 上传规则按钮
+			 */
+			$("#rulePictureFile").off("change").on("change",function(){	
+				
+				platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#rulePictureFile",{rulePictureUrl:$("#rulePictureUrl").val()},
+						$.applyActivity.create.uploadBackRulePic, platform.fileUpload.uploadBackE);
+			})
+			
+			/**
+			 * 上传规则底板rulesUnderPicFile
+			 */
+			$("#rulesUnderPicFile").off("change").on("change",function(){	
+				
+				platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#rulesUnderPicFile",{rulesUnderPicUrl:$("#rulesUnderPicUrl").val()},
+						$.applyActivity.create.uploadBackRuleUnderPic, platform.fileUpload.uploadBackE);
+			})
+			
+			/**
+			 * 上传key文件theKeyFile
+			 */
+			$("#theKeyFile").off("change").on("change",function(){	
+				platform.myAjaxFileUpload(rootPath+"/user/upload/txt2.shtml","#theKeyFile",{keyUrl:$("#keyUrl").val()},
+						$.applyActivity.create.uploadBackKey, platform.fileUpload.uploadBackE);
+			})
+			
+			
+			/**
+			 * 上传证书
+			 */
+			$("#diplomaFile").off("change").on("change",function(){	
+				platform.myAjaxFileUpload(rootPath+"/user/upload/zip2.shtml","#diplomaFile",{diplomaUrl:$("#diplomaUrl").val()},
+						$.applyActivity.create.uploadBackDip, platform.fileUpload.uploadBackE);
+			})
+			
+			
+			
+		},
+		
+		//key文件上传回调
+		uploadBackDip : function(data,status){
+			if(!platform.isNull(data.msg)){
+				platform.alertmsg(data.msg);
+			}
+			if(!platform.isNull(data.data)){
+				$("#diplomaUrl").val(data.data.keyUrl);
+			}
+		},
+		
+		//key文件上传回调
+		uploadBackKey : function(data,status){
+			if(!platform.isNull(data.msg)){
+				platform.alertmsg(data.msg);
+			}
+			if(!platform.isNull(data.data)){
+				$("#keyUrl").val(data.data.keyUrl);
+			}
+		},
+		
+		//上传背景图片的回调
+		uploadBackBackGround : function(data,status){
+			if(!platform.isNull(data.msg)){
+				platform.alertmsg(data.msg);
+			}
+			if(!platform.isNull(data.data)){
+				$.applyActivity.create.setBackGround(data.data.keyUrl);
+			}
+		},
+		
+		setBackGround:function(url){
+			$("#backgroundUrl").val(url);
+			//设置手机展示图中的背景
+			$("#backGroundDiv").find(".btn-success").css({
+				"background": "url('"+$("#imgserverHost").val()+"/"+url+"') no-repeat center",
+				"background-size":"100% 100%"
+			})
+			//style='background: transparent url("${imgServer}${themes[0].backgroundUrl}") no-repeat scroll center center / 100% 100%;'
+			$("#thePhoneShowAuto").find(".content-p").attr('style',"background: transparent url('"+$("#imgserverHost").val()+"/"+url+"') no-repeat scroll center center / 100% 100%;");
+		},
+		
+		//上传logo回调
+		uploadBackLogo : function(data,status){
+			if(!platform.isNull(data.msg)){
+				platform.alertmsg(data.msg);
+			}
+			if(!platform.isNull(data.data)){
+				$.applyActivity.create.setBackLogo(data.data.keyUrl);
+			}
+		},
+		
+		setBackLogo:function(url){
+			$("#logoUrl").val(url);
+			//设置手机展示图中的背景
+			//style='background: transparent url("${imgServer}${themes[0].backgroundUrl}") no-repeat scroll center center / 100% 100%;'
+			$("#logoBackDiv").find(".btn-success").css({
+				"background": "url('"+$("#imgserverHost").val()+"/"+url+"') no-repeat center",
+				"background-size":"100% 100%"
+			})
+			$("#thePhoneShowAuto").find(".content-p").find(".topleft").find("img").attr('src',""+$("#imgserverHost").val()+"/"+url+"");
+		},
+		
+		//上传活动规则按钮回调函数
+		uploadBackRulePic : function(data,status){
+			if(!platform.isNull(data.msg)){
+				platform.alertmsg(data.msg);
+			}
+			if(!platform.isNull(data.data)){
+				$.applyActivity.create.setRuleButton(data.data.keyUrl);
+			}
+		},
+		
+		setRuleButton:function(url){
+			$("#rulePictureUrl").val(url);
+			//设置手机展示图中的背景
+			//style='background: transparent url("${imgServer}${themes[0].backgroundUrl}") no-repeat scroll center center / 100% 100%;'
+			$("#thePhoneShowAuto").find(".content-p").find(".topright").find("img").attr('src',""+$("#imgserverHost").val()+"/"+url+"");
+			$(".btn-ban").css({
+				"background": "url('"+$("#imgserverHost").val()+"/"+url+"') no-repeat center",
+				"background-size":"100% 100%"
+			})
+		},
+		
+		//上传规则底板回调函数
+		uploadBackRuleUnderPic : function(data,status){
+			if(!platform.isNull(data.msg)){
+				platform.alertmsg(data.msg);
+			}
+			if(!platform.isNull(data.data)){
+				
+				$.applyActivity.create.setRuleUnder(data.data.keyUrl);
+				
+			}
+		},
+		
+		//设置活动回调
+		setRuleUnder:function(url){
+			$("#window-content").find("#rulesUnderPicUrl").val(url);
+			$(".btn-size").css({
+				"background": "url('"+$("#imgserverHost").val()+"/"+url+"') no-repeat center",
+				"background-size":"100% 100%"
+			})
+			//设置手机展示图中的背景
+			//style='background: transparent url("${imgServer}${themes[0].backgroundUrl}") no-repeat scroll center center / 100% 100%;'
+			$(".huodongguize").find("img").attr('src',""+$("#imgserverHost").val()+"/"+url+"");
+		},
+		
+		//抽奖配置
+		initActivitySetting:function(){
+			$("input[name='withScanCheck']").click(function(){
+				var status=$(this).val();
+				var url=rootPath+"/user/new/apply/getTheActivitySetting.shtml";
+				$.post(url,{status:status},function(data){
+					$("input[name='strategyPrize1.todayNum']").val(data['withScanTimes'])
+					$("input[name='strategyPrize1.onNumToPrize']").val(data['withScanOneCodeTimes'])
+					$("input[name='ruleStrTemp222']").val(data['shareNum'])
+					$("input[name='strategyPrize1.repeatNum']").val(data['repeatNum'])
+					
+					
+				},'json');
+			})
+			
+			$("input[name='withNoScanCheck']").click(function(){
+				var status=$(this).val();
+				var url=rootPath+"/user/new/apply/getTheActivitySetting.shtml";
+				$.post(url,{status:status},function(data){
+					$("input[name='strategyPrize1.numWithOutScan']").val(data['withNoScanToday'])
+					$("input[name='strategyPrize1.withOutScanTotal']").val(data['withNoScanTotal'])
+				},'json');
+			})
+			
+			$("input[name='withScanSetting2']").click(function(){
+				var status=$(this).val();
+				var url=rootPath+"/user/new/apply/getTheActivitySetting.shtml";
+				$.post(url,{status:status},function(data){
+					$("input[name='strategyPrize2.todayNum']").val(data['withScanTimes'])
+					$("input[name='strategyPrize2.onNumToPrize']").val(data['withScanOneCodeTimes'])
+					$("input[name='ruleStrTemp333']").val(data['shareNum'])
+					$("input[name='strategyPrize2.repeatNum']").val(data['repeatNum'])
+				},'json');
+			})
+			
+			$("input[name='withNoScanSetting2']").click(function(){
+				var status=$(this).val();
+				var url=rootPath+"/user/new/apply/getTheActivitySetting.shtml";
+				$.post(url,{status:status},function(data){
+					$("input[name='strategyPrize2.numWithOutScan']").val(data['withNoScanToday'])
+					$("input[name='strategyPrize2.withOutScanTotal']").val(data['withNoScanTotal'])
+				},'json');
+			})
+			
+		},
+		
+		//页面加载函数，同步三处的活动规则
+		createTehSameRule:function(){
+			//获取主页面的活动规则，然后同步到自定义页面和弹出框中
+			var stopTime=$("#stopTime").val(); 
+			var zhubanfang=$("#zhubanfang").val();
+			var telephone=$("#telephone").val();
+			var zuizhongjieshi=$("#zuizhongjieshi").val();
+			
+			//设置弹出框
+			$(".timer").html(stopTime)
+			$(".company1").html(zhubanfang)
+			$(".phonetemp").html(telephone)
+			$(".company2").html(zuizhongjieshi)
+			
+			//设置自定义
+			$("input[name='activityStopTime']").val(stopTime);
+			$("input[name='createCompany']").val(zhubanfang);
+			$("input[name='hotPhoneNum']").val(telephone);
+			$("input[name='exCompany']").val(zuizhongjieshi);
+			
+			/**
+			 * 主页中活动规则填写的离焦时间
+			 */
+			$("#huodonguize").find("input[name='ruleStrTemp']").blur(function(){
+				var val=$(this).val();
+				var pl=$(this).attr("placeholder");
+				if(pl=="截止时间"){
+					$(".timer").html(val)
+					$("input[name='activityStopTime']").val(val);
+				}else if(pl=="主办单位"){
+					$(".company1").html(val)
+					$("input[name='createCompany']").val(val);
+				}else if(pl=="活动热线"){
+					$(".phonetemp").html(val)
+					$("input[name='hotPhoneNum']").val(val);
+				}else if(pl=="最终解释权单位"){
+					$(".company2").html(val)
+					$("input[name='exCompany']").val(val);
+				}
+			});
+			
+			/**
+			 * 自定义规则的离焦事件
+			 */
+			$("#activityRulesAutoCreate").find(".inputTemp").blur(function(){
+				var val=$(this).val();
+				var pl=$(this).attr("placeholder");
+				if(pl=="活动截止时间"){
+					$(".timer").html(val)
+					$("#stopTime").val(val);
+				}else if(pl=="主办单位"){
+					$(".company1").html(val)
+					$("#zhubanfang").val(val);
+				}else if(pl=="活动热线"){
+					$(".phonetemp").html(val)
+					$("#telephone']").val(val);
+				}else if(pl=="最终解释权归属"){
+					$(".company2").html(val)
+					$("#zuizhongjieshi']").val(val);
+				}
+			});
+		},
+		
+		
+		/**
+		 * 切换标签====引用
+		 */
+		thejs:function(){
+			var recount=0;
+			settings = jQuery.extend({
+				orientation: 'horizontal', // value: horizontal | vertical, default to horizontal
+				containerDiv: '#timeline', // value: any HTML tag or #id, default to #timeline
+				datesDiv: '#dates', // value: any HTML tag or #id, default to #dates
+				datesSelectedClass: 'selected', // value: any class, default to selected
+				datesSpeed: 500, // value: integer between 100 and 1000 (recommended), default to 500 (normal)
+				lrzj_lineDiv: '#lrzj_line', // value: any HTML tag or #id, default to #lrzj_line
+				lrzj_lineSelectedClass: 'selected', // value: any class, default to selected
+				lrzj_lineSpeed: 200, // value: integer between 100 and 1000 (recommended), default to 200 (fast)
+				lrzj_lineTransparency: 0.2, // value: integer between 0 and 1 (recommended), default to 0.2
+				lrzj_lineTransparencySpeed: 500, // value: integer between 100 and 1000 (recommended), default to 500 (normal)
+				prevButton: '#prev', // value: any HTML tag or #id, default to #prev
+				nextButton: '#next', // value: any HTML tag or #id, default to #next
+				arrowKeys: 'false', // value: true/false, default to false
+				startAt: 1 // value: integer, default to 1 (first)
+			});
+			var howManyDates = $(settings.datesDiv + ' li').length; //8
+			var howManylrzj_line = $(settings.lrzj_lineDiv + ' li').length; //div數
+			var currentDate = $(settings.datesDiv).find('a.' + settings.datesSelectedClass); //当前的里位置
+			var currentIssue = $(settings.lrzj_lineDiv).find('li.' + settings.lrzj_lineSelectedClass); //当前的内容位置
+			var widthContainer = $(settings.containerDiv).width();
+			var heightContainer = $(settings.containerDiv).height();
+			var widthlrzj_line = $(settings.lrzj_lineDiv).width();
+			var heightlrzj_line = $(settings.lrzj_lineDiv).height();
+			var widthIssue = $(settings.lrzj_lineDiv + ' li').width();
+			var heightIssue = $(settings.lrzj_lineDiv + ' li').height();
+			var widthDates = $(settings.datesDiv).width();
+			var heightDates = $(settings.datesDiv).height();
+			var widthDate = $(settings.datesDiv + ' li').width();
+			var heightDate = $(settings.datesDiv + ' li').height();
+			if(settings.orientation == 'horizontal') {
+				$(settings.datesDiv + ' li').css('marginLeft', "28px")
+				var marginL = parseInt($(settings.datesDiv + ' li').css("margin-left"))
+				var marginleft = marginL * howManyDates
+				$(settings.lrzj_lineDiv).width(widthIssue * howManylrzj_line); //li的总长度			
+				$(settings.datesDiv).width(widthDate * howManyDates + marginleft).css('margin-top', "3px");
+				var defaultPositionDates = parseInt($(settings.datesDiv).css('marginLeft').substring(0, $(settings.datesDiv).css('marginLeft').indexOf('px')));
+			} else if(settings.orientation == 'vertical') {
+				$(settings.lrzj_lineDiv).height(heightIssue * howManylrzj_line);
+
+				$(settings.datesDiv).height(heightDate * howManyDates).css('marginTop', heightContainer / 2 - heightDate / 2);
+				var defaultPositionDates = parseInt($(settings.datesDiv).css('marginTop').substring(0, $(settings.datesDiv).css('marginTop').indexOf('px')));
+			}
+			$("#userDefinedTyepe").click(function(){
+				var m=(((widthDate+marginL)*2)- (widthDate  + marginL)* howManyDates)+"px"
+				$(settings.datesDiv).animate({
+						'marginLeft': m
+				});
+			})
+			
+			var flag=$("#flag").val();
+			recount+=1;
+			if(flag=='edit' && recount<=1){
+				
+				var key=$("#dates").find(".select").attr("key")
+				/*alert(key)
+				alert(widthIssue)*/
+				$(settings.lrzj_lineDiv).animate({'marginLeft':-82*key},{queue:false, duration:settings.lrzj_lineSpeed});
+				
+			}
+			
+			
+			/* a点击事件*/
+			$(settings.datesDiv + 'a').click(function(event) {
+
+				event.preventDefault();
+				// first vars
+				var whichIssue = $(this).text();
+
+				var currentIndex = $(this).parent().prevAll().length;
+				// moving the elements
+				if(settings.orientation == 'horizontal') {
+					//				$(settings.lrzj_lineDiv).animate({'marginLeft':-widthIssue*currentIndex},{queue:false, duration:settings.lrzj_lineSpeed});
+				} else if(settings.orientation == 'vertical') {
+					//$(settings.lrzj_lineDiv).animate({'marginTop':-heightIssue*currentIndex},{queue:false, duration:settings.lrzj_lineSpeed});
+				}
+				//$(settings.lrzj_lineDiv+' li').animate({queue:false, duration:settings.lrzj_lineSpeed}).removeClass(settings.lrzj_lineSelectedClass).eq(currentIndex).addClass(settings.lrzj_lineSelectedClass).fadeTo(settings.lrzj_lineTransparencySpeed,1);
+
+				// now moving the dates
+				var index = currentIndex
+
+				if(settings.orientation == 'horizontal') {
+					
+				} else if(settings.orientation == 'vertical') {
+					$(settings.datesDiv).animate({
+						'marginTop': defaultPositionDates - (heightDate * currentIndex)
+					}, {
+						queue: false,
+						duration: settings.datesSpeed
+					});
+				}
+			});
+			/* 代码整理：懒人之家 www.lanrenzhijia.com  转载请注明出处 */
+			$(settings.nextButton).bind('click', function(event) {
+				event.preventDefault();
+				if(settings.orientation == 'horizontal') {
+					//				var currentPositionlrzj_line = parseInt($(settings.lrzj_lineDiv).css('marginLeft').substring(0,$(settings.lrzj_lineDiv).css('marginLeft').indexOf('px')));				
+					var currentIssueIndex = currentPositionlrzj_line / widthIssue
+					var currentPositionDates = parseInt($(settings.datesDiv).css('marginLeft').substring(0, $(settings.datesDiv).css('marginLeft').indexOf('px')));
+					var currentIssueDate = currentPositionDates - widthDate;
+					var marginL = parseInt($(settings.datesDiv + ' li').css("margin-left"))
+					var marginleft = marginL * howManyDates
+					var width = widthDate * howManyDates + marginleft
+
+					if(width - (-currentPositionDates) <= 280) {
+						//					$(settings.datesDiv+' li:last-child a').click();
+					} else {
+
+						if(!$(settings.lrzj_lineDiv).is(':animated')) {
+							$(settings.datesDiv).animate({
+								'marginLeft': currentIssueDate+(-marginL)
+							}, {
+								queue: false,
+								duration: settings.datesSpeed
+							});
+							$(settings.datesDiv + ' a.' + settings.datesSelectedClass).removeClass(settings.datesSelectedClass).parent().next().children().addClass(settings.datesSelectedClass);
+						}
+					}
+				} else if(settings.orientation == 'vertical') {
+					var currentPositionlrzj_line = parseInt($(settings.lrzj_lineDiv).css('marginTop').substring(0, $(settings.lrzj_lineDiv).css('marginTop').indexOf('px')));
+					var currentIssueIndex = currentPositionlrzj_line / heightIssue;
+					var currentPositionDates = parseInt($(settings.datesDiv).css('marginTop').substring(0, $(settings.datesDiv).css('marginTop').indexOf('px')));
+					var currentIssueDate = currentPositionDates - heightDate;
+					if(currentPositionlrzj_line <= -(heightIssue * howManylrzj_line - (heightIssue))) {
+						$(settings.lrzj_lineDiv).stop();
+						$(settings.datesDiv + ' li:last-child a').click();
+					} else {
+						if(!$(settings.lrzj_lineDiv).is(':animated')) {
+							$(settings.datesDiv).animate({
+								'marginTop': currentIssueDate
+							}, {
+								queue: false,
+								duration: settings.datesSpeed
+							});
+							$(settings.datesDiv + ' a.' + settings.datesSelectedClass).removeClass(settings.datesSelectedClass).parent().next().children().addClass(settings.datesSelectedClass);
+						}
+					}
+				}
+			});
+			/* 代码整理：懒人之家 www.lanrenzhijia.com  转载请注明出处 */
+			$(settings.prevButton).click(function(event) {
+				event.preventDefault();
+				if(settings.orientation == 'horizontal') {
+					//				var currentPositionlrzj_line = parseInt($(settings.lrzj_lineDiv).css('marginLeft').substring(0,$(settings.lrzj_lineDiv).css('marginLeft').indexOf('px')));
+					var currentIssueIndex = currentPositionlrzj_line / widthIssue;
+					var currentPositionDates = parseInt($(settings.datesDiv).css('marginLeft').substring(0, $(settings.datesDiv).css('marginLeft').indexOf('px')));
+					var currentIssueDate = currentPositionDates + widthDate;
+					var marginL = parseInt($(settings.datesDiv + ' li').css("margin-left"))
+					var marginleft = marginL * howManyDates
+					var width = widthDate * howManyDates + marginleft
+					if(currentPositionDates >= 0) {
+						$(settings.lrzj_lineDiv).stop();
+						$(settings.datesDiv + ' li:first-child a').click();
+					} else {
+						if(!$(settings.lrzj_lineDiv).is(':animated')) {
+							$(settings.datesDiv).animate({
+								'marginLeft': currentIssueDate+marginL 
+							}, {
+								queue: false,
+								duration: settings.datesSpeed
+							});
+							$(settings.datesDiv + ' a.' + settings.datesSelectedClass).removeClass(settings.datesSelectedClass).parent().prev().children().addClass(settings.datesSelectedClass);
+						}
+					}
+				} else if(settings.orientation == 'vertical') {
+					var currentPositionlrzj_line = parseInt($(settings.lrzj_lineDiv).css('marginTop').substring(0, $(settings.lrzj_lineDiv).css('marginTop').indexOf('px')));
+					var currentIssueIndex = currentPositionlrzj_line / heightIssue;
+					var currentPositionDates = parseInt($(settings.datesDiv).css('marginTop').substring(0, $(settings.datesDiv).css('marginTop').indexOf('px')));
+					var currentIssueDate = currentPositionDates + heightDate;
+
+					if(currentPositionlrzj_line >= 0) {
+						$(settings.lrzj_lineDiv).stop();
+						$(settings.datesDiv + ' li:first-child a').click();
+					} else {
+						if(!$(settings.lrzj_lineDiv).is(':animated')) {
+							$(settings.lrzj_lineDiv).animate({
+								'marginTop': currentPositionlrzj_line + heightIssue
+							}, {
+								queue: false,
+								duration: settings.lrzj_lineSpeed
+							});
+							$(settings.lrzj_lineDiv + ' li').animate({
+								queue: false,
+								duration: settings.lrzj_lineSpeed
+							});
+							$(settings.lrzj_lineDiv + ' li.' + settings.lrzj_lineSelectedClass).removeClass(settings.lrzj_lineSelectedClass).prev().fadeTo(settings.lrzj_lineTransparencySpeed, 1).addClass(settings.lrzj_lineSelectedClass);
+							$(settings.datesDiv).animate({
+								'marginTop': currentIssueDate
+							}, {
+								queue: false,
+								duration: settings.datesSpeed
+							}, {
+								queue: false,
+								duration: settings.lrzj_lineSpeed
+							});
+							$(settings.datesDiv + ' a.' + settings.datesSelectedClass).removeClass(settings.datesSelectedClass).parent().prev().children().addClass(settings.datesSelectedClass);
+						}
+					}
+				}
+			});
+			/*按键绑定函数*/
+			// keyboard navigation, added since 0.9.1
+			if(settings.arrowKeys == 'true') {
+				if(settings.orientation == 'horizontal') {
+					$(document).keydown(function(event) {
+						if(event.keyCode == 39) {
+							$(settings.nextButton).click();
+						}
+						if(event.keyCode == 37) {
+							$(settings.prevButton).click();
+						}
+					});
+				} else if(settings.orientation == 'vertical') {
+					$(document).keydown(function(event) {
+						if(event.keyCode == 40) {
+							$(settings.nextButton).click();
+						}
+						if(event.keyCode == 38) {
+							$(settings.prevButton).click();
+						}
+					});
+				}
+			}
+			/* 给 li下的a绑定click*/
+			// default position startAt, added since 0.9.3
+			$(settings.datesDiv + ' li').eq(settings.startAt - 1).find('a').trigger('click');
+			/*});*/
+			}
+		},
+		
+		
+		
+		/**
+		 * 项目更新审核删除js=============================================================================
+		 */
+		editAndLookThrough:{
+			
+			list:function(){
+				/**
+				 *  点击修改
+				 */
+				$("#activityManager").find(".btn-success").click(function(){
+					
+					var id=$(this).attr('name');
+					//platform.doGet(rootPath+"/user/new/apply/toEditActivity.shtml?id="+id)
+					platform.doGet(rootPath+"/user/new/project/toEditActivity.shtml?id="+id)
+				})
+				
+				/**
+				 * 点击删除项目btn-danger
+				 */
+				$("#activityManager").find(".btn-danger").click(function(){
+					var id=$(this).attr('name');
+					var index=layer.confirm('确定要删除此项目？', {
+						  btn: ['确定','取消'] //按钮
+						}, function(){
+							platform.doGet(rootPath+"/user/new/apply/toDeleteActivity.shtml?id="+id)
+						}, function(){
+						    layer.close(index)
+						}
+					);
+					
+				})
+			},
+			
+		},
+		
+	}
+
+});
+

@@ -1,0 +1,1295 @@
+.configuration-header {
+    padding: 10px;
+    font-size: 14px;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
+    display:block;
+
+}
+.page{
+    color:#333;
+    overflow: hidden;
+}
+.configuration-headers{
+    display:none;
+    height:48px;
+    background: #fff;
+    
+    margin: 0 15px 0px 10px;
+}
+
+.configuration-headers .orientationName{
+    /* padding-left:10px; */
+    display: flex;
+}
+.configuration-headers .orientationNames{
+    display:flex;
+    align-items: center;
+}
+.configuration-headers .flodingLine{
+    margin-top:10px;
+    height:1px;
+    border-bottom:1px solid #333;
+}
+.layui-container{
+    width:1440px !important;
+}
+.configuration-header .layui-form-label {
+    width: 95px;
+}
+
+.configuration-header .layui-input-block {
+    margin: 0;
+    width: 100%;
+}
+
+.configuration-header .layui-form-item {
+    display: flex;
+}
+.headerName{
+    display:flex;
+    justify-content: center;
+}
+.headerName .name {
+    width: 10px;
+    height: 200px;
+    border-right: 1px solid #ececec;
+    padding-left:.4rem;
+   
+}
+
+/* .content {
+
+    padding: 10px;
+} */
+
+.startUp {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* padding: 0 39px; */
+}
+.startUp .check{
+    width:0.2rem;
+    height:0.2rem;
+    border:1px solid #4599f8;
+    margin-left:0.4rem;
+    margin-right:0.3rem;
+}
+.startUp .check input{
+    width:100%;
+    height:100%;
+}
+.startUp span {
+    display: block;
+    margin-left: 1px;
+}
+
+.contents .layui-btn {
+    background: none;
+    border: 1px solid #000;
+    color: #000;
+}
+
+.contentBtn {
+    /* padding-left: 292px; */
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contents .layui-form-item {
+    display: flex;
+    align-items: center;
+}
+
+.contents .layui-input-block {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 0px;
+    line-height: 36px;
+}
+
+.configuration-show {
+    display: none;
+}
+.layui-form-radio>i{
+   color: #4599F8 !important;
+}
+.contents .test2 .change ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.67rem;
+    height: 0.38rem;
+   margin-left: 18px;
+
+}
+
+.contents .test2 .change ul li {
+    width:0.67rem;
+    border-right: 1px solid #fff;
+    background:#4599F8;
+    text-align:center;
+    font-size:0.14rem;
+    color:#fff;
+    height:0.38rem;
+    line-height:0.38rem;
+    /* width: 40px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border: 1px solid #0076ff;
+    background: #0076ff;
+    color: #fff;
+    border-right: 1px solid #fff;
+    font-size: 14px;
+    padding: 5px; */
+
+}
+.layui-form-label {
+    padding:0 !important;
+}
+.layui-input-block{
+    margin-left:5px !important;
+}
+.contents .tests .layui-form-label {
+    text-align: center;
+}
+
+.threeLevel {
+
+    /* padding: 0 16px; */
+}
+
+.threeLevel .threeLevelList {
+    border: 1px solid #bcbcbc;
+    margin-top:0.22rem;
+    margin-right:0.12rem;
+    height:400px;
+}
+
+.threeLevel .areas {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /*padding-left:39px;*/
+    /*margin-top:30px;*/
+    color: #fff;
+
+}
+
+.threeLevel .areas .area {
+    height: 40px;
+    line-height: 40px;
+    flex: 1;
+    background: #999;
+    text-align: center;
+}
+
+.threeLevel .areas .allSelect {
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    margin-left: 10px;
+    color: #fff;
+}
+.threeLevels .layui-form-checkbox[lay-skin=primary] i {
+    border:1px solid #4599f8 !important;
+}
+.threeLevels .layui-form-checked[lay-skin=primary] i{
+    background:#4599f8 !important;
+    border:1px solid #4599f8 !important;
+}
+.threeLevel .areas .allSelect .layui-form-checkbox[lay-skin=primary] i{
+    border:1px solid #4599f8 !important;
+}
+.threeLevel .areas .allSelect .layui-form-checked[lay-skin=primary] i{
+    background:#4599f8 !important;
+    border:1px solid #4599f8 !important;
+}
+.threeLevel .areas .zhange {
+    width: 17px;
+    height: 40px;
+}
+.layui-form-radio{
+    margin-right:20px !important;
+}
+.women{
+    margin-left:28px;
+}
+.Wireless{
+    margin-left:19px;
+}
+.Wireles{
+    margin-left:15px;
+}
+.week{
+    margin-left:14px;
+}
+.android{
+    margin-left:18px;
+}
+.networking{
+    margin-left:28px;
+}
+.other{
+    margin-left:13px;
+}
+.areaContent {
+ overflow-y: scroll;
+    height:294px;
+    margin-top:5px;
+    padding-top:9px;
+}
+.ageGroup .areaContent .checkboxs{
+    margin-left:0.1rem;
+}
+.threeLevel .areaList {
+    display: flex;
+    margin-top: 15px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.area-form{
+  display:flex;
+}
+ .area-checkbox{
+    width:16px;position: relative;display:flex;align-items: center;
+}
+ .area-img{
+     display: none;
+      position:absolute; left:0;right:0;top:-2px;bottom:0;margin:auto;border-radius:"2px";width:16px ;height:16px; 
+     background:url(../images/dian.png) no-repeat center center;background-size:100%;z-index: 10;
+}
+.is-indeterminate{
+    display: block;
+    }
+     .cityThreeLevel .areas .area {
+        height: 40px;
+        line-height: 40px;
+        flex: 1;
+        background: #999;
+        text-align: center;
+     }  
+     .cityThreeLevel .areas{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        /* padding-left: 39px; */
+        /* margin-top: 30px; */
+        color: #fff; 
+     }
+     .cityThreeLevel .areaList {
+        display: flex;
+        margin-top: 15px;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .cityThreeLevel .areaList .areaName {
+        flex:1;
+        border: 1px solid #4f99f8;
+        height: 0.3rem;
+        line-height: 0.3rem;
+        text-align: center;
+        font-size: 0.14rem;
+        color: #141414;
+        margin: 0 .09rem 0 .1rem;
+    }
+    .cityThreeLevel .areaList .checkboxs {
+        margin-right: 0.1rem;
+        width: 16px;
+    }
+    .cityThreeLevel .select{
+        display: flex;
+     align-items: center;
+     margin-top: 17px;
+    }
+    .cityThreeLevel  .fastSelect {
+        width: 3.0227rem;
+        height: 0.3rem;
+        line-height: 0.3rem;
+        border: 1px solid #bcbcbc;
+        margin-left: 10px;
+        font-size: 0.14rem;
+        color: #bcbcbc;
+        padding-left: 0.1rem;
+    }
+    .cityThreeLevel .zoom {
+        width: 0.25rem;
+        height: 0.25rem;
+        margin-left: 0.1rem;
+    }
+    .cityThreeLevel .threeLevelList {
+        border: 1px solid #bcbcbc;
+        margin-top: 0.22rem;
+        margin-right: 0.12rem;
+        height: 400px;
+    }
+    .cityThreeLevel .areas .zhange {
+        width: 17px;
+        height: 40px;
+    }
+    .cityThreeLevel .areas .allSelect {
+        width: 14px;
+        height: 14px;
+        line-height: 14px;
+        text-align: center;
+        margin-left: 10px;
+        color: #fff;
+    }
+    .cityThreeLevel .layui-form-checkbox[lay-skin=primary] i {
+        border:1px solid #4599f8 !important;
+    }
+    .cityThreeLevel .layui-form-checked[lay-skin=primary] i{
+        background:#4599f8 !important;
+        border:1px solid #4599f8 !important;
+    }
+    .cityThreeLevel .areas .allSelect .layui-form-checkbox[lay-skin=primary] i{
+        border:1px solid #4599f8 !important;
+    }
+    .cityThreeLevel .areas .allSelect .layui-form-checked[lay-skin=primary] i{
+        background:#4599f8 !important;
+        border:1px solid #4599f8 !important;
+    }
+    /* 联网方式 */
+    .networkthreeLevel .areas .area {
+        height: 40px;
+        line-height: 40px;
+        flex: 1;
+        background: #999;
+        text-align: center;
+     }  
+     .networkthreeLevel .areas{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        /* padding-left: 39px; */
+        /* margin-top: 30px; */
+        color: #fff; 
+     }
+     .networkthreeLevel .areaList {
+        display: flex;
+        margin-top: 15px;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .networkthreeLevel .areaList .areaName {
+        flex:1;
+        border: 1px solid #4f99f8;
+        height: 0.3rem;
+        line-height: 0.3rem;
+        text-align: center;
+        font-size: 0.14rem;
+        color: #141414;
+        margin: 0 .09rem 0 .1rem;
+    }
+    .networkthreeLevel .areaList .checkboxs {
+        margin-right: 0.1rem;
+        width: 16px;
+    }
+    .networkthreeLevel .select{
+        display: flex;
+     align-items: center;
+     margin-top: 17px;
+    }
+    .networkthreeLevel  .fastSelect {
+        width: 3.0227rem;
+        height: 0.3rem;
+        line-height: 0.3rem;
+        border: 1px solid #bcbcbc;
+        margin-left: 10px;
+        font-size: 0.14rem;
+        color: #bcbcbc;
+        padding-left: 0.1rem;
+    }
+    .networkthreeLevel .zoom {
+        width: 0.25rem;
+        height: 0.25rem;
+        margin-left: 0.1rem;
+    }
+    .networkthreeLevel .threeLevelList {
+        border: 1px solid #bcbcbc;
+        margin-top: 0.22rem;
+        margin-right: 0.12rem;
+        height: 400px;
+    }
+    .networkthreeLevel .areas .zhange {
+        width: 17px;
+        height: 40px;
+    }
+    .networkthreeLevel .areas .allSelect {
+        width: 14px;
+        height: 14px;
+        line-height: 14px;
+        text-align: center;
+        margin-left: 10px;
+        color: #fff;
+    }
+    .networkthreeLevel .layui-form-checkbox[lay-skin=primary] i {
+        border:1px solid #4599f8 !important;
+    }
+    .networkthreeLevel .layui-form-checked[lay-skin=primary] i{
+        background:#4599f8 !important;
+        border:1px solid #4599f8 !important;
+    }
+    .networkthreeLevel .areas .allSelect .layui-form-checkbox[lay-skin=primary] i{
+        border:1px solid #4599f8 !important;
+    }
+    .networkthreeLevel .areas .allSelect .layui-form-checked[lay-skin=primary] i{
+        background:#4599f8 !important;
+        border:1px solid #4599f8 !important;
+    }
+
+/* 扫码工具自定义 */
+
+.scanthreeLevel .areas .area {
+    height: 40px;
+    line-height: 40px;
+    flex: 1;
+    background: #999;
+    text-align: center;
+ }  
+ .scanthreeLevel .areas{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* padding-left: 39px; */
+    /* margin-top: 30px; */
+    color: #fff; 
+ }
+ .scanthreeLevel .areaList {
+    display: flex;
+    margin-top: 15px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.scanthreeLevel .areaList .areaName {
+    flex:1;
+    border: 1px solid #4f99f8;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+    font-size: 0.14rem;
+    color: #141414;
+    margin: 0 .09rem 0 .1rem;
+}
+.scanthreeLevel .areaList .checkboxs {
+    margin-right: 0.1rem;
+    width: 16px;
+}
+.scanthreeLevel .select{
+    display: flex;
+ align-items: center;
+ margin-top: 17px;
+}
+.scanthreeLevel  .fastSelect {
+    width: 3.0227rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    border: 1px solid #bcbcbc;
+    margin-left: 10px;
+    font-size: 0.14rem;
+    color: #bcbcbc;
+    padding-left: 0.1rem;
+}
+.scanthreeLevel .zoom {
+    width: 0.25rem;
+    height: 0.25rem;
+    margin-left: 0.1rem;
+}
+.scanthreeLevel .threeLevelList {
+    border: 1px solid #bcbcbc;
+    margin-top: 0.22rem;
+    margin-right: 0.12rem;
+    height: 400px;
+}
+.scanthreeLevel .areas .zhange {
+    width: 17px;
+    height: 40px;
+}
+.scanthreeLevel .areas .allSelect {
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    margin-left: 10px;
+    color: #fff;
+}
+.scanthreeLevel .layui-form-checkbox[lay-skin=primary] i {
+    border:1px solid #4599f8 !important;
+}
+.scanthreeLevel .layui-form-checked[lay-skin=primary] i{
+    background:#4599f8 !important;
+    border:1px solid #4599f8 !important;
+}
+.scanthreeLevel .areas .allSelect .layui-form-checkbox[lay-skin=primary] i{
+    border:1px solid #4599f8 !important;
+}
+.scanthreeLevel .areas .allSelect .layui-form-checked[lay-skin=primary] i{
+    background:#4599f8 !important;
+    border:1px solid #4599f8 !important;
+}
+
+/* 节假日星期 */
+.holidaythreeLevel .areas .area {
+    height: 40px;
+    line-height: 40px;
+    flex: 1;
+    background: #999;
+    text-align: center;
+ }  
+ .holidaythreeLevel .areas{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* padding-left: 39px; */
+    /* margin-top: 30px; */
+    color: #fff; 
+ }
+ .holidaythreeLevel .areaList {
+    display: flex;
+    margin-top: 15px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.holidaythreeLevel .areaList .areaName {
+    flex:1;
+    border: 1px solid #4f99f8;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+    font-size: 0.14rem;
+    color: #141414;
+    margin: 0 .09rem 0 .1rem;
+}
+.holidaythreeLevel .areaList .checkboxs {
+    margin-right: 0.1rem;
+    width: 16px;
+}
+.holidaythreeLevel .select{
+    display: flex;
+ align-items: center;
+ margin-top: 17px;
+}
+.holidaythreeLevel  .fastSelect {
+    width: 3.0227rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    border: 1px solid #bcbcbc;
+    margin-left: 10px;
+    font-size: 0.14rem;
+    color: #bcbcbc;
+    padding-left: 0.1rem;
+}
+.holidaythreeLevel .zoom {
+    width: 0.25rem;
+    height: 0.25rem;
+    margin-left: 0.1rem;
+}
+.holidaythreeLevel .threeLevelList {
+    border: 1px solid #bcbcbc;
+    margin-top: 0.22rem;
+    margin-right: 0.12rem;
+    height: 400px;
+}
+.holidaythreeLevel .areas .zhange {
+    width: 17px;
+    height: 40px;
+}
+.holidaythreeLevel .areas .allSelect {
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    margin-left: 10px;
+    color: #fff;
+}
+.holidaythreeLevel .layui-form-checkbox[lay-skin=primary] i {
+    border:1px solid #4599f8 !important;
+}
+.holidaythreeLevel .layui-form-checked[lay-skin=primary] i{
+    background:#4599f8 !important;
+    border:1px solid #4599f8 !important;
+}
+.holidaythreeLevel .areas .allSelect .layui-form-checkbox[lay-skin=primary] i{
+    border:1px solid #4599f8 !important;
+}
+.holidaythreeLevel .areas .allSelect .layui-form-checked[lay-skin=primary] i{
+    background:#4599f8 !important;
+    border:1px solid #4599f8 !important;
+}
+/* 节假日法定 */
+
+.legalthreeLevel .areas .area {
+    height: 40px;
+    line-height: 40px;
+    flex: 1;
+    background: #999;
+    text-align: center;
+ }  
+ .legalthreeLevel .areas{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* padding-left: 39px; */
+    /* margin-top: 30px; */
+    color: #fff; 
+ }
+ .legalthreeLevel .areaList {
+    display: flex;
+    margin-top: 15px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.legalthreeLevel .areaList .areaName {
+    flex:1;
+    border: 1px solid #4f99f8;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+    font-size: 0.14rem;
+    color: #141414;
+    margin: 0 .09rem 0 .1rem;
+}
+.legalthreeLevel .areaList .checkboxs {
+    margin-right: 0.1rem;
+    width: 16px;
+}
+.legalthreeLevel .select{
+    display: flex;
+ align-items: center;
+ margin-top: 17px;
+}
+.legalthreeLevel  .fastSelect {
+    width: 3.0227rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    border: 1px solid #bcbcbc;
+    margin-left: 10px;
+    font-size: 0.14rem;
+    color: #bcbcbc;
+    padding-left: 0.1rem;
+}
+.legalthreeLevel .zoom {
+    width: 0.25rem;
+    height: 0.25rem;
+    margin-left: 0.1rem;
+}
+.legalthreeLevel .threeLevelList {
+    border: 1px solid #bcbcbc;
+    margin-top: 0.22rem;
+    margin-right: 0.12rem;
+    height: 400px;
+}
+.legalthreeLevel .areas .zhange {
+    width: 17px;
+    height: 40px;
+}
+.legalthreeLevel .areas .allSelect {
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    margin-left: 10px;
+    color: #fff;
+}
+.legalthreeLevel .layui-form-checkbox[lay-skin=primary] i {
+    border:1px solid #4599f8 !important;
+}
+.legalthreeLevel .layui-form-checked[lay-skin=primary] i{
+    background:#4599f8 !important;
+    border:1px solid #4599f8 !important;
+}
+.legalthreeLevel .areas .allSelect .layui-form-checkbox[lay-skin=primary] i{
+    border:1px solid #4599f8 !important;
+}
+.legalthreeLevel .areas .allSelect .layui-form-checked[lay-skin=primary] i{
+    background:#4599f8 !important;
+    border:1px solid #4599f8 !important;
+}
+
+/* 设备平台 */
+
+.EquipmentthreeLevelList .areas .area {
+    height: 40px;
+    line-height: 40px;
+    flex: 1;
+    background: #999;
+    text-align: center;
+ }  
+ .EquipmentthreeLevelList .areas{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* padding-left: 39px; */
+    /* margin-top: 30px; */
+    color: #fff; 
+ }
+ .EquipmentthreeLevelList .areaList {
+    display: flex;
+    margin-top: 15px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.EquipmentthreeLevelList .areaList .areaName {
+    flex:1;
+    border: 1px solid #4f99f8;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+    font-size: 0.14rem;
+    color: #141414;
+    margin: 0 .09rem 0 .1rem;
+}
+.EquipmentthreeLevelList .areaList .checkboxs {
+    margin-right: 0.1rem;
+    width: 16px;
+}
+.EquipmentthreeLevelList .select{
+    display: flex;
+ align-items: center;
+ margin-top: 17px;
+}
+.EquipmentthreeLevelList  .fastSelect {
+    width: 3.0227rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    border: 1px solid #bcbcbc;
+    margin-left: 10px;
+    font-size: 0.14rem;
+    color: #bcbcbc;
+    padding-left: 0.1rem;
+}
+.EquipmentthreeLevelList .zoom {
+    width: 0.25rem;
+    height: 0.25rem;
+    margin-left: 0.1rem;
+}
+.EquipmentthreeLevelList .threeLevelList {
+    border: 1px solid #bcbcbc;
+    margin-top: 0.22rem;
+    margin-right: 0.12rem;
+    height: 400px;
+}
+.EquipmentthreeLevelList .areas .zhange {
+    width: 17px;
+    height: 40px;
+}
+.EquipmentthreeLevelList .areas .allSelect {
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    margin-left: 10px;
+    color: #fff;
+}
+.EquipmentthreeLevelList .layui-form-checkbox[lay-skin=primary] i {
+    border:1px solid #4599f8 !important;
+}
+.EquipmentthreeLevelList .layui-form-checked[lay-skin=primary] i{
+    background:#4599f8 !important;
+    border:1px solid #4599f8 !important;
+}
+.EquipmentthreeLevelList .areas .allSelect .layui-form-checkbox[lay-skin=primary] i{
+    border:1px solid #4599f8 !important;
+}
+.EquipmentthreeLevelList .areas .allSelect .layui-form-checked[lay-skin=primary] i{
+    background:#4599f8 !important;
+    border:1px solid #4599f8 !important;
+}
+
+
+    .contents .cityLevel .changes ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2.01rem;
+        height: 0.38rem;
+        margin-left: 18px;
+    }
+    .contents .cityLevel  .changes ul li {
+        width: 0.67rem;
+        border-right: 1px solid #fff;
+        background: #4599F8;
+        text-align: center;
+        font-size: 0.14rem;
+        color: #fff;
+        height: 0.38rem;
+        line-height: 0.38rem;
+    }
+.threeLevel .areaList .areaName {
+     flex:1;
+    border: 1px solid #4f99f8;
+    height:0.3rem;
+    line-height:0.3rem;
+    text-align:center;
+    font-size: 0.14rem;
+    color: #141414;
+    margin:0 .09rem 0 .1rem;
+
+}
+
+::-webkit-scrollbar {
+    width: 6px; /*对垂直流动条有效*/
+    height: 6px; /*对水平流动条有效*/
+    }
+    
+/*定义滚动条的轨道颜色、内阴影及圆角*/
+::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #ddd;
+    border-radius: 3px;
+    }
+    
+    
+    /*定义滑块颜色、内阴影及圆角*/
+    ::-webkit-scrollbar-thumb{
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #E8E8E8;
+    }
+.threeLevel .areaList .checkboxs{
+    /* line-height: 30px;
+    display:flex; */
+    margin-right: 0.1rem;
+    width:16px;
+}
+#outLet .layui-form-checkbox[lay-skin=primary]{
+    padding-left:0px !important;
+}
+ 
+.threeLevel .areaList .checkbox {
+    height: 14px;
+    width: 14px;
+    border:1px solid #4f99f8;
+    margin-left: 12px;
+}
+.threeLevel .cityList {
+    display: flex;
+    margin-top: 15px;
+}
+.threeLevel .cityList .areaName {
+    flex: 1;
+    border: 1px solid #000;
+    height:20px;
+
+}
+.threeLevel .cityList .checkboxs{
+    width: 45px;
+    height: 20px;
+    line-height: 20px;
+}
+.threeLevel .cityList .checkbox {
+    height: 20px;
+    width: 20px;
+    margin-left: 12px;
+}
+.threeLevel .cityList .zhange {
+    width: 20px;
+    height: 20px;
+}
+.threeLevel .select{
+    display:flex;
+    align-items: center;
+    margin-top: 17px;
+}
+.threeLevel .fastSelect{
+    width:2.2rem;
+    /* flex: 1; */
+    height: 0.3rem;
+    line-height: 0.3rem;
+    border: 1px solid #bcbcbc;
+    margin-left: 10px;
+    font-size: 0.14rem;
+    color: #bcbcbc;
+    padding-left: 0.1rem;
+
+}
+
+.threeLevel .zoom {
+    width:0.25rem;
+    height:0.25rem;
+  margin-left:0.05rem;
+}
+.threeLevel .zoom img{
+    width:100%;
+    height:100%;
+}
+.threeLevel .areaList .zhange {
+    width: 10px;
+    height: 20px;
+}
+/* .cityLevel .areaContent .areaList .areaName{
+    margin-left: 0.2rem;
+    margin-right: 0;
+}  */
+/* .cityLevel .areaContent .areaList .checkboxs{
+    margin-left:0.1rem;
+} */
+.ageCustom  form input, .ageCustom form select, .ageCustom .searchDate input, .ageCustom #date-range00 input,.ageCustom  #date-range2{
+    border:none;
+    border-radius:none;
+    padding-top:0.15rem;
+    box-shadow: none;
+    text-align:center;
+    /* height:0.79rem;
+    line-height: 0.79rem; */
+    font-size:0.14rem;
+}
+.inputClass{
+ border:1px solid #ccc;
+ outline: none;
+height:0.3rem;
+}
+/* //强制给placeholder属性 */
+.inputClass input[type="text"]:before {
+	content: attr('aaaaa'); 
+}
+
+.ageCustom  .layui-form-item{
+    justify-content: center !important;
+}
+.ageCustom .tables{
+    margin: 0 69px;
+}
+/*.ageCustom .layui-table{*/
+/*    margin: 0 86px;*/
+/*}*/
+.ageCustom .layui-table tr{
+    border-right:1px solid #bcbcbc;
+    border-left:1px solid #bcbcbc;
+}
+.ageCustom .layui-table td,
+.ageCustom .layui-table th{
+ text-align: center;
+ border:none;
+
+
+}
+.ageCustom .layui-table{
+    margin:0;
+    
+}
+.ageCustom .addList{
+    border:1px solid #bcbcbc;
+    border-top:none;
+    display:flex;
+    justify-content: center;
+}
+.ageCustom .layui-slider-wrap{
+    top:-0.39rem;
+}
+.ageCustom .layui-table td{
+    padding:0;
+    line-height:0.79rem;
+    min-height: 0.79rem;
+    color:#333;
+}
+.ageCustom .layui-table th{
+    background: rgba(238,247,255,0.8);
+    color: #333;
+    font-size: 0.14rem;
+    padding:0;
+    line-height:0.52rem;
+    min-height:0.52rem;
+}
+.time-horizontal {
+    list-style-type: none;
+    border-top: 1px solid #707070;
+    max-width: 800px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.time-horizontal li {
+    float: left;
+    position: relative;
+    text-align: center;
+    width: 25%;
+    padding-top: 10px;
+}
+
+.time-horizontal li b:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 47%;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #4c4c4c;
+    border-radius: 8px;
+    background: #4c4c4c;
+}
+
+
+
+
+.names p{
+    margin-top:10px;
+}
+
+.wirelessCustomization .change ul {
+
+    display: flex;
+    padding-left: 86px;
+}
+
+.wirelessCustomization .change ul li {
+    width: 40px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border: 1px solid #0076ff;
+    background: #0076ff;
+    color: #fff;
+    border-right: 1px solid #fff;
+    font-size: 14px;
+    padding: 5px;
+
+}
+.wirelessCustomization .wireless{
+    margin:0 20px;
+}
+
+.cityLevel .change ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.67rem;
+    height: 0.38rem;
+    margin-left: 18px;
+}
+
+.cityLevel .change ul li {
+    width: 0.67rem;
+    border-right: 1px solid #fff;
+    background: #4599F8;
+    text-align: center;
+    font-size: 0.14rem;
+    color: #fff;
+    height: 0.38rem;
+    line-height: 0.38rem;
+
+}
+.contents .layui-form-label{
+    text-align: right !important;
+    /* padding-left:35px; */
+}
+.scanCode .wireless{
+    margin:0 20px;
+}
+.tables .add{
+    width:2.14rem;
+    height:0.36rem;
+    font-size:0.14rem;
+    background: none;
+    border:1px solid #1CB01C;
+    color:#1CB01C;
+    border-radius: 4px;
+    margin-bottom:0.14rem;
+    margin-top:0.18rem;
+    
+}
+
+
+.bottom .btn{
+  width:100%;
+    margin-top:30px;
+}
+.bottom .btn button{
+    width: 1.1rem;
+    height: 0.36rem;
+    background: none;
+    /* padding: 10px 20px; */
+    border: 1px solid #0177d5;
+    /* margin: 0 10px; */
+    color: #0177d5;
+    border-radius: 5px;
+    margin-right:1.01rem;
+}
+.del{
+    color:red !important;
+    text-decoration: underline;
+}
+.contents .btns{
+    width: 1.1rem;
+    height: 0.36rem;
+    background: none;
+    /* padding: 10px 20px; */
+    border: 1px solid #0177d5;
+    /* margin: 0 10px; */
+    color: #0177d5;
+    border-radius: 5px;
+    margin-right:0.16rem;
+}
+.input{
+    border:none;
+    background: none;
+    text-align: center;
+    color:#333;
+} 
+.input::placeholder{
+    color:#333;
+}
+.cur{
+    background: #4599f8;
+    color:#fff !important;
+}
+html {
+    font-size: 625%; /*100 ÷ 16 × 100% = 625%*/
+}
+.color{
+    background:#EEF7FF;
+}
+.ageGroup .ageList{
+    margin:0 16px; 
+    border:1px solid #bcbcbc;
+   
+}
+.ageGroup .ageList .areas{
+    height:0.4rem;
+    line-height: 0.4rem;
+    color: #fefefe;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.ageGroup .ageList .areas .checkboxs{
+    padding-left:0.1rem;
+}
+.ageGroup .ageList .areas .area{
+    width: 100%;
+    text-align: center;
+    background: #999;
+}
+.ageGroup .areaList{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+} 
+.ageGroup .areaList .areaName{
+    width:2.25rem;
+    height:0.3rem;
+    text-align: center;
+    line-height:0.3rem;
+    border:1px solid #4599F8;
+    margin-left:0.1rem;
+}
+.ageGroup  input{
+    width:0.14rem;
+    height:0.14rem;
+    /* border:1px solid #4599F8; */
+}
+.ageGroup .layui-form-checkbox[lay-skin=primary] i{
+    border:1px solid #4599f8;
+}
+.ageGroup .layui-form-checked[lay-skin=primary] i{
+    border:1px solid #4599f8;
+    background:#4599f8;
+}
+.ageCustom table tbody tr:hover{
+    background:rgba(238,247,255,.49) !important;
+}
+.ageCustomColor{
+    background:rgba(238,247,255,.49) !important;
+}
+/* 时段 */
+
+.PeriodTime .ageList{
+    margin:0 16px; 
+    border:1px solid #bcbcbc;
+   
+}
+.PeriodTime .ageList .areas{
+    height:0.4rem;
+    line-height: 0.4rem;
+    color: #fefefe;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.PeriodTime .ageList .areas .checkboxs{
+    padding-left:0.1rem;
+}
+.PeriodTime .ageList .areas .area{
+    width: 100%;
+    text-align: center;
+    background: #999;
+}
+.PeriodTime .areaList{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+} 
+.PeriodTime .areaList .areaName{
+    width:2.25rem;
+    height:0.3rem;
+    text-align: center;
+    line-height:0.3rem;
+    border:1px solid #4599F8;
+    margin-left:0.1rem;
+}
+.PeriodTime  input{
+    width:0.14rem;
+    height:0.14rem;
+    /* border:1px solid #4599F8; */
+}
+.PeriodTime .layui-form-checkbox[lay-skin=primary] i{
+    border:1px solid #4599f8;
+}
+.PeriodTime .layui-form-checked[lay-skin=primary] i{
+    border:1px solid #4599f8;
+    background:#4599f8;
+}
+.PeriodTime .areaContent .checkboxs {
+    margin-left: 0.1rem;
+}
+/* 时段自定义 */
+.timeCustom .tables{
+    margin: 0 69px;
+}
+/*.ageCustom .layui-table{*/
+/*    margin: 0 86px;*/
+/*}*/
+.timeCustom .layui-table tr{
+    border-right:1px solid #bcbcbc;
+    border-left:1px solid #bcbcbc;
+}
+.timeCustom .layui-table td,
+.timeCustom .layui-table th{
+ text-align: center;
+ border:none;
+
+
+}
+.timeCustom .layui-table{
+    margin:0;
+    
+}
+.timeCustom .addList{
+    border:1px solid #bcbcbc;
+    border-top:none;
+    display:flex;
+    justify-content: center;
+}
+.timeCustom .layui-slider-wrap{
+    top:-0.39rem;
+}
+.timeCustom .layui-table td{
+    padding:0;
+    line-height:0.79rem;
+    min-height: 0.79rem;
+    color:#333;
+}
+.timeCustom .layui-table th{
+    background: rgba(238,247,255,0.8);
+    color: #333;
+    font-size: 0.14rem;
+    padding:0;
+    line-height:0.52rem;
+    min-height:0.52rem;
+}
+.timeCustom table tbody tr:hover{
+    background:rgba(238,247,255,.49) !important;
+}

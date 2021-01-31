@@ -1,0 +1,1112 @@
+jQuery.extend({
+	connector:{
+		/**
+		 * 接口列表页===========================================================================
+		 */
+		list:{
+			init:function(){
+				/**
+				 * |跳转形式1
+				 */
+				$("#type1").click(function(){
+					//跳转到形式1
+					var url=rootPath+"/user/connector/createTypeOne.shtml";
+					platform.doGet(url);
+					
+				});
+				/**
+				 * 跳转形式二
+				 */
+				$("#type2").click(function(){
+					var url=rootPath+"/user/connector/createTypeTwo.shtml";
+					platform.doGet(url);
+				});
+				
+				/**
+				 * 跳转到形式3
+				 */
+				$("#type3").click(function(){
+					var url=rootPath+"/user/connector/createTypeThree.shtml";
+					platform.doGet(url);
+				});
+				/**
+				 * 跳转到形式4
+				 */
+				$("#type4").click(function(){
+					var url=rootPath+"/user/connector/createTypeFour.shtml";
+					platform.doGet(url);
+				});
+				/**
+				 * 引导页跳转形式5
+				 */
+				$("#type5").click(function(){
+					var url=rootPath+"/user/connector/createTypeFive.shtml";
+					platform.doGet(url);
+				});
+				
+				/**
+				 * 返回1
+				 */
+				$("#connectorGoback").click(function(){
+					window.location.reload();
+/*					var url=rootPath+"/user/connector/typelist.shtml";
+					platform.doGet(url);*/
+				});
+				
+				/**
+				 * 形式1发布
+				 */
+				$("#connectorType1Submit").click(function(){
+					var param=platform.getFormJson("#connectorType1Form");
+					var flag=$("#flag").val();
+					if(flag=='edit'){
+						var url=rootPath+"/user/connector/connectorEdit1.shtml"
+						platform.doPost(url, param);
+					}else{
+						var url=rootPath+"/user/connector/connectorSub1.shtml"
+						platform.doPost(url, param);
+					}
+				})
+				
+				/**
+				 * 形式2发布
+				 */
+				$("#connectorType2Submit").click(function(){
+					var param=platform.getFormJson("#connectorType2Form");
+					var flag=$("#flag").val();
+					if(flag=='edit'){
+						var url=rootPath+"/user/connector/connectorEdit2.shtml"
+						platform.doPost(url, param);
+					}else{
+						
+						var url=rootPath+"/user/connector/connectorSub2.shtml"
+						platform.doPost(url, param);
+					}
+					
+				})
+				/**
+				 * 点击切换是否需要动态码
+				 */
+				$("input[name='qrcodeType']").click(function(){
+					$.connector.list.checkQrcode();
+				})
+				
+				$("#templet-z span").click(function() {
+					var index = $(this).index();
+					$(this).addClass("btn-pr").siblings().removeClass("btn-pr")
+					$(".l" + (index + 1)).addClass("show").siblings().removeClass("show")
+				})
+				$(" .guize-position span").click(function() {
+					var index = $(this).index();
+					$(this).addClass("btn-green").siblings().removeClass("btn-green")
+					if(index==0){				
+						$(".templet-zs .position-1").addClass("show")
+						$(".templet-zs .bottom span").removeClass("show")
+						$("#rulesbuttonPosition").val(0)
+					}else{
+						$(".templet-zs .position-1").removeClass("show")
+						$(".position-" + (index + 1)).addClass("show").siblings().removeClass("show")
+						$("#rulesbuttonPosition").val(index+1)
+					}
+					
+				})
+				
+				$("#them ul li").click(function(){
+					var index=$(this).index();	
+					
+					var url=(index+1)
+						$(".templet-zs  .content-p").css({
+						"background": "url("+rootPath+"/assets/images/"+url.jpg+") no-repeat center",
+						"background-size":"100% 100%"
+						})
+					if(url==2){
+						$(".templet-zs .middle").css({
+					       "background":"none",
+					       "margin-top":"75%"
+						})
+					}else{
+					
+						$(".templet-zs .middle").css({
+					       "background": "url("+rootPath+"/assets/images/l-bg.png) no-repeat center",
+					        "background-size":"100% 100%",
+					         "margin-top":"75%"
+					       
+						})
+					}
+					
+					$(".templet-zs .size").css({
+						"background": "url("+rootPath+"/assets/images/"+url+".jpg) no-repeat center",
+						"background-size":"100% 100%"
+					})
+					$(".templet-zs .logo-size").css({
+						//"background": "url('image/"+url+".png') no-repeat center",
+						//"background-size":"100% 100%"
+					})
+					$(".templet-zs .btn-ban").css({
+						//"background": "url('image/"+url+".png') no-repeat center",
+						//"background-size":"100% 100%"
+					})
+					
+					$(".templet-zs .btn-size").css({
+						//"background": "url('image/huodongguize-"+url+".png') no-repeat center",
+						//"background-size":"100% 100%"
+					})
+					$(".templet-zs .btn-guanggao").css({
+						//"background": "url('image/"+url+".png') no-repeat center",
+						//"background-size":"100% 100%"
+					})
+					$(".templet-zs .btn-bg").css({
+						//"background": "url('image/"+url+".png') no-repeat center",
+						//"background-size":"100% 100%"
+					})
+				})
+				
+			},
+			
+			shownew:function(){
+				$("#templet-z").find("span").click(function(){
+					$("#templet-z").find("span").removeClass("btn-pr")
+					$(this).addClass("btn-pr");
+					if($(this).attr("name")=="one"){
+						$(".l1").addClass("show").css("display","block")
+						$(".l2").removeClass("show").css("display","none")
+					}
+					if($(this).attr("name")=="two"){
+						$(".l2").addClass("show").css("display","block")
+						$(".l1").removeClass("show").css("display","none")
+					}
+				})
+			},
+			
+			
+			
+			
+			
+			uploadFile:function(){
+				//上传banner
+				$("#bannerFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#bannerFile",{backgroundUrl:$("#bannerUrl").val()},
+							$.connector.list.uploadBanner, platform.fileUpload.uploadBackE);
+				});
+				
+				//上传背景图片
+				$("#backgroundFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#backgroundFile",{backgroundUrl:$("#backgroundUrl").val()},
+							$.connector.list.uploadBackground, platform.fileUpload.uploadBackE);
+				});
+				
+				//上传logo图片
+				$("#logoFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#logoFile",{logoUrl :$("#logoUrl").val()},
+							$.connector.list.uploadBackLogo, platform.fileUpload.uploadBackE);
+				});
+				//规则按钮
+				$("#rulesbuttonFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#rulesbuttonFile",{rulesbuttonUrl :$("#rulesbuttonUrl").val()},
+							$.connector.list.uploadBackRulesbutton, platform.fileUpload.uploadBackE);
+				});
+				
+				//活动声明
+				$("#activityStatementFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#activityStatementFile",{activityStatementUrl :$("#activityStatementUrl").val()},
+							$.connector.list.uploadBackActivityStatement, platform.fileUpload.uploadBackE);
+				});
+				//广告语
+				$("#adwordFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#adwordFile",{adwordUrl :$("#adwordUrl").val()},
+							$.connector.list.uploadBackAdword, platform.fileUpload.uploadBackE);
+				});
+				//内容背景
+				$("#adbackgroundFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#adbackgroundFile",{adbackgroundUrl :$("#adbackgroundUrl").val()},
+							$.connector.list.uploadBackAdwordBack, platform.fileUpload.uploadBackE);
+				});
+				
+				//提交按钮
+				$("#acceptbuttonFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#acceptbuttonFile",{acceptbuttonUrl :$("#acceptbuttonUrl").val()},
+							$.connector.list.uploadBackAcceptbutton, platform.fileUpload.uploadBackE);
+				});
+				
+				
+			},
+			
+			
+			uploadFileType3:function(){
+				$("#type3BannerFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#type3BannerFile",{bannerUrl :$("#bannerUrl").val()},
+							$.connector.list.uploadBackType3banner, platform.fileUpload.uploadBackE);
+				});
+				
+				$("#type3LogoFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#type3LogoFile",{logoUrl :$("#logoUrl").val()},
+							$.connector.list.uploadBackType3Logo, platform.fileUpload.uploadBackE);
+				});
+				
+				$("#type3BackgroundUrlFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#type3BackgroundUrlFile",{logoUrl :$("#backgroundUrl").val()},
+							$.connector.list.uploadBackType3BackgroundUrl, platform.fileUpload.uploadBackE);
+				});
+				
+				//上传更多福利按钮
+				$("#type3MoreButtonFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#type3MoreButtonFile",{moreButton :$("#moreButton").val()},
+							$.connector.list.uploadBackType3MoreButton, platform.fileUpload.uploadBackE);
+				});
+				
+				$("#acceptPictureFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#acceptPictureFile",{acceptPictureUrl :$("#acceptPictureUrl").val()},
+							$.connector.list.uploadBackType3AcPicUrl, platform.fileUpload.uploadBackE);
+				});
+				
+				//第五套接口上传图片
+				$("#type5BannerFile").off("change").on("change",function(){	
+					platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#type5BannerFile",{bannerUrl :$("#picture").val()},
+							$.connector.list.uploadBackType5banner, platform.fileUpload.uploadBackE);
+				});
+				
+				
+			},
+			
+			uploadBackType3AcPicUrl:function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#acceptPictureUrl").val(data.data.keyUrl);
+					$("#acceptPictureUrlBack").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+				}
+			},
+			uploadBackType3banner:function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#bannerUrl").val(data.data.keyUrl);
+					$(".advertising").find("img").attr('src',imageurl+data.data.keyUrl);
+					$("#bannerBackground").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+				}
+			},
+			
+			uploadBackType5banner:function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#picture").val(data.data.keyUrl);
+					$(".advertising").find("img").attr('src',imageurl+data.data.keyUrl);
+					$("#bannerBackground").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+				}
+			},
+			
+			uploadBackType3Logo:function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#logoUrl").val(data.data.keyUrl);
+					$(".topleft").find("img").attr('src',imageurl+data.data.keyUrl);
+					$("#type3logoback").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+				}
+			},
+			uploadBackType3BackgroundUrl:function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#backgroundUrl").val(data.data.keyUrl);
+					$(".code5").css({'background-image':'url('+imageurl+data.data.keyUrl+')'})
+					$("#type3BackgroundUrlback").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+				}
+			},
+			
+			uploadBackType3MoreButton:function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#moreButton").val(data.data.keyUrl);
+					$(".safeMore").find("img").attr('src',imageurl+data.data.keyUrl);
+					$("#type3MoreButtonback").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+				}
+			},
+			
+			/**
+			 * 切换吗的方法
+			 */
+			checkQrcode:function(){
+				var val=$("input[name='qrcodeType']:checked").val();
+				if(val==0){
+					$("#fixedCodeDiv").css("display","block");
+					$("#fixedCode").attr("required","required")
+					$("#dynamicCodeDiv").css("display","none");
+					$("#dynamicCode").removeAttr("required","required")
+					
+				}else if(val==1){
+					$("#fixedCodeDiv").css("display","none");
+					$("#fixedCode").removeAttr("required")
+					$("#dynamicCodeDiv").css("display","block");
+					$("#dynamicCode").attr("required","required")
+				}
+			},
+			
+			
+			
+			uploadBackAcceptbutton : function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#acceptbuttonUrl").val(data.data.keyUrl);
+					$(".main-btn").find("img").attr('src',imageurl+data.data.keyUrl);
+					$("#acceptBtnPic").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+				}
+			},
+			
+			uploadBackAdwordBack : function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#adbackgroundUrl").val(data.data.keyUrl);
+					$(".middle").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100%");
+					$("#adwordBackPic").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+				}
+			},
+			uploadBackAdword : function(data,status){
+				
+				
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#adwordUrl").val(data.data.keyUrl);
+					$(".templet-title").find("img").attr('src',imageurl+data.data.keyUrl);
+					$("#adwordPic").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+				}
+			},
+			
+			uploadBackActivityStatement : function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#activityStatementUrl").val(data.data.keyUrl);
+					$("#activityStaPic").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+				}
+			},
+			uploadBackLogo : function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#logoUrl").val(data.data.keyUrl);
+					$("#phoneLogo").attr('src', imageurl+data.data.keyUrl);
+					$("#logoPic").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+					
+				}
+			},
+			uploadBackRulesbutton : function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#rulesbuttonUrl").val(data.data.keyUrl);
+					$(".position-1").find("img").attr('src', imageurl+data.data.keyUrl);
+					$(".position-2").find("img").attr('src', imageurl+data.data.keyUrl);
+					$(".position-3").find("img").attr('src', imageurl+data.data.keyUrl);
+					$(".position-4").find("img").attr('src', imageurl+data.data.keyUrl);
+					$("#rulesButtonPic").attr('style', "background: url("+imageurl+data.data.keyUrl+");background-size:100% 100%");
+					
+				}
+			},
+			
+			uploadBackground : function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#backgroundUrl").val(data.data.keyUrl);
+					$("#phoneBack").attr('style', "background:transparent url('"+imageurl+data.data.keyUrl+"') no-repeat;background-size:100% 100%");
+					$("#backPic").attr('style', "background:transparent url('"+imageurl+data.data.keyUrl+"') no-repeat;background-size:100% 100%");
+					
+				}
+			},
+			
+			uploadBanner : function(data,status){
+				if(!platform.isNull(data.msg)){
+					platform.alertmsg(data.msg);
+				}
+				if(!platform.isNull(data.data)){
+					var imageurl=$("#imageServer").val();
+					$("#bannerUrl").val(data.data.keyUrl);
+					$("#bannerPic").attr('src',imageurl+data.data.keyUrl);
+					$("#bannerPic3").attr('style',"background: url("+imageurl+data.data.keyUrl+") no-repeat;background-size: 100% 100%;");
+				}
+			},
+			
+			
+			threeType:function(){
+				$("#templet-z span").click(function() {
+					var index = $(this).index();
+					$(this).addClass("btn-pr").siblings().removeClass("btn-pr")
+					$(".l" + (index + 1)).addClass("show").siblings().removeClass("show")
+				})
+				$(" .guize-position span").click(function() {
+					var index = $(this).index();
+					$(this).addClass("btn-green").siblings().removeClass("btn-green")
+					if(index==0){				
+						$(".templet-zs .position-1").addClass("show")
+						$(".templet-zs .bottom span").removeClass("show")
+					}else{
+						$(".templet-zs .position-1").removeClass("show")
+						$(".position-" + (index + 1)).addClass("show").siblings().removeClass("show")
+					}
+					
+				})
+				
+				//使用说明位置
+				var $checkboxtop = $("input[name='checkboxtop']");
+		            $checkboxtop.click(function(){
+	                var isChecked3 = $(this).prop("checked")
+		               
+					if(isChecked3==true){
+						$(".three-zs .topright").show()	
+					}else(
+						$(".three-zs .topright").hide()	
+					)
+						
+				})
+		        var $checkboxbottom = $("input[name='checkboxbottom']");
+		            $checkboxbottom.click(function(){
+	                var isChecked2 = $(this).prop("checked")
+					if(isChecked2==true){
+						$(".three-zs .dirction").show()	
+					}else(
+						$(".three-zs .dirction").hide()	
+					)
+						
+				})
+		        //右侧使用说明点击 
+		        $(".three-zs .topright").click(function() {
+					$(".three-zs .employ").show()
+				})
+		        $(".three-zs .black").click(function() {
+					$(".three-zs .employ").hide()
+				})
+		         $(".three-zs .use").click(function() {
+					$(".three-zs .employ").hide()
+				})
+				//选中动态码
+				$("#optionsRadiosDynimic").click(function(){
+					$("#static").css("display","none")
+					$("#dynimic").css("display","block")
+					$("input[name='codeType']").val(1);
+					
+					$("input[name='acceptDynimicCode']").attr('required','required')
+					$("input[name='acceptStaticCode']").removeAttr('required')
+				})
+				//选中静态吗
+				$("#optionsRadiosStatic").click(function(){
+					$("#dynimic").css("display","none")
+					$("input[name='codeType']").val(0);
+					$("#static").css("display","block")
+					$("input[name='acceptStaticCode']").attr('required','required')
+					$("input[name='acceptDynimicCode']").removeAttr('required')
+				})
+				
+				// 选择具体的跳转形式，然后设定required
+				$(".radioo").find("input[type='radio']").click(function(){
+					//移除
+					$(".skipType").removeAttr('required');
+					//添加
+					if($(this).val()=='option1'){
+						$("input[name='acceptDownloadAndroid']").attr('required','required')
+						$("input[name='acceptDownloadIos']").attr('required','required')
+						$("input[name='acceptType']").val(1)
+					}else if($(this).val()=='option2'){
+						$("input[name='acceptSkipUrl']").attr('required','required')
+						$("input[name='acceptType']").val(2)
+					}else if($(this).val()=='option3'){
+						$("input[name='acceptType']").val(3)
+						$("input[name='acceptPictureUrl']").attr('required','required')
+					}else if($(this).val()=='option4'){
+						$("input[name='acceptType']").val(4)
+						$("input[name='acceptStaticCode']").attr('required','required')
+						$("input[name='gotouseButton']").attr('required','required')
+					}
+				})
+				
+				
+				//选择声明的位置
+				$("#inlineCheckbox2").click(function(){
+					var thisc=$(this).is(':checked')
+					if(thisc==true){
+						//点击一
+						var c2=$('#inlineCheckbox3').is(':checked')
+						if(c2==true){
+							$("#statementPosition").val("0,1");
+						}else{
+							$("#statementPosition").val("0");
+						}
+					}else{
+						var c2=$('#inlineCheckbox3').is(':checked')
+						if(c2==true){
+							$("#statementPosition").val("1");
+						}else{
+							$("#statementPosition").val("");
+						}
+					}
+					
+				})
+				
+				$("#inlineCheckbox3").click(function(){
+					var thisc=$(this).is(':checked');
+					if(thisc==true){
+						//点击一
+						var c1=$('#inlineCheckbox2').is(':checked')
+						if(c1==true){
+							$("#statementPosition").val("0,1");
+						}else{
+							$("#statementPosition").val("1");
+						}
+					}else{
+						//点击一
+						var c1=$('#inlineCheckbox2').is(':checked')
+						if(c1==true){
+							$("#statementPosition").val("1");
+						}else{
+							$("#statementPosition").val("");
+						}
+					}
+					
+				})
+				
+				$("#statementTextVal").blur(function(){
+					var rule_f=$(this).val();
+					var srule_f=rule_f.split("。")
+					var str="";
+					for(var i=0;i<srule_f.length;i++){	
+						
+						var result=$.connector.list.replaceStr(srule_f[i]);
+						//var result=replaceStr(srule_f[i])
+						if(i>=srule_f.length-1){
+							str+=result
+						}else{
+							str+=result+"。";
+						}
+					}
+					
+					$("#statementText").val(str);
+					$("#statementTextVal").val(str);
+				})
+				
+				$("#kindlyReminderTemp").blur(function(){
+					var val=$(this).val();
+					var result=$.connector.list.replaceStr(val);
+					$("#kindlyReminder").val(result);
+				})
+				
+				
+				//点击提交按钮
+				
+				$("#connectorType3Submit").click(function(){
+					var param=platform.getFormJson("#connectorType3Form");
+					var flag=$("#flag").val();
+					if(flag=='edit'){
+						var url=rootPath+"/user/connector/connectorEdit3.shtml"
+						platform.doPost(url, param);
+					}else{
+						var url=rootPath+"/user/connector/connectorSub3.shtml"
+						platform.doPost(url, param);
+					}
+				})
+				
+				
+			},
+			FourType:function(){
+				$("#templet-z span").click(function() {
+					var index = $(this).index();
+					$(this).addClass("btn-pr").siblings().removeClass("btn-pr")
+					$(".l" + (index + 1)).addClass("show").siblings().removeClass("show")
+				})
+				$(" .guize-position span").click(function() {
+					var index = $(this).index();
+					$(this).addClass("btn-green").siblings().removeClass("btn-green")
+					if(index==0){				
+						$(".templet-zs .position-1").addClass("show")
+						$(".templet-zs .bottom span").removeClass("show")
+					}else{
+						$(".templet-zs .position-1").removeClass("show")
+						$(".position-" + (index + 1)).addClass("show").siblings().removeClass("show")
+					}
+					
+				})
+				
+				//使用说明位置
+				var $checkboxtop = $("input[name='checkboxtop']");
+		            $checkboxtop.click(function(){
+	                var isChecked3 = $(this).prop("checked")
+		               
+					if(isChecked3==true){
+						$(".three-zs .topright").show()	
+					}else(
+						$(".three-zs .topright").hide()	
+					)
+						
+				})
+		        var $checkboxbottom = $("input[name='checkboxbottom']");
+		            $checkboxbottom.click(function(){
+	                var isChecked2 = $(this).prop("checked")
+					if(isChecked2==true){
+						$(".three-zs .dirction").show()	
+					}else(
+						$(".three-zs .dirction").hide()	
+					)
+						
+				})
+		        //右侧使用说明点击 
+		        $(".three-zs .topright").click(function() {
+					$(".three-zs .employ").show()
+				})
+		        $(".three-zs .black").click(function() {
+					$(".three-zs .employ").hide()
+				})
+		         $(".three-zs .use").click(function() {
+					$(".three-zs .employ").hide()
+				})
+				//选中动态码
+				$("#optionsRadiosDynimic").click(function(){
+					$("#static").css("display","none")
+					$("#dynimic").css("display","block")
+					$("input[name='codeType']").val(1);
+					
+					$("input[name='acceptDynimicCode']").attr('required','required')
+					$("input[name='acceptStaticCode']").removeAttr('required')
+				})
+				//选中静态吗
+				$("#optionsRadiosStatic").click(function(){
+					$("#dynimic").css("display","none")
+					$("input[name='codeType']").val(0);
+					$("#static").css("display","block")
+					$("input[name='acceptStaticCode']").attr('required','required')
+					$("input[name='acceptDynimicCode']").removeAttr('required')
+				})
+				
+				// 选择具体的跳转形式，然后设定required
+				$(".radioo").find("input[type='radio']").click(function(){
+					//移除
+					$(".skipType").removeAttr('required');
+					//添加
+					if($(this).val()=='option1'){
+						$("input[name='acceptDownloadAndroid']").attr('required','required')
+						$("input[name='acceptDownloadIos']").attr('required','required')
+						$("input[name='acceptType']").val(1)
+					}else if($(this).val()=='option2'){
+						$("input[name='acceptSkipUrl']").attr('required','required')
+						$("input[name='acceptType']").val(2)
+					}else if($(this).val()=='option3'){
+						$("input[name='acceptType']").val(3)
+						$("input[name='acceptPictureUrl']").attr('required','required')
+					}else if($(this).val()=='option4'){
+						$("input[name='acceptType']").val(4)
+						$("input[name='acceptStaticCode']").attr('required','required')
+						$("input[name='gotouseButton']").attr('required','required')
+					}
+				})
+				
+				
+				//选择声明的位置
+				$("#inlineCheckbox2").click(function(){
+					var thisc=$(this).is(':checked')
+					if(thisc==true){
+						//点击一
+						var c2=$('#inlineCheckbox3').is(':checked')
+						if(c2==true){
+							$("#statementPosition").val("0,1");
+						}else{
+							$("#statementPosition").val("0");
+						}
+					}else{
+						var c2=$('#inlineCheckbox3').is(':checked')
+						if(c2==true){
+							$("#statementPosition").val("1");
+						}else{
+							$("#statementPosition").val("");
+						}
+					}
+					
+				})
+				
+				$("#inlineCheckbox3").click(function(){
+					var thisc=$(this).is(':checked');
+					if(thisc==true){
+						//点击一
+						var c1=$('#inlineCheckbox2').is(':checked')
+						if(c1==true){
+							$("#statementPosition").val("0,1");
+						}else{
+							$("#statementPosition").val("1");
+						}
+					}else{
+						//点击一
+						var c1=$('#inlineCheckbox2').is(':checked')
+						if(c1==true){
+							$("#statementPosition").val("1");
+						}else{
+							$("#statementPosition").val("");
+						}
+					}
+					
+				})
+				
+				$("#statementTextVal").blur(function(){
+					var rule_f=$(this).val();
+					var srule_f=rule_f.split("。")
+					var str="";
+					for(var i=0;i<srule_f.length;i++){	
+						
+						var result=$.connector.list.replaceStr(srule_f[i]);
+						//var result=replaceStr(srule_f[i])
+						if(i>=srule_f.length-1){
+							str+=result
+						}else{
+							str+=result+"。";
+						}
+					}
+					
+					$("#statementText").val(str);
+					$("#statementTextVal").val(str);
+				})
+				
+				$("#kindlyReminderTemp").blur(function(){
+					var val=$(this).val();
+					var result=$.connector.list.replaceStr(val);
+					$("#kindlyReminder").val(result);
+				})
+				
+				
+				//点击提交按钮
+				
+				$("#connectorType4Submit").click(function(){
+					var param=platform.getFormJson("#connectorType4Form");
+					var flag=$("#flag").val();
+					if(flag=='edit'){
+						var url=rootPath+"/user/connector/connectorEdit4.shtml"
+						platform.doPost(url, param);
+					}else{
+						var url=rootPath+"/user/connector/connectorSub4.shtml"
+						platform.doPost(url, param);
+					}
+				})
+				
+				//删除
+				
+				
+			},
+			FiveType:function(){
+				$("#templet-z span").click(function() {
+					var index = $(this).index();
+					$(this).addClass("btn-pr").siblings().removeClass("btn-pr")
+					$(".l" + (index + 1)).addClass("show").siblings().removeClass("show")
+				})
+				$(" .guize-position span").click(function() {
+					var index = $(this).index();
+					$(this).addClass("btn-green").siblings().removeClass("btn-green")
+					if(index==0){				
+						$(".templet-zs .position-1").addClass("show")
+						$(".templet-zs .bottom span").removeClass("show")
+					}else{
+						$(".templet-zs .position-1").removeClass("show")
+						$(".position-" + (index + 1)).addClass("show").siblings().removeClass("show")
+					}
+					
+				})
+				
+				//使用说明位置
+				var $checkboxtop = $("input[name='checkboxtop']");
+		            $checkboxtop.click(function(){
+	                var isChecked3 = $(this).prop("checked")
+		               
+					if(isChecked3==true){
+						$(".three-zs .topright").show()	
+					}else(
+						$(".three-zs .topright").hide()	
+					)
+						
+				})
+		        var $checkboxbottom = $("input[name='checkboxbottom']");
+		            $checkboxbottom.click(function(){
+	                var isChecked2 = $(this).prop("checked")
+					if(isChecked2==true){
+						$(".three-zs .dirction").show()	
+					}else(
+						$(".three-zs .dirction").hide()	
+					)
+						
+				})
+		        //右侧使用说明点击 
+		        $(".three-zs .topright").click(function() {
+					$(".three-zs .employ").show()
+				})
+		        $(".three-zs .black").click(function() {
+					$(".three-zs .employ").hide()
+				})
+		         $(".three-zs .use").click(function() {
+					$(".three-zs .employ").hide()
+				})
+				//选中动态码
+				$("#optionsRadiosDynimic").click(function(){
+					$("#static").css("display","none")
+					$("#dynimic").css("display","block")
+					$("input[name='codeType']").val(1);
+					
+					$("input[name='acceptDynimicCode']").attr('required','required')
+					$("input[name='acceptStaticCode']").removeAttr('required')
+				})
+				//选中静态吗
+				$("#optionsRadiosStatic").click(function(){
+					$("#dynimic").css("display","none")
+					$("input[name='codeType']").val(0);
+					$("#static").css("display","block")
+					$("input[name='acceptStaticCode']").attr('required','required')
+					$("input[name='acceptDynimicCode']").removeAttr('required')
+				})
+				
+				// 选择具体的跳转形式，然后设定required
+				$(".radioo").find("input[type='radio']").click(function(){
+					//移除
+					$(".skipType").removeAttr('required');
+					//添加
+					if($(this).val()=='option1'){
+						$("input[name='acceptDownloadAndroid']").attr('required','required')
+						$("input[name='acceptDownloadIos']").attr('required','required')
+					
+					}else if($(this).val()=='option2'){
+						$("input[name='acceptSkipUrl']").attr('required','required')
+						
+					}else if($(this).val()=='option3'){
+					
+						$("input[name='acceptPictureUrl']").attr('required','required')
+					}else if($(this).val()=='option4'){
+					
+						$("input[name='acceptStaticCode']").attr('required','required')
+						$("input[name='gotouseButton']").attr('required','required')
+					}
+				})
+				
+				
+				//选择声明的位置
+				$("#inlineCheckbox2").click(function(){
+					var thisc=$(this).is(':checked')
+					if(thisc==true){
+						//点击一
+						var c2=$('#inlineCheckbox3').is(':checked')
+						if(c2==true){
+							$("#statementPosition").val("0,1");
+						}else{
+							$("#statementPosition").val("0");
+						}
+					}else{
+						var c2=$('#inlineCheckbox3').is(':checked')
+						if(c2==true){
+							$("#statementPosition").val("1");
+						}else{
+							$("#statementPosition").val("");
+						}
+					}
+					
+				})
+				
+				$("#inlineCheckbox3").click(function(){
+					var thisc=$(this).is(':checked');
+					if(thisc==true){
+						//点击一
+						var c1=$('#inlineCheckbox2').is(':checked')
+						if(c1==true){
+							$("#statementPosition").val("0,1");
+						}else{
+							$("#statementPosition").val("1");
+						}
+					}else{
+						//点击一
+						var c1=$('#inlineCheckbox2').is(':checked')
+						if(c1==true){
+							$("#statementPosition").val("1");
+						}else{
+							$("#statementPosition").val("");
+						}
+					}
+					
+				})
+				
+				$("#statementTextVal").blur(function(){
+					var rule_f=$(this).val();
+					var srule_f=rule_f.split("。")
+					var str="";
+					for(var i=0;i<srule_f.length;i++){	
+						
+						var result=$.connector.list.replaceStr(srule_f[i]);
+						//var result=replaceStr(srule_f[i])
+						if(i>=srule_f.length-1){
+							str+=result
+						}else{
+							str+=result+"。";
+						}
+					}
+					
+					$("#statementText").val(str);
+					$("#statementTextVal").val(str);
+				})
+				
+				$("#kindlyReminderTemp").blur(function(){
+					var val=$(this).val();
+					var result=$.connector.list.replaceStr(val);
+					$("#kindlyReminder").val(result);
+				})
+				
+				
+				//点击提交按钮
+				
+				$("#connectorType5Submit").click(function(){
+					if($.trim($("#name").val())==""){
+						layer.msg("接口名不能为空！")
+						return
+					}
+					if($.trim($("#acceptSkipUrl").val())==""){
+						layer.msg("地址不能为空！")
+						return
+					}
+					var param=platform.getFormJson("#connectorType5Form");
+					var flag=$("#flag").val();
+					if(flag=='edit'){
+						var url=rootPath+"/user/connector/connectorEdit5.shtml"
+						platform.doPost(url, param);
+					}else{
+						var url=rootPath+"/user/connector/connectorSub5.shtml"
+						platform.doPost(url, param);
+					}
+				})
+				
+				//删除
+				
+				
+			},
+			
+			replaceStr:function(str){
+				return str.replace(/[\r\n]/g, '');
+			},
+			
+			manager:function(){
+				$("#connectorType1").find(".clickshow").click(function(){
+					var url=$(this).parent().find("input[type='hidden']").val();
+					layer.alert(url, {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				})
+				$("#connectorType2").find(".clickshow").click(function(){
+					var url=$(this).parent().find("input[type='hidden']").val();
+					layer.alert(url, {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				})
+				
+				$("#connectorType3").find(".clickshow").click(function(){
+					var url=$(this).parent().find("input[type='hidden']").val();
+					layer.alert(url, {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				})
+				$("#connectorType4").find(".clickshow").click(function(){
+					var url=$(this).parent().find("input[type='hidden']").val();
+					layer.alert(url, {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				})
+				$("#connectorType5").find(".clickshow").click(function(){
+					var url=$(this).parent().find("input[type='hidden']").val();
+					layer.alert(url, {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+					});
+				})
+				$("#connectorType1").find(".btn-success").click(function(){
+					var id=$(this).attr('name');
+					var url=rootPath+"/user/connector/toedittype1.shtml?id="+id;
+					platform.doGet(url);
+				})
+				
+				$("#connectorType1").find(".btn-danger").click(function(){
+					var id=$(this).attr('name');
+					var url=rootPath+"/user/connector/todeletetype1.shtml?id="+id;
+					platform.doGet(url);
+				})
+				
+				$("#connectorType2").find(".btn-success").click(function(){
+					var id=$(this).attr('name');
+					var url=rootPath+"/user/connector/toedittype2.shtml?id="+id;
+					platform.doGet(url);
+				})
+				
+				$("#connectorType2").find(".btn-danger").click(function(){
+					var id=$(this).attr('name');
+					var url=rootPath+"/user/connector/todeletetype2.shtml?id="+id;
+					platform.doGet(url);
+				})
+				
+				$("#connectorType3").find(".btn-success").click(function(){
+					var id=$(this).attr('name');
+					var url=rootPath+"/user/connector/toedittype3.shtml?id="+id;
+					platform.doGet(url);
+				})
+				
+				$("#connectorType3").find(".btn-danger").click(function(){
+					var id=$(this).attr('name');
+					var url=rootPath+"/user/connector/todeletetype3.shtml?id="+id;
+					platform.doGet(url);
+				})
+				$("#connectorType4").find(".btn-success").click(function(){
+					var id=$(this).attr('name');
+					var url=rootPath+"/user/connector/toedittype4.shtml?id="+id;
+					platform.doGet(url);
+				})
+				
+				$("#connectorType4").find(".btn-danger").click(function(){
+					var id=$(this).attr('name');
+					var url=rootPath+"/user/connector/todeletetype4.shtml?id="+id;
+					platform.doGet(url);
+				})
+				$("#connectorType5").find(".btn-success").click(function(){
+					var id=$(this).attr('name');
+					var url=rootPath+"/user/connector/toedittype5.shtml?id="+id;
+					platform.doGet(url);
+				})
+				
+				$("#connectorType5").find(".btn-danger").click(function(){
+					var id=$(this).attr('name');
+					var url=rootPath+"/user/connector/todeletetype5.shtml?id="+id;
+					platform.doGet(url);
+				})
+			},
+		},
+	}
+
+});
+

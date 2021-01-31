@@ -1,0 +1,149 @@
+.headerText{
+    padding-left: 0.16rem;
+    font-size: 0.16rem;
+    color: #262626;
+    line-height:0.26rem;
+  }
+  .page{
+      background:#f0f0f0;
+      overflow: hidden;
+  }
+  .layui-container{
+      width:1440px !important;
+  }
+  .strategyPrize-color{
+    background:rgba(238,247,255,.49); 
+}
+  .headerText input{
+      width:2.2rem;
+      height:0.36rem;
+      border:1px solid #bcbcbc;
+     margin:0 0.2rem 0 0.16rem;
+     border-radius:5px 5px;
+     padding-left:0.1rem;
+  }
+  .headerText button{
+      width:1rem;
+      height:0.36rem;
+      line-height:0.36rem;
+      background:none;
+      border:1px solid #0177d5;
+      border-radius:4px 4px;
+      font-size:0.16rem;
+      color:#0177d5;
+  }
+  .schemeSwitch .layui-input-block{
+   margin-left:0;
+  }
+  .defaultScheme{
+      width:100%;
+      text-align: right;
+    
+  }
+  .defaultScheme button{
+      width:1.32rem;
+      height:0.36rem;
+      line-height:0.36rem;
+      border:1px solid #0177d5;
+      background:none;
+      border-radius:4px 4px;
+      font-size:0.16rem;
+      color:#0177d5;
+      margin-right:0.16rem;
+  }
+  .defaultSchemes{
+      border-bottom:1px solid #ececec;
+  }
+  .defaultSchemeBorder{
+      padding:0 0.16rem;
+      margin-top:0.14rem;
+  }
+  .contents table{
+      font-size:0.14rem;
+      color:#333;
+      
+     
+  }
+  .strategyPrize-contentList .layui-table{
+      padding:0 0 !important;
+  }
+  .contents table th{
+      text-align:center;
+      background:rgba(238,247,255,.8);
+      border:none;
+      font-weight: bold;
+      height: 0.6rem;
+      line-height: 0.6rem;
+      padding-top: 0;
+  }
+  .programmes{
+    border:1px solid #BCBCBC;
+  }
+  .contents tbody tr:hover{
+      background:rgba(238,247,255,.49) !important;
+  }
+  .contents table td{
+      text-align:center;
+      border:none;
+      background:none;
+      height:0.48rem;
+      line-height:0.48rem;
+  }
+  .strategyPrize-contentList{
+      padding:0 0.16rem;
+      
+  }
+  .contents table button{
+      background:none;
+      border:none;
+  }
+  .strategyPrize-contentList .release{
+      color:#1B9C33;
+      text-decoration: underline;
+  }
+  .strategyPrize-contentList .edit{
+      color:#0177D5;
+      text-decoration: underline;
+      margin:0 0.16rem;
+  }
+  .strategyPrize-contentList .edits{
+    color:#0177D5;
+    text-decoration: underline;
+    margin: 0 0.16rem;
+}
+.strategyPrize-contentList .releas{
+    width:0.56rem;
+}
+.strategyPrize-contentList .dels{
+    color:#D51A01;
+    text-decoration: underline;
+}
+  .strategyPrize-contentList .copy{
+      color:#0177D5;
+      text-decoration: underline;
+      margin-right:0.16rem;
+  }
+  .strategyPrize-contentList .del{
+      color:#D51A01;
+      text-decoration: underline;
+  }
+  .strategyPrize-contentList .correlation{
+      color:#0177D5;
+      text-decoration: underline;
+  }
+  .strategyPrize-contentList .correlations{
+      color:#0177D5;
+      text-decoration: underline;
+  }
+  .orientationNames{
+      display:flex;
+      align-items: center;
+      border-bottom:1px solid #ececec;
+      padding-bottom:0.26rem;
+  }
+  .orientationNames p{
+      font-size:0.16rem;
+      color:#262626;
+  }
+
+  

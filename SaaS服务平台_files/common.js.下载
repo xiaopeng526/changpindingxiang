@@ -1,0 +1,207 @@
+$(document).ready(function() {
+/*	$(".selects").hover(function() {
+		$(this).show();
+	}, function() {
+		$(this).prev().val(getSelect($(this)));
+		$(this).hide();
+	});*/
+	var setting = {
+		check : {
+			enable : true
+		},
+		data : {
+			simpleData : {
+				enable : true
+			}
+		}
+			
+	};
+	var param = $("#selectParam").val();
+	var zNodes = eval(param);
+//	$("#menuArea").hover(function() {
+//		$(this).show();
+//	},function() {
+//		$(this).hide();
+//	});
+	$("#refreshTheWindow").click(function(){
+		platform.refushTree();
+	})
+	
+	$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	var treeObj1 = $.fn.zTree.getZTreeObj("treeDemo");
+	treeObj1.expandAll(false)
+	$("#treeSelect").unbind("click").click(function() {
+		platform.oldProjectCode=$("#projectCode").val();
+		$("#setting").hide();
+		if ($("#menuArea").is(":hidden")) {
+			$("#menuArea").show();
+		} else {
+			$("#menuArea").hide();
+		}
+	});
+	$("#setspan").unbind("click").click(function() {
+		$("#menuArea").hide();
+		if ($("#setting").is(":hidden")) {
+			$("#setting").show()
+		} else {
+			$("#setting").hide()
+		}
+	});
+	$("#setting").hover(function() {
+		$("#setting").show();
+	}, function() {
+		$("#setting").hide();
+	});
+
+
+});
+function selectShow(that) {
+	var next = $(that).next();
+	next.width($(that).width());
+	next.show();
+}
+function getParam() {
+	var project = document.getElementById("projectCode");
+	if (isNull(project)) {
+		project = parent.document.getElementById("projectCode");
+	}
+	var projectCode = project.value;// $("#projectCode").val();
+	return "projectCode=" + projectCode;
+}
+function isNull(obj) {
+	if (obj != undefined && obj != null && obj != "") {
+		return false;
+	}
+	return true;
+}
+function replaceString(obj){
+	if(isNull(obj)){
+		obj="";
+	}
+	return obj;
+}
+var nextState = 1;
+function getSelect(that) {
+	var selectd = "";
+	that.find('input[name="selectAll"]:checked').each(function(index, item) {
+		selectd += $(item).val() + ",";
+	});
+	var index = selectd.lastIndexOf(",");
+	if (index >= 0) {
+		selectd = selectd.substring(0, index);
+	}
+	return selectd;
+}
+//选择项目树插件检索
+var zNodes
+$(function(){
+	var Nodes = $('#selectParam').val();
+	zNodes = eval('(' + Nodes + ')');
+	//console.log(zNodes)
+})
+var setting = {
+	check: {
+		enable: true
+	},
+	data: {
+		simpleData: {
+			enable: true
+		}
+	}
+
+};
+//显示树
+function showMenu() {
+	var cityObj = $("#citySel");
+	var cityOffset = $("#citySel").offset();
+	//$("#menuContent").css({ left: cityOffset.left + "px", top: cityOffset.top + cityObj.outerHeight() + "px" }).slideDown("fast");
+	$("#menuContent").slideDown("fast");
+}
+
+//隐藏树
+function hideMenu() {
+	$("#menuContent").fadeOut("fast");
+	//$("body").unbind("mousedown", onBodyDown);
+}
+//还原zTree的初始数据
+function InitialZtree() {
+	$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+}
+function functiontofindIndexByKeyValue(arraytosearch, key, valuetosearch) {
+	for (var i = 0; i < arraytosearch.length; i++) {
+		if (arraytosearch[i][key] == valuetosearch) {
+			return i;
+		}
+	}
+	return null;
+}
+// 默认展开全部
+function expandAll() {
+	// if (!check()) {
+	//  return;
+	// }
+	var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+	expandNodes(treeObj.getNodes());
+	// if (!goAsync) {
+	//  curStatus = '';
+	// }
+}
+function expandNodes(nodes) {
+	//如果nodes为null 则return
+	if (!nodes) return;
+	//将状态设置为expand
+	curStatus = 'expand';
+	//获取当前的树
+	var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+	//循环展开节点
+	for (var i = 0; i < nodes.length; i++) {
+		treeObj.expandNode(nodes[i], true, false, false);
+		//递归 如果子节点的是父节点则进行递归操作
+		if (nodes[i].isParent && nodes[i].zAsync) {
+			expandNodes(nodes[i].children);
+		} else {
+			goAsync = true;
+		}
+	}
+}
+
+///根据文本框的关键词输入情况自动匹配树内节点 进行模糊查找
+function AutoMatch(txtObj) {
+	if (txtObj.value.length > 0) {
+		InitialZtree();
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		var nodeList = zTree.getNodesByParamFuzzy("name", txtObj.value);
+		//将找到的nodelist节点更新至Ztree内
+		nodeList.forEach(function (e) {
+			zNodes.forEach(function (data) {
+				if (e.pId == data.id) {
+					var index = functiontofindIndexByKeyValue(nodeList, "id", data.id);
+					if (index == null) {
+						nodeList.push(data)
+					}
+				}
+			})
+		});
+		var idArr = [];
+		nodeList.forEach(function (e, eq) {
+			if (e.children != undefined && e.children.length > 0) {
+				idArr.push(e.id)
+			}
+		})
+		for (let i = idArr.length - 1; i >= 0; i--) {
+			for (let j = nodeList.length - 1; j >= 0; j--) {
+				if (idArr[i] === nodeList[j].pId) {
+					nodeList.splice(j, 1)
+				}
+			}
+		}
+		$.fn.zTree.init($("#treeDemo"), setting, nodeList);
+		expandNodes(zTree.getNodes());
+		showMenu();
+	} else {
+		//隐藏树
+		//hideMenu();
+		InitialZtree();
+	}
+}
+

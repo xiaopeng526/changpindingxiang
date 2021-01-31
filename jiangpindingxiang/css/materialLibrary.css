@@ -1,0 +1,155 @@
+
+ .page{
+    background:#f0f0f0;
+    overflow: hidden;
+}
+.tabbox {
+    margin: 10px;
+  }
+
+  .tabbox ul {
+    list-style: none;
+    display: table;
+  }
+
+  .tabbox ul li {
+    float: left;
+    width: 100px;
+    line-height: 30px;
+    cursor: pointer;
+  }
+
+  .tabbox ul li.active {
+  color: #0177D5;
+
+    font-weight: bold;
+  }
+
+  .tabbox .content {
+ margin-top:0.3rem;
+
+  }
+
+  .tabbox .content>div {
+    display: none;
+  }
+
+  .tabbox .content>div.active {
+    display: block;
+  }
+  .rules{
+   display:flex;
+   justify-content: flex-start;
+   align-items: center;   
+  }
+  .number{
+      display:flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top:0.16rem;
+  }
+  .number input{
+      width:4.1rem;
+      height:0.36rem;
+      border:1px solid #bcbcbc;
+      border-radius: 5px 5px;
+      padding-left:0.1rem;
+      font-size:0.14rem;
+      color:#bcbcbc;
+      margin-left:0.71rem;
+      margin-right:0.22rem;
+     
+  }
+  .number p{
+      font-size:0.14rem;
+      color:#262626;
+  }
+
+  .PrizeType .layui-form-label{
+      padding:0;
+      text-align:left;
+  }
+  .PrizeType{
+      margin-top:0.16rem;
+   
+  }
+  .PrizeType .layui-form-label{
+      width:70px !important;
+  }
+  .PrizeType .layui-input-block{
+      width:4.1rem;
+      margin-left:0;
+  }
+  .PrizeType .layui-input, .layui-select, .layui-textarea{
+      border:1px solid #bcbcbc;
+      border-radius: 5px 5px;
+  }
+ .PrizeType .layui-form-item{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+ }
+ .deliveryRule .layui-form-item{
+     display:flex;
+     justify-content: flex-start;
+     align-items: center;
+ }
+ .deliveryRule .layui-form-switch{
+     margin-top:5px;
+ }
+ .deliveryRule .layui-input-block{
+     margin-left:0.7rem;
+ }
+ .deliveryRule .tiaojian{
+  height:0.36rem;
+  line-height:0.36rem;
+  margin:0 0.16rem;
+ }
+ .deliveryRule button{
+     border:1px solid #bcbcbc;
+     background:none;
+     width:0.7rem;
+     height:0.22rem;
+     border-radius: 5px 5px;
+ }
+
+ .effectiveTime .layui-form-label{
+   padding:0;
+   width:0.7rem;
+   line-height: 0.38rem;
+   text-align:left;
+ }
+
+ .availableQuantity .layui-form-label{
+    padding:0;
+    width:0.7rem;
+    line-height: 0.38rem;
+    text-align:left;
+ }
+ .availableQuantity .layui-input-block{
+     margin-left:0;
+ }
+ .availableQuantity .layui-input, .layui-textarea{
+     width:1.9rem;
+     border:1px solid #bcbcbc;
+     border-radius: 5px 5px;
+ }
+ .effectiveTime .layui-input, .layui-textarea{
+    border:1px solid #bcbcbc;
+    border-radius: 5px 5px;
+}
+.submit{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit .canle button{
+    width:1.1rem;
+    height:0.36rem;
+    border: 1px solid #0177d5;
+   border-radius: 4px;
+   font-size: 0.16rem;
+   color:#0177d5;
+    margin:0.4rem 0.8rem;
+}

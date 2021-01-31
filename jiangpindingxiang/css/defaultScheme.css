@@ -1,0 +1,399 @@
+.headerText{
+  display:flex;
+  justify-content: flex-start;  
+  align-items: center;
+}
+.page{
+    background:#f0f0f0;
+    overflow: hidden;
+}
+.layui-container{
+    width:1440px !important;
+}
+.headerText input{
+    width:2.2rem;
+    height:0.36rem;
+    border:1px solid #bcbcbc;
+   margin:0 0.2rem 0 0.16rem;
+   border-radius:5px 5px;
+   padding-left:0.1rem;
+}
+.headerText button{
+    width:1rem;
+    height:0.36rem;
+    line-height:0.36rem;
+    background:none;
+    border:1px solid #0177d5;
+    border-radius:4px 4px;
+    font-size:0.16rem;
+    color:#0177d5;
+}
+.defaultScheme{
+    width:100%;
+    text-align: right;
+  
+}
+.defaultScheme button{
+    width:1.32rem;
+    height:0.36rem;
+    line-height:0.36rem;
+    border:1px solid #0177d5;
+    background:none;
+    border-radius:4px 4px;
+    font-size:0.16rem;
+    color:#0177d5;
+    margin-right:0.16rem;
+}
+.defaultSchemes{
+    border-bottom:1px solid #ececec;
+}
+.defaultSchemeBorder{
+    padding:0 0.16rem;
+    margin-top:0.14rem;
+}
+.contents table{
+    font-size:0.14rem;
+    color:#333;
+    
+   
+}
+.contents table th{
+    text-align:center;
+    background:rgba(238,247,255,.8);
+    border:none;
+    font-weight: bold;
+}
+.contents tbody tr:hover{
+    background:rgba(238,247,255,.49) !important;
+}
+.contents table td{
+    text-align:center;
+    border:none;
+    background:none;
+    height:0.63rem;
+}
+.directional-contentList{
+    padding:0 0.16rem;
+    
+}
+.contents table button{
+    background:none;
+    border:none;
+}
+.directional-contentList .release{
+    color:#1B9C33;
+    text-decoration: underline;
+}
+.directional-contentList .edit{
+    color:#0177D5;
+    text-decoration: underline;
+    margin:0 0.1rem;
+}
+.directional-contentList .copy{
+    color:#0177D5;
+    text-decoration: underline;
+    margin-right:0.1rem;
+}
+.directional-contentList .del{
+    color:#D51A01;
+    text-decoration: underline;
+}
+.directional-contentList .correlation{
+    color:#0177D5;
+    text-decoration: underline;
+}
+.directional-contentList .correlations{
+    color:#0177D5;
+    text-decoration: underline;
+}
+.mask{
+    position: absolute;
+    background: rgba(0,0,0,.5);
+    z-index: 1;
+    /* width: 1183px; */
+    height:6.06rem;
+    /* left: 16.6%; */
+    overflow: hidden;
+    display:none;
+}
+.maskList{
+    width:100%;
+    height:100%;
+    margin-top:1rem;
+    padding:0 0.16rem 0  0.16rem;
+    /* display:none; */
+    
+}
+.maskList table th{
+    text-align:center;
+    background:rgba(238,247,255,.9);
+    border:none;
+    font-weight: bold;
+    height:0.5rem;
+}
+.maskList tbody tr:hover{
+    background:rgba(238,247,255,.49) !important;
+}
+.maskList table td{
+    text-align:center;
+    border:none;
+    background:none;
+    height:0.8rem;
+}
+
+.change button{
+    width:1rem;
+    height:0.36rem;
+    line-height:0.36rem;
+    color:#0177D5;
+    font-size:0.16rem;
+    background:none;
+    border:1px solid #0177D5;
+    border-radius: 4px 4px;
+}
+.change{
+    padding-top:0.16rem;
+}
+.change p{
+    height:0.36rem;
+    line-height:0.36rem;
+    font-weight: bold;
+}
+.limitPreview{
+    width:5.1rem;
+    height:5.47rem;
+    margin-top:0.3rem;
+    background:#fff;
+    transform: translateX(60%);
+}
+
+.chaRow{
+    background:#fff;
+    padding:0 0.16rem;
+}
+.changeBtn{
+    width:100%;
+    display:flex;
+   justify-content: flex-end;
+}
+.changeBtn button{
+    margin-right:0.5rem;
+}
+
+.maskImg{
+    display:flex;
+    justify-content: flex-end;
+}
+.maskImg img{
+    width:0.2rem;
+    height:0.2rem;
+}
+.applicationList{
+    width:100%;
+    height:100%;
+    margin-top:1rem;
+    padding:0 0.16rem 0  0.16rem;
+    display:none;
+    
+}
+.applicationList table th{
+    text-align:center;
+    background:rgba(238,247,255,.9);
+    border:none;
+    font-weight: bold;
+    height:0.5rem;
+}
+.applicationList tbody tr:hover{
+    background:rgba(238,247,255,.49) !important;
+}
+.applicationList table td{
+    text-align:center;
+    border:none;
+    background:none;
+    height:0.8rem;
+}
+.limitImgs{
+    width:100%;
+    text-align: right;
+    padding-top:0.28rem;
+}
+.limitImg{
+    width:20px;
+    height:20px;
+    margin-right:0.28rem;
+}
+.limitView{
+    padding-left:0.3rem;
+    font-size:0.16rem;
+    color:#141414;
+    font-weight: bold;
+    padding-bottom:0.28rem;
+}
+.limitForm .layui-input-block{
+    margin-left:0 !important;
+   border:1px solid #BCBCBC;
+   height:3.8rem;
+}
+.limitForm {
+    padding:0 0.3rem 0.16rem 0.3rem;
+}
+.limitForm .layui-form-radio>i:hover, .layui-form-radioed>i{
+    color:#4599F8 !important;
+}
+.area{
+    width:100%;
+    height:0.4rem;
+    line-height:0.4rem;
+    background:#999;
+    display:flex;
+    margin-top:0.2rem;
+
+}
+.areas{
+    width:2.9rem;
+    color:#fff;
+    text-align:center;
+}
+.situations{
+    display:flex;
+    flex:1;
+    color:#fff;
+  justify-content: center;
+}
+.areaName{
+    width:2.9rem;
+    height:0.3rem;
+    line-height:0.3rem;
+    border:1px solid #4599F8;
+    text-align: center;
+    margin-left:0.1rem;
+    /* margin-top:0.1rem; */
+}
+.areaList{
+    padding-top:0.1rem;
+    display:flex;
+    align-items: center;
+    margin-top:0.1rem;    
+}
+.areaConent{
+    margin-top:0.1rem;  
+    overflow-y: scroll;
+    height:2.6rem;
+}
+.limitCheckbox{
+    display:flex;
+    flex:1;
+    justify-content: center;
+    /* height:14px; */
+}
+.limitCheckbox .layui-form-checkbox{
+    /* width:14px;
+    height:14px; */
+}
+.limitCheckbox .layui-form-checkbox i{
+ border:1px solid #4599F8;
+ /* width:14px;
+ height:14px; */
+}
+/* .limitCheckbox .layui-form-checkbox:hover{
+    background:#4599F8;
+}
+.limitCheckbox .layui-form-checkbox:hover i {
+    border-color: #4599F8;
+    color: #c2c2c2;
+} */
+.limitBtn{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.limitBtn button{
+    width:1.1rem;
+    height:0.36rem;
+    line-height:0.36rem;
+    background:#0177D5;
+    color:#fff;
+    font-size:0.14rem;
+    border:none;
+}
+#LimitForms .layui-form-item{
+    margin-bottom:0;
+}
+.copyBox{
+    width:4.51rem;
+    height:2.13rem;
+    background:#fff;
+    transform: translateX(85%);
+    margin-top: 2.5rem;
+}
+.directional-color{
+    background:rgba(238,247,255,.49); 
+}
+.copyPrize{
+    height:0.63rem;
+    line-height:0.63rem;
+}
+.copyPrize p{
+    font-size:0.16rem;
+     color:#262626;
+     padding-left:0.16rem;
+}
+.copyRow{
+    background:rgba(248,248,248,248)
+}
+.copyPrizes{
+    height:0.63rem;
+    line-height:0.63rem;
+    
+}
+.copyImg{
+    width:100%;
+    text-align: right;
+}
+.copyImg img{
+    width:0.18rem;
+    height:0.18rem;
+   margin-right:0.2rem;
+}
+.copyTitle{
+    font-size:0.16rem;
+    color: #262626;
+    font-weight: bold;
+    padding-left:0.16rem;
+    margin-top:0.15rem;
+}
+.orientation{
+    width:3rem;
+    height:0.36rem;
+    border:1px solid #BCBCBC;
+    padding-left:0.1rem;
+    border-radius: 5px 5px;
+    font-size:0.16rem;
+
+}
+.copyInput{
+    width:100%;
+    margin-top:0.2rem;
+    text-align:center;
+}
+.copyButton{
+    width:100%;
+    text-align: center;
+}
+.copyButton button{
+    width:1.1rem;
+    height:0.36rem;
+    font-size:0.16rem;
+    color:#0177D5;
+    border:1px solid #0177D5;
+    background:none;
+    border-radius: 4px 4px;
+    margin-top:0.12rem;
+}
+/* .maskTable{
+    overflow-y:scroll;
+    height:3rem;
+} */
+.maskTable .layui-table{
+    margin:0;
+}

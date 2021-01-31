@@ -1,0 +1,80 @@
+jQuery.extend({
+	projectType:{
+		constant:{
+			uploadDiv:'<\div id="uploadDiv" style="padding:20px;">'+
+			'<span class="shell-size">?</span>'+
+			'<img class="shell-img" src="${base}/resources/catch/image/middle-top.png" alt="" />'+
+			'<div class="background" style="display:inline!important;">'+
+				'<span class="btn btn-file btn-sc">'+
+					'<span aria-hidden="true"></span>'+
+					'<input type="file" name="imageFile" value="" id="imageFile">'+
+					'<input type="hidden" value="" name="resultUrl" id="resultUrl">'+
+				'</span>'+
+			'</div>'+
+		'<\/div>'
+		},
+		upload:function(that){
+			var currentName=$(that).attr("name");
+			$("#currentNameSpan").attr("currentName",currentName);
+			var str=$.projectType.constant.uploadDiv;
+			var thisSrc=$(that).attr("src");
+			  layer.open({
+				  type: 1,
+				  skin: 'layui-layer-rim',//加上边框
+				  title: '编辑图片',
+				  area: ['400px', '400px'],
+				  shadeClose: true, //点击遮罩关闭
+				  content: str,
+				  success: function(layero, index){
+					  $("#uploadDiv").find(".shell-img").attr("src",thisSrc);
+					  $("#currentNameSpan").attr("index",index);
+					  $.projectType.uploadInit(that);
+				  }
+			  });
+		},
+		uploadInit:function(){
+			$("#imageFile").off("change").on("change",function(){	
+				platform.myAjaxFileUpload(rootPath+"/user/upload/picture.shtml","#imageFile",{},
+						$.projectType.uploadSuccess, platform.fileUpload.uploadBackE);
+			})
+		},
+		uploadSuccess:function(data,status){
+			if(platform.isNull(data.data)){
+				platform.alertmsg("上传失败");
+				return;
+			}
+			var currentName=$("#currentNameSpan").attr("currentName");
+			var isback=$("#currentNameSpan").attr("isback");
+			if(!platform.isNull(currentName) && isback=="false"){
+				$("input[name="+currentName+"]").val(data.data.keyUrl);
+				$("img[name="+currentName+"]").attr("src",imgServer+data.data.keyUrl);
+			}
+			if(!platform.isNull(currentName) && isback=="true"){
+				$("input[name="+currentName+"]").val(data.data.keyUrl);
+				$("div[name="+currentName+"]").attr("src",imgServer+data.data.keyUrl);
+				var styles="background: url('"+imgServer+data.data.keyUrl+"') center center/100% 100% no-repeat;";
+				$("div[name="+currentName+"]").next().attr("style",styles);
+				$("div[name=backgroundOther]").attr("style",styles);
+			}
+			var index=$("#currentNameSpan").attr("index");
+			layer.close(index);
+		},
+		init:function(){
+			$(".lable ul li").click(function() {
+				var index=$(this).index()+1
+				$(this).addClass("before").siblings().removeClass("before")
+				$(".lable"+index).addClass("show").siblings().removeClass("show")
+			})
+			$('.lableBack').on('click', function(){
+				$("#currentNameSpan").attr("isback","true");
+				$.projectType.upload(this);
+			});
+			$('.uploadImg img').on('click', function(){
+				$("#currentNameSpan").attr("isback","false");
+				$.projectType.upload(this);
+			});
+		}
+	}
+
+});
+

@@ -1,0 +1,434 @@
+.inputSet {
+	padding: 5px 10px;
+	width: 150px;
+}
+
+.setMargin {
+	padding: 10px 0px;
+    font-size: 14px;
+        float: left;
+   
+}
+.newsetMargin{
+	width: 58%;
+    display: inline-block;
+    float: none !important;
+    padding: 5px 0 5px 10px;
+}
+.subheading{
+	padding-left: 10px;
+	margin: 10px 0 0 0;
+	font-weight: bold;
+	color: #000;
+    font-size: 16px;
+}
+.codeRepeat{
+	
+	margin: 0 5px 0 20px !important;
+}
+.fontWeight{
+	width: 160px; 
+	font-weight: normal !important;
+}
+.subHeading{
+    margin: 0;
+    font-weight: bold;
+    color: #555;
+    font-size: 14px;
+}
+.inputCenter{
+	width: 100px !important;
+}
+.newsetMargin>span{
+	width: 294px;
+    display: inline-block;
+}
+.setMarginL {
+	padding-left: 10px;
+}
+
+.setPadding {
+	padding: 0 50px;
+}
+
+.setSelect {
+	padding: 15px 10px 0 20px;
+	float: left;
+}
+
+.clearBoth {
+	clear: both;
+}
+
+.setIcon {
+	width: 18px;
+	height: 18px
+}
+
+.setting {
+	padding: 0;
+}
+
+.caselect {
+	width: 100px;
+	padding: 0 0;
+	height: 25px;
+	margin-top: 10px
+}
+
+.tableCa {
+	margin: 5px 0;
+}
+
+.addCard {
+	background: #3183CE;
+	display: inline-block;
+	border-radius: 3px;
+	border: none;
+	color: #fff;
+	padding: 0;
+	padding: 3px 15px;
+	margin: 10px 5px 0 15px;
+}
+
+.colorAll {
+	background: #3183CE;
+	padding: 5px;
+	border-radius: 3px;
+	color: #fff;
+	cursor: pointer;
+}
+.colorAllt {
+	background: #3183CE;
+	padding: 5px;
+	border-radius: 3px;
+	color: #fff;
+	cursor: pointer;
+}
+.setOpreat {
+	position: absolute;
+	right: 0;
+	top: 10px;
+}
+
+.setOpreat span {
+	line-height: 1.42857143;
+	background: #3183CE;
+	color: #fff;
+	margin: 5px;
+	
+	padding: 5px 15px;
+	border-radius: 3px;
+}
+.setImg{
+	text-align:center;
+}
+.setImg span{
+	display:block;
+	margin:0 auto;
+}
+
+.setImg span img {
+	width: 24px;
+	margin: 3px 0;
+	height: 24px;
+	cursor: pointer;
+}
+
+.btnSubmitO {
+	width: 100%;
+	text-align: center;
+}
+.btnSubmitO .button{
+	background:#3183CE;
+	display:inline-block;
+	margin:20px 10px;
+	color:#fff;
+	border:none;
+	width:140px;
+	padding:8px;
+	border-radius:8px;
+	text-align:center;
+}
+
+.setImg {
+	position: relative;
+}
+
+.setChange {
+	width: 40px;
+	display: inline-block;
+	background: #3183CE;
+	color: #FFF;
+	border-radius: 3px;
+	cursor: pointer;
+	padding: 5px;
+}
+.using {
+	width: 40px;
+	display: inline-block;
+	background: #3183CE;
+	color: #FFF;
+	border-radius: 3px;
+	cursor: pointer;
+	padding: 5px;
+}
+.onoffswitch {
+	position: relative;
+	width: 64px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+	display: none;
+}
+
+.onoffswitch-label {
+	display: block;
+	overflow: hidden;
+	cursor: pointer;
+	border: 2px solid #23b7e5;
+	border-radius: 2px;
+}
+
+.onoffswitch-inner {
+	width: 200%;
+	margin-left: -100%;
+	-webkit-transition: margin 0.3s ease-in 0s;
+	transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+	float: left;
+	width: 50%;
+	height: 20px;
+	padding: 0;
+	line-height: 20px;
+	font-size: 12px;
+	color: white;
+	font-family: Trebuchet, Arial, sans-serif;
+	font-weight: bold;
+	box-sizing: border-box;
+}
+
+.onoffswitch-inner:before {
+	content: "ON";
+	padding-left: 10px;
+	background-color: #23b7e5;
+	color: #FFFFFF;
+}
+
+.onoffswitch-inner:after {
+	content: "OFF";
+	padding-right: 10px;
+	background-color: #FFFFFF;
+	color: #999999;
+	text-align: right;
+}
+
+.onoffswitch-switch {
+	width: 20px;
+	margin: 0px;
+	background: #FFFFFF;
+	border: 2px solid #23b7e5;
+	border-radius: 2px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 44px;
+	-webkit-transition: all 0.3s ease-in 0s;
+	transition: all 0.3s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+	margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+	right: 0px;
+}
+
+#tab-4 .table tr td,
+.tab-4 .table tr th {
+	border: 1px solid #F0F0F0
+}
+
+.setWidth {
+	width: 98px;
+	padding: 0 0;
+	padding: 6px 12px;
+	margin: 0 auto;
+}
+
+.classSet {
+	width: 100px;
+	padding: 6px 12px;
+}
+
+.nameTitle {
+	width:
+}
+
+.setOne,
+.setTwo {
+	display: none;
+}
+.setOne>h3,
+.setTwo>h3 {
+	font-size: 16px;
+    padding: 5px;
+    border-bottom: 1px solid #333;
+    background: #f8f8f8;
+}
+.setTwo{
+	margin-top: 1px;
+}
+.layerTips ul {
+	margin: 0;
+	padding: 0;
+}
+
+.layerTips ul li {
+	margin: 10px;
+}
+
+.layerTips ul li input {
+	margin-left: 10px;
+	border: none;
+	background: #f0f0f0;
+	border-radius: 3px;
+	padding: 6px 12px
+}
+
+.layerTips ul li select {
+	margin-left: 10px;
+	border: none;
+	background: #f0f0f0;
+	border-radius: 3px;
+	padding: 6px 12px
+}
+.uploadlogo-style {
+    color:#fff;
+    background-color:#5bc0de;
+    border-color:#46b8da;
+}
+.layerTips h4 {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	;
+}
+.collectionBox {
+	 width:18px;
+	 height:18px;
+	 float:left;
+	 margin-top:13px !important;
+	 margin-right:13px !important;
+}
+/*#tab-2 .table tbody tr td{
+	min-width:140px;
+}*/
+.timeWidth{
+	width: 90px !important;
+}
+.timeWidthH{
+	width: 72% !important;
+}
+@media (min-width: 1024px) {
+/* 	.table-striped tr td:first-child{
+		width:40px;
+	} */
+/* 	.table-striped tr td{
+		width:110px;
+	} */
+}
+input,select{
+	cursor: pointer;
+}
+
+@media (min-width: 1100px) {
+/* 	.table-striped tr td:first-child{
+		width:40px;
+	} */
+/* 	.table-striped tr td{
+		width:110px;
+	} */
+}
+
+@media (min-width: 1280px) {
+/* 	.table-striped tr td:first-child{
+		width:40px;
+	} */
+/* 	.table-striped tr td{
+		width:110px;
+	} */
+}
+
+@media (min-width: 1366px) {
+/* 	.table-striped tr td:first-child{
+		width:40px;
+	} */
+/* 	.table-striped tr td{
+		width:110px;
+	} */
+	.table-striped tr .selWidth{
+		width:234px;
+	}
+}
+
+@media (min-width: 1440px) {
+/* 	.table-striped tr td{
+		width:120px;
+	} */
+}
+
+@media (min-width: 1680px) {
+/* 	.table-striped tr td{
+		width:140px;
+	} */
+}
+
+@media (min-width: 1920px) {
+/* 	.table-striped tr td{
+		width:180px;
+	} */
+}
+.resourceNorm{
+	float:none !important;
+}
+.resourceNormUl{
+	display: inline-block;
+	padding: 0;
+}
+.resourceNormUl input{
+	margin-left: 10px;
+}
+.setFirst,.setEnd{
+	float: none !important;
+    display: inline-block;
+}
+#checkBox{
+	padding: 0px 0 10px 0px;
+    margin-top: -7px;
+    display: inline-block;
+}
+.prizeWeight{
+	border-radius: 3px;
+	padding: 3px 5px;
+	background: #17a272;
+	color: #fff;
+	margin: 3px;
+	display: inline-block;
+}
+.prizeNubmber{
+	border-radius: 3px;
+	padding: 3px 5px;
+	background: #ff9600;
+	color: #fff;
+	margin: 3px;
+	display: inline-block;
+}

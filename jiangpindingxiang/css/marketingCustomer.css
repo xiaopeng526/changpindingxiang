@@ -1,0 +1,229 @@
+#orientations{
+    display:flex;
+    justify-content: space-between;
+    border-bottom:1px solid #ececec;
+    padding-bottom:0.26rem;
+}
+.orientationNames{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+  
+}
+
+.spread{
+    width:100%;
+    display:flex;
+    justify-content: flex-end;
+    border-bottom:1px solid #ececec;
+    padding-bottom:0.26rem;
+}
+
+.spread img{
+    width:0.2rem;
+    height:0.2rem;
+    display:block;
+    text-align:right;
+}
+.headerText{
+    padding-left: 0.16rem;
+    font-size: 0.16rem;
+    color: #262626;
+    line-height:0.26rem;
+    font-weight: bold;
+  }
+  .headerText input{
+    width:2.2rem;
+    height:0.36rem;
+    border:1px solid #bcbcbc;
+   margin:0 0.2rem 0 0.16rem;
+   border-radius:5px 5px;
+   padding-left:0.1rem;
+}
+.headerText button{
+    width:1rem;
+    height:0.36rem;
+    line-height:0.36rem;
+    background:none;
+    border:1px solid #0177d5;
+    border-radius:4px 4px;
+    font-size:0.16rem;
+    color:#0177d5;
+}
+.contentList{
+    padding:0 0.16rem;
+    
+}
+.contentList table {
+   font-size:0.14rem;
+}
+
+.contentList .layui-input-block{
+    margin:0;
+        min-height:0;
+}
+.contentList .layui-form-switch{
+    margin-top:0.1rem;
+}
+.color{
+    background:rgba(238,247,255,.49); 
+}
+.contentList button{
+    background:none;
+    border:none;
+}
+.contentList tbody tr:hover{
+    background:rgba(238,247,255,.49) !important;
+}
+
+.contentList table th{
+    text-align: center;
+    height:0.6rem;
+    color:#333;
+    font-weight: bold;
+    border:none;
+    padding: 0 !important;
+    background:rgba(238,247,255,.8);
+   
+}
+.contentList .edit{
+    color:#0177D5;
+    text-decoration: underline;
+    margin:0 0.16rem;
+}
+.contentList .edits{
+  color:#0177D5;
+  text-decoration: underline;
+  margin: 0 0.16rem;
+}
+
+.contentList .dels{
+  color:#D51A01;
+  text-decoration: underline;
+}
+
+.contentList .del{
+    color:#D51A01;
+    text-decoration: underline;
+}
+.programmes{
+    border-top:1px solid #bcbcbc;
+}
+.contentList table td{
+    text-align: center;
+    color:#333;
+    height:0.8rem;
+    border:none;
+    padding: 0 !important;
+}
+.page{
+    background:#f0f0f0;
+    overflow: hidden;
+}
+    .tabbox{
+       position:relative !important; 
+    }
+  .tabbox ul {
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: -0.15rem;
+  }
+
+  .tabbox ul li {
+    cursor: pointer;
+    font-size:0.16rem;
+    margin-left: -0.56rem;
+    margin-right:0.25rem;
+    font-weight: bold;
+  }
+
+  .tabbox ul li.active {
+  color: #0177D5;
+  
+  }
+
+  .tabbox .contents {
+    padding:10px  10px 0 0;
+    margin-top:-0.26rem;
+  }
+
+  .tabbox .contents>div {
+    display: none;
+  }
+
+  .tabbox .contents>div.active {
+    display: block;
+  }
+  .defaultScheme{
+    position: absolute;
+    top: 0.9rem;
+    right: 0.2rem;
+    width:1.26rem;
+    height:0.36rem;
+   
+  }
+  .defaultScheme button{
+      background:none;
+      border:1px solid #0177D5;
+      font-size:0.16rem;
+      color:#0177D5;
+      padding:6px 6px;
+      border-radius: 4px 4px;
+  }
+  .tabbox table td{
+    text-align: center;
+    color:#333;
+    height:0.8rem;
+    border:none;
+    padding: 0 !important;
+}
+.tabbox table th{
+    text-align: center;
+    height:0.6rem;
+    color:#333;
+    font-weight: bold;
+    border:none;
+    padding: 0 !important;
+    background:rgba(238,247,255,.8);
+   
+}
+.tabbox .layui-input-block{
+    margin:0;
+        min-height:0;
+}
+.tabbox button{
+    background:none;
+    border:none;
+}
+.tabbox .layui-table,.tabbox .layui-table-view{
+    margin-bottom:0;
+}
+.tabbox .screening{
+    border:1px solid #bcbcbc;
+    border-top:none;
+    height:0.8rem;
+    line-height: 0.8rem;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.tabbox .screening input{
+    width:2.2rem;
+    height:0.3rem;
+    border:1px solid #bcbcbc;
+    font-size:0.14rem;
+    color:#bcbcbc;
+    margin-right:0.1rem;
+    padding-left:0.07rem;
+
+}
+.tabbox .edit{
+    color:#0177D5;
+    text-decoration: underline;
+    margin:0 0.16rem;
+}
+.tabbox .del{
+    color:#D51A01;
+    text-decoration: underline;
+}

@@ -1,0 +1,56 @@
+html {width: 100%;height: 100%;overflow: auto;}
+body {margin: 0;padding: 0;width: 100%;height: 100%;font-family: "PingFang SC Regular";background: #fff;color: #141414;}
+body, tl, td, h1, h2, h3, h4, h5, h6, p, form {margin: 0;}
+ol, ul {margin: 0;padding: 0;}
+a, a:link, a:visited, a:hover {color: #333;text-decoration: none;}
+ul, li {list-style: none;}
+table {border-collapse: collapse;}
+img, object {border: 0;max-width: 100%;}
+* {margin: 0;padding: 0;font-family:"PingFang SC Regular";box-sizing: border-box;}
+div {word-wrap: break-word;word-break: normal;}
+img, button, input, textarea {-webkit-tap-highlight-color:#c5c5c5; font-family: "PingFang SC Regular"}
+input, textarea {-webkit-appearance: none; outline:none;}
+input::-webkit-input-placeholder,  textarea::-webkit-input-placeholder {line-height: 1.5em;color:#ccc;}
+p{
+  font-family: "PingFang SC Regular";
+}
+::-webkit-scrollbar {
+  width: 6px; /*对垂直流动条有效*/
+  height: 6px; /*对水平流动条有效*/
+  }
+  
+/*定义滚动条的轨道颜色、内阴影及圆角*/
+::-webkit-scrollbar-track{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #ddd;
+  border-radius: 3px;
+  }
+  
+  
+  /*定义滑块颜色、内阴影及圆角*/
+  ::-webkit-scrollbar-thumb{
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #E8E8E8;
+  }
+html {font-size: 625%; /*100 ÷ 16 × 100% = 625%*/}
+/* @media screen and (min-width:360px) and (max-width:374px) and (orientation:portrait) {
+  html { font-size: 703%; }
+}
+@media screen and (min-width:375px) and (max-width:383px) and (orientation:portrait) {
+  html { font-size: 600%; }
+}
+@media screen and (min-width:384px) and (max-width:399px) and (orientation:portrait) {
+  html { font-size: 750%; }
+}
+@media screen and (min-width:400px) and (max-width:413px) and (orientation:portrait) {
+  html { font-size: 781.25%; }
+}
+@media screen and (min-width:414px) and (max-width:431px) and (orientation:portrait){
+  html { font-size: 808.6%; }
+}
+@media screen and (min-width:432px) and (max-width:479px) and (orientation:portrait){
+  html { font-size: 843.75%; }
+} */
+
+
