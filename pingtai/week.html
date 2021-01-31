@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>尚杰智选</title>
+
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./layui-v2.5.6/layui/css/layui.css" />
+    <link rel="stylesheet" href="./icon/iconfont.css" />
+
+</head>
+
+<body>
+    <div class="contentPage">
+
+        <div class="content" style="padding-left:1.5rem;">
+            <div class="layui-container" style="margin-left:1rem; ">
+                <div class="layui-row">
+                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                        <div class="iconList">
+                            <span class="iconfont icon-tishi"></span>
+                            <p> 平台日报表：查询统计数据</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="border:1px solid #e7ecf1;padding-bottom:0.6rem; margin-top:0.3rem;">
+
+                    <div class="layui-row">
+                        <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                            <div class="loadList">
+                                <span class="iconfont icon-zichanshuoming"></span>
+                                <p>下载列表</p>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                            <table style="border:1px solid #bcbcbc;">
+                                <colgroup>
+                                    <col width="200">
+                                    <col width="300">
+                                    <col width="500">
+                                    <col width="200">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>创建时间</th>
+                                        <th>文件名称</th>
+                                        <th>操作</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="editBody" id="editBody">
+
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>创建时间</th>
+                                        <th>文件名称</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./layui-v2.5.6/layui/layui.js"></script>
+    <script>
+        var data = [
+            {
+                "id": 1,
+                "createTime": "2021-01-11 00:00:00",
+                "file": "2020年战马促销红包瓶扫码日报-20210110.xlsx"
+            },
+            {
+                "id": 2,
+                "createTime": "2021-01-11 00:00:00",
+                "file": "2020年战马促销红包瓶扫码日报-20210110.xlsx"
+            }
+        ]
+        //     window.onload = function(){
+        // 	    var oTable = document.getElementById("editBody");
+        // 	    for(var i=0;i<oTable.rows.length;i++){
+        // 	    oTable.rows[i+1].cells[0].innerHTML = (i+1);
+        //     }
+        // }
+
+        var str = "";
+        var i = 0;
+        data.forEach(item => {
+            i++
+            str += '<tr>' +
+                '<td>' + i + '</td>' +
+                '<td>' + item.createTime + '</td>' +
+                '<td>' + item.file + '</td>' +
+                '<td>' +
+                '<div class="downLoad" onclick="changLoad(' + JSON.stringify(item).replace(/\"/g, "'") + ')"><span class="iconfont icon-bianji loadText"></span><p class="loadTexts">下载</p></div></td>' +
+
+                '</tr>'
+
+            console.log(item);
+        })
+        $(".editBody").html(str)
+
+        $("table tbody tr:odd").addClass("color");
+        function changLoad(item) {
+            // console.log('调接口', item)
+            // console.log('调接口', item.id)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7206417",
+      "name": "提示",
+      "font_class": "tishi",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "11432820",
+      "name": "资产说明",
+      "font_class": "zichanshuoming",
+      "unicode": "e6a0",
+      "unicode_decimal": 59040
+    },
+    {
+      "icon_id": "14719549",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    }
+  ]
+}

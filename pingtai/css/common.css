@@ -1,0 +1,17 @@
+html {width: 100%;height: 100%;overflow: auto;}
+body {margin: 0;padding: 0;width: 100%;height: 100%;font-family:"Open Sans",sans-serif;background: #fff;color: #141414;}
+body, tl, td, h1, h2, h3, h4, h5, h6, p, form {margin: 0;}
+ol, ul {margin: 0;padding: 0;}
+a, a:link, a:visited, a:hover {color: #333;text-decoration: none;}
+ul, li {list-style: none;}
+table {border-collapse: collapse;}
+img, object {border: 0;max-width: 100%;}
+* {margin: 0;padding: 0;font-family:"Open Sans",sans-serif;box-sizing: border-box;}
+div {word-wrap: break-word;word-break: normal;}
+img, button, input, textarea {-webkit-tap-highlight-color:#c5c5c5;}
+input, textarea {-webkit-appearance: none; outline:none;}
+input::-webkit-input-placeholder,  textarea::-webkit-input-placeholder {line-height: 1.5em;color:#ccc;}
+p{
+  font-family: "Microsoft YaHei";
+}
+html {font-size: 625%; /*100 ÷ 16 × 100% = 625%*/}
